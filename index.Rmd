@@ -1,0 +1,5 @@
+---
+title: "Statistical Thinking"
+site: distill::distill_website
+listing: posts
+---
