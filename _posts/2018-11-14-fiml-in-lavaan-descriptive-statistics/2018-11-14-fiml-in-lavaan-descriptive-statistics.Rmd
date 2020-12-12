@@ -52,12 +52,15 @@ Next, I assign names to the variables in the new data frame.
                          "jobsat", "jobperf", "turnover", "iq")
 ```
 The final step in preparing the data is to recode the data values -99, which are used as missing data values in the *.dat* file, to `NA`, which is the missing value indicator in R.
+
 ```
     # Replace all missing values (-99) with R missing value character 'NA'.
     employee[employee==-99] <- NA
 ```
+
 ## Create Model Object
 Now that the data are ready, I create a character string with the model using the `lavaan` syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations. 
+
 ```    
     # Create descriptive model object
     model <- '
@@ -91,16 +94,21 @@ Now that the data are ready, I create a character string with the model using th
     turnover ~~ iq
     '
 ```
+
 ## Fit the Model
 
 To fit the model, I use the `lavaan` *sem* function. This function takes the first two argument model and data. The third argument is `missing ='fiml'`, which tells lavaan to use FIML (the default is to use listwise deletion).  
+
 ```    
     fit <- sem(model, employee, missing='fiml')
 ```
+
 Alternatively, you could leave the section of the model code under the `# means` section and use the `meanstructure=TRUE` argument in the fit function as follows, which give the same results:
-```
+
+```{e, eval = FALSE}
     fit <- sem(model, employee, missing='fiml', meanstructure=TRUE)
 ```
+
 ## Generate Output
 
 To print the results to the console, use the `summary` function. 
