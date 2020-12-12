@@ -1,4 +1,6 @@
 ---
-title: "Statistical Thinking"
+title: "Tutorials"
 site: distill::distill_website
 ---
+
+## Tutorials

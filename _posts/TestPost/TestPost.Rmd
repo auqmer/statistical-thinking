@@ -1,0 +1,57 @@
+---
+title: "Test Post"
+description: |
+  A new article created using the Distill format.
+author:
+  - name: William Murrah 
+    url: https://www.statistical-thinking.com
+    affiliation: QMER
+    affiliation_url: https://aub.ie/qmer
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a test post
+
+```{r}
+# Load packages
+library(car)
+library(psych)
+library(parameters)
+```
+
+## Load and Explore Date
+
+### Clean and Label Data
+
+```{r}
+data(mtcars)
+
+mtcars <- transform(mtcars,
+                    vs = factor(vs, labels = c("V-shaped", "straight")),
+                    am = factor(am, labels = c("automatic", "manual")))
+```
+
+### Explore Date
+
+```{r}
+hist(mtcars$mpg, main = "Distribution of Outcome Variable")
+```
+
+
+
+```{r}
+pairs.panels(mtcars[, c("mpg", "hp", "vs", "am")])
+```
+## Models
+
+```{r, results='markup'}
+mod.full <- lm(mpg ~ hp*vs*am, data = mtcars)
+display(parameters(mod.full))
+```
+
+
