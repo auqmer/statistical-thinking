@@ -3,7 +3,7 @@ title: "Statistical Thinking"
 description: |
   Statistical Thinking
 output_dir: "docs"
-css: qmertheme.css
+theme: qmertheme.css
 navbar:
   right:
     - text: "Home"

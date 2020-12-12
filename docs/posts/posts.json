@@ -2,18 +2,18 @@
   {
     "path": "posts/welcome/",
     "title": "Welcome to Statistical Thinking",
-    "description": "Welcome to our new blog, Statistical Thinking. We hope you enjoy \nreading what we have to say!",
+    "description": "Welcome to the QMER blog, Statistical Thinking. Here we post tutorials and other important events related to our learning community.",
     "author": [
       {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
+        "name": "William Murrah",
+        "url": "www.statistical-thinking.com"
       }
     ],
     "date": "2020-12-11",
     "categories": [],
     "contents": "\n\n\n\n",
     "preview": {},
-    "last_modified": "2020-12-11T15:49:00-06:00",
+    "last_modified": "2020-12-11T20:06:34-06:00",
     "input_file": {}
   }
 ]
