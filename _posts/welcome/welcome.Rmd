@@ -1,13 +1,12 @@
 ---
 title: "Welcome to Statistical Thinking"
 description: |
-  Welcome to our new blog, Statistical Thinking. We hope you enjoy 
-  reading what we have to say!
+  Welcome to the QMER blog, Statistical Thinking. Here we post tutorials and other important events related to our learning community.
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: William Murrah 
+    url: www.statistical-thinking.com
+    affiliation: QMER
+    affiliation_url: aub.ie/qmer
 date: 12-11-2020
 output:
   distill::distill_article:
