@@ -6,7 +6,7 @@ site: distill::distill_website
 
 ### Experimental Design
 
-## Linear Modeling
+### Linear Modeling
 
 ### Structural Equation Modeling
 
