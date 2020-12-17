@@ -6,28 +6,28 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-12T17:27:38-06:00"
+      "last_modified": "2020-12-17T17:03:49-06:00"
     },
     {
       "path": "index.html",
       "title": "Statistical Thinking",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-12T17:27:38-06:00"
+      "last_modified": "2020-12-17T17:03:50-06:00"
     },
     {
       "path": "posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-12T17:27:39-06:00"
+      "last_modified": "2020-12-17T17:03:50-06:00"
     },
     {
       "path": "tutorials.html",
       "title": "Tutorials",
       "author": [],
-      "contents": "\nTutorials\n\n\n\n",
-      "last_modified": "2020-12-12T17:27:39-06:00"
+      "contents": "\nExperimental Design\nLinear Modeling\nStructural Equation Modeling\nPreparing SPSS Data for Mplus\nMultilevel Modeling\nAdvanced Psychometrics\n\n\n\n",
+      "last_modified": "2020-12-17T17:03:50-06:00"
     }
   ],
   "collections": ["posts/posts.json"]

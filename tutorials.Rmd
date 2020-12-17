@@ -3,4 +3,15 @@ title: "Tutorials"
 site: distill::distill_website
 ---
 
-## Tutorials
+
+### Experimental Design
+
+## Linear Modeling
+
+### Structural Equation Modeling
+
+[Preparing SPSS Data for Mplus](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
+
+### Multilevel Modeling
+
+### Advanced Psychometrics
