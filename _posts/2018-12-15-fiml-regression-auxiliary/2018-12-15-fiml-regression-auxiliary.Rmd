@@ -12,7 +12,7 @@ output: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
@@ -29,7 +29,8 @@ This model is the same as used in my last post, where **job performance** (jobpe
 ### Import Data
 
 First we import data, name the variables, and recode the -99's to `NA`.
-```
+
+```{r, eval = FALSE}    
 # employeeAuxiliary.R ---------------------------------------------------
 
 # R packages used
@@ -50,7 +51,8 @@ employee[employee==-99] <- NA
 ### Create Regression Model Object (Brute Force)
 
 Basically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.
-```
+
+```{r, eval = FALSE}    
 # The b1* and b2* are labels used in the Wald test below
 model <- '
 jobperf ~ b1*wbeing + b2*jobsat
@@ -64,7 +66,7 @@ turnover ~~ iq
 
 ### Fit and Summarize the Model
 
-```
+```{r, eval = FALSE}    
 fit <- sem(model, employee, missing='fiml', fixed.x=FALSE, 
            meanstructure=TRUE)
 summary(fit, fit.measures=TRUE, rsquare=T, standardize=T)
@@ -73,7 +75,8 @@ summary(fit, fit.measures=TRUE, rsquare=T, standardize=T)
 ### Wald test
 
 Just as we did in the previous post.
-```
+
+```{r, eval = FALSE}
 lavTestWald(fit, 
             'b1 == 0
              b2 == 0')
@@ -83,14 +86,15 @@ lavTestWald(fit,
 
 First, load the **semTools** package
 
-```
+```{r, eval = FALSE}
 library(semTools)
 ```
 
 ### Create Regression Model Object
 
 Next, create a model object with just the model of interest
-```
+
+```{r, eval = FALSE}    
 model2 <- '
 jobperf ~ wbeing + jobsat
 '
@@ -98,7 +102,7 @@ jobperf ~ wbeing + jobsat
 
 Then, create a vector of the names of the auxiliary variables
 
-```
+```{r, eval = FALSE}    
 aux.vars <- c('turnover', 'iq')
 ```
 
@@ -106,24 +110,20 @@ aux.vars <- c('turnover', 'iq')
 
 Then, fit the model to the new model object.
 
-```
+```{r, eval = FALSE}
 fit2 <- sem(model2, employee, missing='fiml', meanstructure=TRUE, fixed.x=FALSE)
 ```
 Using this model object,  fit another model that incorporates the auxiliary variables using the **sem.auxiliary** function from the `semTools` package.
 
-```
+```{r, eval = FALSE}
 auxfit <- sem.auxiliary(model=fit2, aux=aux.vars, data=employee)
 
 ```
 
 Finally, summarize the model object that includes the auxiliary variables.
 
-```
+```{r, eval = FALSE}
 summary(auxfit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)
 ```
 
 There you have it! Two way to use auxiliary variables in a regression model using `lavaan`.
-
-
-
-

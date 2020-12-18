@@ -2,6 +2,7 @@
 title: "Welcome to Statistical Thinking"
 description: |
   Welcome to the QMER blog, Statistical Thinking. Here we post tutorials and other important events related to our learning community.
+preview: ../../images/thinker_round.png
 author:
   - name: William Murrah 
     url: www.statistical-thinking.com

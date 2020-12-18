@@ -1,4 +1,31 @@
 ---
 title: "Statistical Thinking"
+description: |
+  Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.
+
 site: distill::distill_website
 ---
+
+
+![](images/thinker_round.png){width=40%}
+<aside>
+# This is Text
+</aside>
+
+## Contact
+```{r, layout="l-screen-inset shaded"}
+library(leaflet)
+
+content <- paste(sep = "<br/>",
+  "<b><a href='https://amp0129.wixsite.com/qmer'>AU QMER</a></b>",
+  "4064 Haley Center",
+  "Auburn AL, 36489"
+)
+leaflet() %>%
+  setView(lng = -85.486733, lat = 32.603400, zoom = 15) %>% 
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addPopups(lng = -85.486733, lat = 32.603400, content,
+    options = popupOptions(closeButton = FALSE))
+  
+  
+```

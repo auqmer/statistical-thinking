@@ -2448,61 +2448,110 @@ distill-header .nav a {
 <p>This model is the same as used in my last post, where <strong>job performance</strong> (jobperf) is regressed on <strong>wellbeing</strong> (wbeing) and <strong>job satisfaction</strong> (jobsat). In this example these three variables are the only ones which we want to model. However, <strong>tenure</strong> and <strong>IQ</strong> are related to missingness in these variables. So, we want to use them to help us better estimate our model of interest. If we included them as predictors in the regression model, it would allow us to use all the available information in these five variables, but it would change the model substantially. We can use auxiliary variables to better estimate the original model.</p>
 <h3 id="import-data">Import Data</h3>
 <p>First we import data, name the variables, and recode the -99’s to <code>NA</code>.</p>
-<pre><code># employeeAuxiliary.R ---------------------------------------------------
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="co"># employeeAuxiliary.R ---------------------------------------------------</span>
 
-# R packages used
-library(lavaan)
-# Import text file into R as a data frame.
+<span class="co"># R packages used</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lavaan.org">lavaan</a></span><span class="op">)</span>
+<span class="co"># Import text file into R as a data frame.</span>
 
-employee &lt;- read.table(&quot;path/to/file/employee.dat&quot;)
+<span class="va">employee</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">&quot;path/to/file/employee.dat&quot;</span><span class="op">)</span>
 
-# Assign names to variables.
+<span class="co"># Assign names to variables.</span>
 
-names(employee) &lt;- c(&quot;id&quot;, &quot;age&quot;, &quot;tenure&quot;, &quot;female&quot;, &quot;wbeing&quot;, &quot;jobsat&quot;, 
-                 &quot;jobperf&quot;, &quot;turnover&quot;, &quot;iq&quot;)
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">employee</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">&quot;id&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;tenure&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;wbeing&quot;</span>, <span class="st">&quot;jobsat&quot;</span>, 
+                 <span class="st">&quot;jobperf&quot;</span>, <span class="st">&quot;turnover&quot;</span>, <span class="st">&quot;iq&quot;</span><span class="op">)</span>
 
-# Replace all missing values (-99) with R missing value character &#39;NA&#39;.
-employee[employee==-99] &lt;- NA</code></pre>
+<span class="co"># Replace all missing values (-99) with R missing value character &#39;NA&#39;.</span>
+<span class="va">employee</span><span class="op">[</span><span class="va">employee</span><span class="op">==</span><span class="op">-</span><span class="fl">99</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+</code></pre>
+</div>
+</div>
 <h3 id="create-regression-model-object-brute-force">Create Regression Model Object (Brute Force)</h3>
 <p>Basically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.</p>
-<pre><code># The b1* and b2* are labels used in the Wald test below
-model &lt;- &#39;
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="co"># The b1* and b2* are labels used in the Wald test below</span>
+<span class="va">model</span> <span class="op">&lt;-</span> <span class="st">&#39;
 jobperf ~ b1*wbeing + b2*jobsat
 wbeing ~~ jobsat
 wbeing ~~ turnover + iq
 jobsat ~~ turnover + iq
 jobperf ~~ turnover + iq
 turnover ~~ iq
-&#39;</code></pre>
+&#39;</span>
+</code></pre>
+</div>
+</div>
 <h3 id="fit-and-summarize-the-model">Fit and Summarize the Model</h3>
-<pre><code>fit &lt;- sem(model, employee, missing=&#39;fiml&#39;, fixed.x=FALSE, 
-           meanstructure=TRUE)
-summary(fit, fit.measures=TRUE, rsquare=T, standardize=T)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">employee</span>, missing<span class="op">=</span><span class="st">&#39;fiml&#39;</span>, fixed.x<span class="op">=</span><span class="cn">FALSE</span>, 
+           meanstructure<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span>, fit.measures<span class="op">=</span><span class="cn">TRUE</span>, rsquare<span class="op">=</span><span class="cn">T</span>, standardize<span class="op">=</span><span class="cn">T</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <h3 id="wald-test">Wald test</h3>
 <p>Just as we did in the previous post.</p>
-<pre><code>lavTestWald(fit, 
-            &#39;b1 == 0
-             b2 == 0&#39;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavTestWald.html">lavTestWald</a></span><span class="op">(</span><span class="va">fit</span>, 
+            <span class="st">&#39;b1 == 0
+             b2 == 0&#39;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <h2 id="using-auxiliary-command-in-semtools">Using <strong>auxiliary</strong> Command in <code>semTools</code></h2>
 <p>First, load the <strong>semTools</strong> package</p>
-<pre><code>library(semTools)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semTools</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <h3 id="create-regression-model-object">Create Regression Model Object</h3>
 <p>Next, create a model object with just the model of interest</p>
-<pre><code>model2 &lt;- &#39;
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="va">model2</span> <span class="op">&lt;-</span> <span class="st">&#39;
 jobperf ~ wbeing + jobsat
-&#39;</code></pre>
+&#39;</span>
+</code></pre>
+</div>
+</div>
 <p>Then, create a vector of the names of the auxiliary variables</p>
-<pre><code>aux.vars &lt;- c(&#39;turnover&#39;, &#39;iq&#39;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="va">aux.vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">&#39;turnover&#39;</span>, <span class="st">&#39;iq&#39;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <h3 id="fit-the-model">Fit the Model</h3>
 <p>Then, fit the model to the new model object.</p>
-<pre><code>fit2 &lt;- sem(model2, employee, missing=&#39;fiml&#39;, meanstructure=TRUE, fixed.x=FALSE)</code></pre>
-<p>Using this model object, fit another model that incorporates the auxiliary variables using the <strong>sem.auxiliary</strong> function from the <code>semTools</code> package.</p>
-<pre><code>auxfit &lt;- sem.auxiliary(model=fit2, aux=aux.vars, data=employee)
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span><span class="op">(</span><span class="va">model2</span>, <span class="va">employee</span>, missing<span class="op">=</span><span class="st">&#39;fiml&#39;</span>, meanstructure<span class="op">=</span><span class="cn">TRUE</span>, fixed.x<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
 </code></pre>
+</div>
+</div>
+<p>Using this model object, fit another model that incorporates the auxiliary variables using the <strong>sem.auxiliary</strong> function from the <code>semTools</code> package.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="va">auxfit</span> <span class="op">&lt;-</span> <span class="fu">sem.auxiliary</span><span class="op">(</span>model<span class="op">=</span><span class="va">fit2</span>, aux<span class="op">=</span><span class="va">aux.vars</span>, data<span class="op">=</span><span class="va">employee</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>Finally, summarize the model object that includes the auxiliary variables.</p>
-<pre><code>summary(auxfit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">auxfit</span>, fit.measures<span class="op">=</span><span class="cn">TRUE</span>, rsquare<span class="op">=</span><span class="cn">TRUE</span>, standardize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>There you have it! Two way to use auxiliary variables in a regression model using <code>lavaan</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

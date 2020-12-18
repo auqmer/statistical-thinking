@@ -34,6 +34,7 @@ The following 6 steps can be used to get SPSS data ready for Mplus:
 
 This step is pretty simple. It is a good idea to keep an original copy of your data file. That way you can always start over. I will be using an example data file that contains a subset of cases and variables from the STAR public access data set. This data can be found in the R package `AER`. If you have R you can use the following code to generate the data file:
 
+```{r, eval = FALSE}
     # Install and load AER package and open the STAR data.
     install.packages('AER')
     library(AER)
@@ -49,7 +50,7 @@ This step is pretty simple. It is a good idea to keep an original copy of your d
     # into SPSS.
     write.csv(star,file="star.csv")
     # You can use the 'Read Text Data' menu option in SPSS to import this file into SPSS.
-    
+```    
 
 You can also find of copy of the SPSS file on my github page for this tutorial [here][1]. .
 
@@ -57,6 +58,7 @@ You can also find of copy of the SPSS file on my github page for this tutorial [
 
 Mplus only handles numeric data. This does not mean you can't have categorical variables in your analyses, but they have to be coded with numbers. For example, the variable 'gender' in the star data frame consists of two string values: "female" and "male". We can recode these so females have a value of '0' and males have a value of '1'. The following SPSS syntax does the trick:
 
+```
     RECODE 
     gender
     ('female' = 0)
@@ -64,7 +66,7 @@ Mplus only handles numeric data. This does not mean you can't have categorical v
     (MISSING=SYSMIS)
      into male.
     EXECUTE.
-    
+```    
 
 Notice that I also renamed the variable 'male' to indicate the category the variable identifies. If you run across a variable named 'gender' coded as '0's and '1's, you don't know which value signifies females and which males. By naming the binary variable 'male', I am indicating that '1's are males, therefore the '0's must be females. This is just good data management.
 
@@ -74,11 +76,12 @@ Mplus only recognizes the first 8 characters of variable names. If the first 8 c
 
 The following SPSS code renames the long variables in the star data:
 
+```
     RENAME VARIABLES 
     (ChildIdentification = childId)
     (readKindergarten = readk)
     (mathKindergarten = mathk).
-    
+```    
 
 ## 4. Deal with missing values
 
@@ -88,19 +91,21 @@ There are two types of missing data possible in an SPSS data frame. System missi
 
 Now that you have an SPSS file in order, you need to save it as a tab delimited file. To do this you just need to click on the 'File' option in the SPSS dataSet menu,and then click 'Save As'. In the 'Save as type:' menu on the resulting tab, select 'tab delimited (*.dat)'. **MAKE SURE THE 'Write variable names to speadsheet' BOX IS NOT CHECKED!** Mplus data files should only contain numbers. You can also use the 'Variables...' radio to select only the variables you need in Mplus. This is useful if you have non-numeric variables in the original data file that you don't want to use and therefore don't what to waste time transforming. Below is a snippet of SPSS syntax that resulted from the above procedure on the star data.
 
+```
     SAVE TRANSLATE OUTFILE='C:\Dropbox\3_Teaching\SPSS2MplusDemo\starMplus.dat'
       /TYPE=TAB
       /MAP
       /REPLACE
       /CELLS=VALUES.
-    
+```    
 
 ## 6. Create basic code for Mplus
 
 Finally, you will want to create a basic set of code for Mplus that will be the basis of all your analyses used in Mplus. I will mention three things you want to make sure get into your Mplus code accurately. First, you need to include the path to your tab delimited file in the DATA section of your Mplus code file. Second, you want to make sure you have the variable names correct. Remember that Mplus data files only contain the numeric data. Variable names are assigned to each column of the tab delimited file with the VARIABLE command in the Mplus code file. To keep you from having to type in all the variable names, you can copy the column of variable names from the SPSS file (in Variable View) and paste them into EXCEL. Then use the transpose function in the 'paste special' menu to convert the column of names into a row of names. Then paste this row in the Mplus code file. Third, you need to tell Mplus what the missing data values are. Because I used -99 for the only missing value for ALL of my variables, the following code should be in the VARIABLE section of your Mplus code file:
 
+```
     MISSING ARE ALL (-99);
-    
+```    
 
 I will mention one final peculiarity of Mplus that can trip up this process. Mplus only allows 80 characters on each line of code. So you may have to break up long rows into shorter rows. For example the file path and variable names often have to be broken up this way. If you don't Mplus will give you an error message.
 If the data file (`starMplus.dat`) is in the same folder as the Mplus code file (let's say we call it `starBasic.inp`) then the code file might look like this:
@@ -128,16 +133,19 @@ plot: type = plot1 plot2;
 
 To make sure your data has been correctly converted to the .dat file, run some descriptive statistics in both SPSS and Mplus. Because of the default methods each program uses to deal with missing data, you will probably have to do a few things to get an equivalent comparison. I ask SPSS to use listwise deletion for descriptive statistics. Then I do the same in Mplus. Take a look a the SPSS syntax file and the Mplus files that have 'LW' in the title for details of how to do this. Basically, it entails including something like the following code in SPSS:
 
+```
     DESCRIPTIVES VARIABLES=readk read1 mathk math1 male white other
     /STATISTICS=MEAN STDDEV MIN MAX
     /MISSING=LISTWISE.
+```
 
 Notice the last line is a missing command, and is not available in the drop down menu. So you will have to use the syntax editor (but you should be doing that anyway!).
 
 For Mplus include the following command as part of the data section of the input file:
 
+```
        LISTWISE = ON;
-
+```
 You can also compare the missingness patterns generated by SPSS and Mplus (see the 'LW' files) which should be the same. However, note that the orientation of patterns differs in the two programs. 
 
 And that's it! You can download all the code files for this demonstration from my github page found [here][1]. The 'stars.sps' and the 'SPSSdescriptivesLW.sps' files contain all the syntax needed to complete this tutorial.

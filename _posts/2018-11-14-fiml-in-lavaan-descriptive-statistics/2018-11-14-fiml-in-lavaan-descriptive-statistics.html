@@ -2448,32 +2448,54 @@ distill-header .nav a {
 <p>You will also want to read over the <code>lavaan</code> documentation and visit the very helpful <code>lavaan</code> <a href="http://lavaan.org">website</a> to take advantage of the tutorials there. With these resources at your disposal, you should be able to use replicate the examples in <code>lavaan</code>. Here, I walk through the major sections of the R code. This is the same code found in the github repository in the R file entitled <em>FIMLdescriptivesCorrelations.R</em>.</p>
 <h2 id="header">Header</h2>
 <p>I always include a header with basic information in my code files.</p>
-<pre><code>#***********************************************************************
-# section 4.14 Summary Statistics --------------------------------------
-# Author: William M. Murrah
-# Description: This code replicates the section 4.14 example on the 
-#              the appliedmissingdata.com website, which generates 
-#              descriptive statistics and correlations,
-# Version history ------------------------------------------------------
-# 2014.05.30: code created
-# 2014.06.01: rewrote heading
-#***********************************************************************
-# R packages used
-library(lavaan)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class="co">#***********************************************************************</span>
+<span class="co"># section 4.14 Summary Statistics --------------------------------------</span>
+<span class="co"># Author: William M. Murrah</span>
+<span class="co"># Description: This code replicates the section 4.14 example on the </span>
+<span class="co">#              the appliedmissingdata.com website, which generates </span>
+<span class="co">#              descriptive statistics and correlations,</span>
+<span class="co"># Version history ------------------------------------------------------</span>
+<span class="co"># 2014.05.30: code created</span>
+<span class="co"># 2014.06.01: rewrote heading</span>
+<span class="co">#***********************************************************************</span>
+<span class="co"># R packages used</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lavaan.org">lavaan</a></span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <h2 id="import-and-prepare-data">Import and prepare data</h2>
 <p>First, import the data into R. MPlus uses <em>.dat</em> files which can only contain numbers. Variable names are not included in the <em>.dat</em> file, but instead are included in the Mplus <em>.inp</em> file. I use the <em>read.table</em> function to read the <em>.dat</em> file.</p>
-<pre><code>    employee &lt;- read.table(&quot;data/employee.dat&quot;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="va">employee</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">&quot;data/employee.dat&quot;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>Next, I assign names to the variables in the new data frame.</p>
-<pre><code>    # Assign names to variables.
-    names(employee) &lt;- c(&quot;id&quot;, &quot;age&quot;, &quot;tenure&quot;, &quot;female&quot;, &quot;wbeing&quot;, 
-                         &quot;jobsat&quot;, &quot;jobperf&quot;, &quot;turnover&quot;, &quot;iq&quot;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="co"># Assign names to variables.</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">employee</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">&quot;id&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;tenure&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;wbeing&quot;</span>, 
+                         <span class="st">&quot;jobsat&quot;</span>, <span class="st">&quot;jobperf&quot;</span>, <span class="st">&quot;turnover&quot;</span>, <span class="st">&quot;iq&quot;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>The final step in preparing the data is to recode the data values -99, which are used as missing data values in the <em>.dat</em> file, to <code>NA</code>, which is the missing value indicator in R.</p>
-<pre><code>    # Replace all missing values (-99) with R missing value character &#39;NA&#39;.
-    employee[employee==-99] &lt;- NA</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="co"># Replace all missing values (-99) with R missing value character &#39;NA&#39;.</span>
+    <span class="va">employee</span><span class="op">[</span><span class="va">employee</span><span class="op">==</span><span class="op">-</span><span class="fl">99</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+</code></pre>
+</div>
+</div>
 <h2 id="create-model-object">Create Model Object</h2>
 <p>Now that the data are ready, I create a character string with the model using the <code>lavaan</code> syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations.</p>
-<pre><code>    # Create descriptive model object
-    model &lt;- &#39;
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="co"># Create descriptive model object</span>
+    <span class="va">model</span> <span class="op">&lt;-</span> <span class="st">&#39;
     # means
     age      ~ 1
     tenure   ~ 1
@@ -2502,17 +2524,33 @@ library(lavaan)</code></pre>
     jobsat   ~~ jobperf + turnover + iq
     jobperf  ~~ turnover + iq
     turnover ~~ iq
-    &#39;</code></pre>
+    &#39;</span>
+</code></pre>
+</div>
+</div>
 <h2 id="fit-the-model">Fit the Model</h2>
 <p>To fit the model, I use the <code>lavaan</code> <em>sem</em> function. This function takes the first two argument model and data. The third argument is <code>missing =&#39;fiml&#39;</code>, which tells lavaan to use FIML (the default is to use listwise deletion).</p>
-<pre><code>    fit &lt;- sem(model, employee, missing=&#39;fiml&#39;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">employee</span>, missing<span class="op">=</span><span class="st">&#39;fiml&#39;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>Alternatively, you could leave the section of the model code under the <code># means</code> section and use the <code>meanstructure=TRUE</code> argument in the fit function as follows, which give the same results:</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre><code>    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">employee</span>, missing<span class="op">=</span><span class="st">&#39;fiml&#39;</span>, meanstructure<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+</code></pre>
+</div>
 </div>
 <h2 id="generate-output">Generate Output</h2>
 <p>To print the results to the console, use the <code>summary</code> function.</p>
-<pre><code>    summary(fit, fit.measures=TRUE, standardize=TRUE)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span>, fit.measures<span class="op">=</span><span class="cn">TRUE</span>, standardize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>The <code>fit.measures=TRUE</code> calls fit statistics in the output. This should look familiar to those who have used Mplus.</p>
 <pre><code>lavaan (0.5-16) converged normally after 141 iterations
 
@@ -2620,10 +2658,15 @@ Variances:
     iq               70.892    4.576                     70.892    1.000</code></pre>
 <p>Recall that correlations are standardized covariances, so correlations are found in the <em>std.all</em> column in the <em>Covariances</em> section. Also, intercepts are means, and can be interpreted as the FIML means for the variables.</p>
 <p>Finally, to get the missing data patterns and covariance coverage output that can be included in Mplus output use the following code:</p>
-<pre><code>    # Get missing data patterns and covariance coverage similar
-    # to that found in Mplus output.
-    inspect(fit, &#39;patterns&#39;) 
-    inspect(fit, &#39;coverage&#39;)</code></pre>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code>    <span class="co"># Get missing data patterns and covariance coverage similar</span>
+    <span class="co"># to that found in Mplus output.</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavInspect.html">inspect</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">&#39;patterns&#39;</span><span class="op">)</span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavInspect.html">inspect</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">&#39;coverage&#39;</span><span class="op">)</span>
+</code></pre>
+</div>
+</div>
 <p>which leads to the following output:</p>
 <h3 id="missing-data-patterns">Missing Data Patterns</h3>
 <pre><code>    age tenure female wbeing jobsat jobprf turnvr iq
@@ -2641,7 +2684,7 @@ jobsat   0.667 0.667  0.667  0.333  0.667
 jobperf  1.000 1.000  1.000  0.667  0.667  1.000              
 turnover 1.000 1.000  1.000  0.667  0.667  1.000  1.000       
 iq       1.000 1.000  1.000  0.667  0.667  1.000  1.000  1.000</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

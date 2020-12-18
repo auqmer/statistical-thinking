@@ -5,6 +5,7 @@ description: |
 output_dir: "docs"
 theme: qmertheme.css
 navbar:
+  logo: images/thinker_round.png
   right:
     - text: "Home"
       href: index.html

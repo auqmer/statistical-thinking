@@ -10,6 +10,13 @@ author:
 date: "Nov. 14, 2018"
 output: distill::distill_article
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
 # FIML for Missing Data in Lavaan
 
 Full information maximum likelihood (FIML) is a modern statistical technique for handling missing data. If you are not familiar with FIML, I would recommend the book entitled [Applied Missing Data Analysis][2] by Craig Enders. The book is both thorough and accessible, and a good place to start for those not familiar with the ins and outs of modern missing data techniques.
@@ -23,7 +30,8 @@ You will also want to read over the `lavaan` documentation and visit the very he
 ## Header
 
 I always include a header with basic information in my code files. 
-```
+
+```{r, eval = FALSE}
 #***********************************************************************
 # section 4.14 Summary Statistics --------------------------------------
 # Author: William M. Murrah
@@ -37,23 +45,25 @@ I always include a header with basic information in my code files.
 # R packages used
 library(lavaan)
 ```
+
 ## Import and prepare data
 
 First, import the data into R. MPlus uses *.dat* files which can only contain numbers. Variable names are not included in the *.dat* file, but instead are included in the Mplus *.inp* file. I use the *read.table* function to read the *.dat* file.
-```    
+
+```{r, eval = FALSE}    
     employee <- read.table("data/employee.dat")
 ```
 
 Next, I assign names to the variables in the new data frame.
 
-```
+```{r, eval = FALSE}    
     # Assign names to variables.
     names(employee) <- c("id", "age", "tenure", "female", "wbeing", 
                          "jobsat", "jobperf", "turnover", "iq")
 ```
 The final step in preparing the data is to recode the data values -99, which are used as missing data values in the *.dat* file, to `NA`, which is the missing value indicator in R.
 
-```
+```{r, eval = FALSE}    
     # Replace all missing values (-99) with R missing value character 'NA'.
     employee[employee==-99] <- NA
 ```
@@ -61,7 +71,7 @@ The final step in preparing the data is to recode the data values -99, which are
 ## Create Model Object
 Now that the data are ready, I create a character string with the model using the `lavaan` syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations. 
 
-```    
+```{r, eval = FALSE}    
     # Create descriptive model object
     model <- '
     # means
@@ -99,13 +109,13 @@ Now that the data are ready, I create a character string with the model using th
 
 To fit the model, I use the `lavaan` *sem* function. This function takes the first two argument model and data. The third argument is `missing ='fiml'`, which tells lavaan to use FIML (the default is to use listwise deletion).  
 
-```    
+```{r, eval = FALSE}        
     fit <- sem(model, employee, missing='fiml')
 ```
 
 Alternatively, you could leave the section of the model code under the `# means` section and use the `meanstructure=TRUE` argument in the fit function as follows, which give the same results:
 
-```{e, eval = FALSE}
+```{r, eval = FALSE}
     fit <- sem(model, employee, missing='fiml', meanstructure=TRUE)
 ```
 
@@ -113,7 +123,7 @@ Alternatively, you could leave the section of the model code under the `# means`
 
 To print the results to the console, use the `summary` function. 
 
-```
+```{r, eval = FALSE}    
     summary(fit, fit.measures=TRUE, standardize=TRUE)
 ```
 The `fit.measures=TRUE` calls fit statistics in the output. This should look familiar to those who have used Mplus.
@@ -230,7 +240,8 @@ Variances:
 Recall that correlations are standardized covariances, so correlations are found in the *std.all* column in the *Covariances* section. Also, intercepts are means, and can be interpreted as the FIML means for the variables.
 
 Finally, to get the missing data patterns and covariance coverage output that can be included in Mplus output use the following code:
-```
+
+```{r, eval = FALSE}    
     # Get missing data patterns and covariance coverage similar
     # to that found in Mplus output.
     inspect(fit, 'patterns') 

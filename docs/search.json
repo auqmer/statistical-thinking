@@ -6,28 +6,29 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-17T17:03:49-06:00"
+      "last_modified": "2020-12-18T13:35:26-06:00"
     },
     {
       "path": "index.html",
       "title": "Statistical Thinking",
+      "description": "Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2020-12-17T17:03:50-06:00"
+      "contents": "\nThis is Text\nContact\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"setView\":[[32.6034,-85.486733],15,[]],\"calls\":[{\"method\":\"addTiles\",\"args\":[\"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"http://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]},{\"method\":\"addPopups\",\"args\":[32.6034,-85.486733,\"<b><a href='https://amp0129.wixsite.com/qmer'>AU QMER<\\/a><\\/b><br/>4064 Haley Center<br/>Auburn AL, 36489\",null,null,{\"maxWidth\":300,\"minWidth\":50,\"autoPan\":true,\"keepInView\":false,\"closeButton\":false,\"className\":\"\"}]}],\"limits\":{\"lat\":[32.6034,32.6034],\"lng\":[-85.486733,-85.486733]}},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
+      "last_modified": "2020-12-18T13:35:26-06:00"
     },
     {
       "path": "posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2020-12-17T17:03:50-06:00"
+      "last_modified": "2020-12-18T13:35:26-06:00"
     },
     {
       "path": "tutorials.html",
       "title": "Tutorials",
       "author": [],
       "contents": "\nExperimental Design\nLinear Modeling\nStructural Equation Modeling\nPreparing SPSS Data for Mplus\nMultilevel Modeling\nAdvanced Psychometrics\n\n\n\n",
-      "last_modified": "2020-12-17T17:03:50-06:00"
+      "last_modified": "2020-12-18T13:35:27-06:00"
     }
   ],
   "collections": ["posts/posts.json"]
