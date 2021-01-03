@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/TestPost/",
-    "title": "Test Post",
-    "description": "A new article created using the Distill format.",
-    "author": [
-      {
-        "name": "William Murrah",
-        "url": "https://www.statistical-thinking.com"
-      }
-    ],
-    "date": "2020-12-12",
-    "categories": [],
-    "contents": "\nThis is a test post\n\n\n# Load packages\nlibrary(car)\nlibrary(psych)\nlibrary(parameters)\n\n\n\nLoad and Explore Date\nClean and Label Data\n\n\ndata(mtcars)\n\nmtcars <- transform(mtcars,\n                    vs = factor(vs, labels = c(\"V-shaped\", \"straight\")),\n                    am = factor(am, labels = c(\"automatic\", \"manual\")))\n\n\n\nExplore Date\n\n\nhist(mtcars$mpg, main = \"Distribution of Outcome Variable\")\n\n\n\n\n\n\npairs.panels(mtcars[, c(\"mpg\", \"hp\", \"vs\", \"am\")])\n\n\n\n\nModels\n\n\nmod.full <- lm(mpg ~ hp*vs*am, data = mtcars)\ndisplay(parameters(mod.full))\n\n\nParameter\nCoefficient\nSE\n95% CI\nt(24)\np\n(Intercept)\n23.23\n4.87\n(13.18, 33.29)\n4.77\n< .001\nhp\n-0.04\n0.02\n(-0.09, 8.97e-03)\n-1.70\n0.102\nvs (straight)\n7.66\n7.39\n(-7.59, 22.92)\n1.04\n0.310\nam (manual)\n3.18\n5.48\n(-8.13, 14.49)\n0.58\n0.567\nhp * vs (straight)\n-0.06\n0.06\n(-0.18, 0.06)\n-0.97\n0.341\nhp * am (manual)\n5.30e-03\n0.03\n(-0.05, 0.06)\n0.19\n0.850\nvs (straight) * am (manual)\n3.25\n8.71\n(-14.73, 21.23)\n0.37\n0.712\n(hp * vs (straight)) * am (manual)\n-0.02\n0.08\n(-0.17, 0.14)\n-0.22\n0.824\n\n\n\n\n",
-    "preview": "posts/TestPost/distill-preview.png",
-    "last_modified": "2020-12-12T12:55:58-06:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/welcome/",
     "title": "Welcome to Statistical Thinking",
     "description": "Welcome to the QMER blog, Statistical Thinking. Here we post tutorials and other important events related to our learning community.",
