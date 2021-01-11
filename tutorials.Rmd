@@ -5,18 +5,20 @@ urlcolor: blue
 ---
 
 
-### Experimental Design
+### Experimental Design (ERMA 7300)
 
 #### Visualizing and Describing Data
 
-* Exploring Data Graphically [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
+* Exploring Data Graphically -  [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
 
-### Linear Modeling
+* Measures of Central Tendency - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-16-central-tendency/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380)
 
-### Structural Equation Modeling
+### Linear Modeling (ERMA 7310)
 
-* Preparing SPSS Data for Mplus [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
+### Structural Equation Modeling (ERMA 8340)
 
-### Multilevel Modeling
+* Preparing SPSS Data for Mplus -  [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
 
-### Advanced Psychometrics
+### Multilevel Modeling (ERMA Special Topics)
+
+### Advanced Psychometrics (ERMA 8350)
