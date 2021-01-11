@@ -6,7 +6,7 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-01-11T12:43:20-06:00"
+      "last_modified": "2021-01-11T12:47:24-06:00"
     },
     {
       "path": "index.html",
@@ -14,21 +14,21 @@
       "description": "Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.\n",
       "author": [],
       "contents": "\nOverview of Website\nThis website contains blog posts that are short tutorials related to quantitative methods. There are two basic ways to use this site. If you want to view our latest blog posts, check out the Posts tab. If you want to find posts by the type of methods covered, go to the Tutorials tab. The content is the same, but the organization differs.\nContact\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssistant Professor,\nCollege of Education, Auburn University\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"setView\":[[32.6034,-85.486733],15,[]],\"calls\":[{\"method\":\"addTiles\",\"args\":[\"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"http://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]},{\"method\":\"addPopups\",\"args\":[32.6034,-85.486733,\"<b><a href='https://amp0129.wixsite.com/qmer'>AU QMER<\\/a><\\/b><br/>4064 Haley Center<br/>Auburn AL, 36489\",null,null,{\"maxWidth\":300,\"minWidth\":50,\"autoPan\":true,\"keepInView\":false,\"closeButton\":false,\"className\":\"\"}]}],\"limits\":{\"lat\":[32.6034,32.6034],\"lng\":[-85.486733,-85.486733]}},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
-      "last_modified": "2021-01-11T12:43:21-06:00"
+      "last_modified": "2021-01-11T12:47:24-06:00"
     },
     {
       "path": "posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-01-11T12:43:21-06:00"
+      "last_modified": "2021-01-11T12:47:25-06:00"
     },
     {
       "path": "tutorials.html",
       "title": "Tutorials",
       "author": [],
-      "contents": "\nExperimental Design\nVisualizing and Describing Data\nExploring Data Graphically Tutorial Video\nLinear Modeling\nStructural Equation Modeling\nPreparing SPSS Data for Mplus\nMultilevel Modeling\nAdvanced Psychometrics\n\n\n\n",
-      "last_modified": "2021-01-11T12:43:22-06:00"
+      "contents": "\nExperimental Design\nVisualizing and Describing Data\nExploring Data Graphically Tutorial Video\nLinear Modeling\nStructural Equation Modeling\nPreparing SPSS Data for Mplus Tutorial\nMultilevel Modeling\nAdvanced Psychometrics\n\n\n\n",
+      "last_modified": "2021-01-11T13:01:51-06:00"
     }
   ],
   "collections": ["posts/posts.json"]

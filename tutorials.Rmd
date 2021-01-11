@@ -1,6 +1,7 @@
 ---
 title: "Tutorials"
 site: distill::distill_website
+urlcolor: blue
 ---
 
 
@@ -8,13 +9,13 @@ site: distill::distill_website
 
 #### Visualizing and Describing Data
 
-##### Exploring Data Graphically [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
+* Exploring Data Graphically [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
 
 ### Linear Modeling
 
 ### Structural Equation Modeling
 
-[Preparing SPSS Data for Mplus](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
+* Preparing SPSS Data for Mplus [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
 
 ### Multilevel Modeling
 
