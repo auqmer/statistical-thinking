@@ -6,6 +6,10 @@ site: distill::distill_website
 
 ### Experimental Design
 
+#### Visualizing and Describing Data
+
+##### Exploring Data Graphically [Tutorial](auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
+
 ### Linear Modeling
 
 ### Structural Equation Modeling
