@@ -1,5 +1,5 @@
 ---
-title: "Tutorials"
+title: "Courses"
 site: distill::distill_website
 urlcolor: blue
 ---
@@ -12,6 +12,8 @@ urlcolor: blue
 * Exploring Data Graphically -  [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
 
 * Measures of Central Tendency - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-16-central-tendency/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380)
+
+* Measures of Variability - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-23-variability/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cad74732-e286-45be-8388-ac2f0144260b)
 
 ### Linear Modeling (ERMA 7310)
 

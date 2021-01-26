@@ -13,6 +13,6 @@ navbar:
       href: about.html
     - text: "Posts"
       href: posts.html
-    - text: "Tutorials"
-      href: tutorials.html
+    - text: "Courses"      
+      href: courses.html
 output: distill::distill_article
