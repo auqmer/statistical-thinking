@@ -2,7 +2,6 @@
 title: "Statistical Thinking"
 description: |
   Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.
-
 site: distill::distill_website
 ---
 
@@ -24,7 +23,7 @@ William M. Murrah, Ph.D.
 Assistant Professor,  
 College of Education, Auburn University
 
-```{r, layout="l-body-outset shaded"}
+```{r, layout="l-body-outset shaded", echo=FALSE}
 library(leaflet)
 
 content <- paste(sep = "<br/>",
@@ -37,6 +36,4 @@ leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addPopups(lng = -85.486733, lat = 32.603400, content,
     options = popupOptions(closeButton = FALSE))
-  
-  
 ```
