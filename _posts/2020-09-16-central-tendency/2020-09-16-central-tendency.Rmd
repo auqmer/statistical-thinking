@@ -92,6 +92,7 @@ table(scores)
 which shows we have two scores that have the value `2`, four scores that have the value `2`, and two scores that have the value `3`.
 
 We can plot the frequency distribution as a bar plot.
+
 ```{r}
 barplot(table(scores))
 text(0.5, 3.5, expression(bar(X) == 2))
@@ -108,6 +109,7 @@ Both the table and the plot suggest that a score of `2` represents a typical or 
 5. The sum of the squared differences of scores from their mean is minimal.
 
 This last point is particularly important, so I will demonstrate it with our `scores` variable.
+
 ```{r}
 c_scores <- scores - mean(scores) # Scores centered around the mean.
 cbind(scores, c_scores) 
@@ -156,12 +158,14 @@ Therefore with skewed distributions the median can be a better measure of centra
 The median is also less susceptible to the influence of outliers.
 
 ### An illustrative example
+
 If three people who earn typical salaries are sitting at a bar and Bill Gates sits down beside them, the average salary at the bar just went up drastically, and doesn't represent anyone there.
 But the median salary, would still be a good representation of most of the people at the bar.
 
 The median U.S. salary is about $45,000.
 Bill Gates makes about $3,710,000,000, or 3.7 billion dollars a year.
 We can "simulate" this in R:
+
 ```{r}
 normal_salaries <- c(40000, 45000, 50000)
 billGates_salary <- 3.71e9 
@@ -170,10 +174,12 @@ awkward_conversation <- c(normal_salaries, billGates_salary)
 ```
 
 Let's look at the measures of central tendency before Bill Gates strolls into the bar.
+
 ```{r}
 mean(normal_salaries)
 median(normal_salaries)
 ```
+
 With no outliers, both our measures give us a good sense of the typical salary at the bar.
 
 What happens when a billionaire sits down?
