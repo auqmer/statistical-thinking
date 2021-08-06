@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/reshape-data-frames/",
+    "title": "Reshaping Data in R",
+    "description": {},
+    "author": [
+      {
+        "name": "William Murrah",
+        "url": "www.statistical-thinking.com"
+      }
+    ],
+    "date": "2021-07-29",
+    "categories": [],
+    "contents": "\nSean C. Anderson - An Introduction to reshape2\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-07-29T07:27:14-05:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2020-09-23-variability/",
     "title": "Measures of Variability",
     "description": "While central tendency is important, we often want to understand more than just were the center of a distribution is located, we often also find useful measures of the spread of the values around the center. Such statistics are referred to as measures of dispersion or variability.  Common measures I will discuss in this tutorial include the range, interquartile range, variance, and standard deviation.",
