@@ -6,14 +6,14 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-09T07:37:57-05:00"
+      "last_modified": "2021-08-13T18:00:09-05:00"
     },
     {
       "path": "courses.html",
       "title": "Courses",
       "author": [],
       "contents": "\nExperimental Design (ERMA 7300)\nVisualizing and Describing Data\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\nLinear Modeling (ERMA 7310)\nStructural Equation Modeling (ERMA 8340)\nFoundations of Structural Equation Modeling\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\nDAG Basics Video\nDiagramming Causal Graphs Video\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\nMultilevel Modeling (ERMA Special Topics)\nAdvanced Psychometrics (ERMA 8350)\n\n\n\n",
-      "last_modified": "2021-08-09T07:37:57-05:00"
+      "last_modified": "2021-08-13T18:00:09-05:00"
     },
     {
       "path": "index.html",
@@ -21,21 +21,28 @@
       "description": "Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.\n",
       "author": [],
       "contents": "\nOverview of Website\nThis website contains blog posts that are short tutorials related to quantitative methods. There are two basic ways to use this site. If you want to view our latest blog posts, check out the Posts tab. If you want to find posts by the type of methods covered, go to the Tutorials tab. The content is the same, but the organization differs.\nContact\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssistant Professor,\nCollege of Education, Auburn University\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"setView\":[[32.6034,-85.486733],15,[]],\"calls\":[{\"method\":\"addTiles\",\"args\":[\"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"http://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]},{\"method\":\"addPopups\",\"args\":[32.6034,-85.486733,\"<b><a href='https://amp0129.wixsite.com/qmer'>AU QMER<\\/a><\\/b><br/>4064 Haley Center<br/>Auburn AL, 36489\",null,null,{\"maxWidth\":300,\"minWidth\":50,\"autoPan\":true,\"keepInView\":false,\"closeButton\":false,\"className\":\"\"}]}],\"limits\":{\"lat\":[32.6034,32.6034],\"lng\":[-85.486733,-85.486733]}},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
-      "last_modified": "2021-08-09T07:37:58-05:00"
+      "last_modified": "2021-08-13T18:00:10-05:00"
+    },
+    {
+      "path": "notebooks.html",
+      "title": "Notebooks",
+      "author": [],
+      "contents": "\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook\n\n\n\n",
+      "last_modified": "2021-08-13T18:00:11-05:00"
     },
     {
       "path": "posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-09T07:37:58-05:00"
+      "last_modified": "2021-08-13T18:00:11-05:00"
     },
     {
       "path": "ruser.html",
       "title": "RuseR Group",
       "author": [],
       "contents": "\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions\n\n\n\n",
-      "last_modified": "2021-08-09T07:37:59-05:00"
+      "last_modified": "2021-08-13T18:00:12-05:00"
     }
   ],
   "collections": ["posts/posts.json"]

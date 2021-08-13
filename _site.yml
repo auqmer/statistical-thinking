@@ -17,4 +17,7 @@ navbar:
       href: courses.html
     - text: "RuseR" 
       href: RuseR.html
+    - text: "Notebooks"
+      href: notebooks.html
+    
 output: distill::distill_article

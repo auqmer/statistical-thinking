@@ -1,0 +1,10 @@
+---
+title: "Notebooks"
+site: distill::distill_website
+urlcolor: blue
+---
+
+
+[Modeling Course Notebook](https://wmmurrah.github.io/modelingBook/)
+
+[Advanced Measurement Theory Course Notebook](https://wmmurrah.github.io/AdvancedMeasurementTheoryNotebook/)
