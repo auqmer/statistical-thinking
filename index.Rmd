@@ -1,15 +1,20 @@
 ---
 title: "Statistical Thinking"
 description: |
-  Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community.
+  Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community. The goals of QMER include provide knowledge and support for students who desire to conduct high quality research.
 site: distill::distill_website
 ---
 
 # Overview of Website
 
-This website contains blog posts that are short tutorials related to quantitative methods.
-There are two basic ways to use this site.
-If you want to view our latest blog posts, check out the Posts tab. If you want to find posts by the type of methods covered, go to the Tutorials tab. The content is the same, but the organization differs.
+This website contains blog posts, tutorials and other materials  related to modern quantitative methods.
+While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work.
+This site provides resources that not only build upon a researcher's basic understanding of quantitative methods, but also provide access to such information after completing graduate course work. 
+
+
+There are a few basic ways to use this site.
+You can view our latest blog posts as you would the typical blog site by checking out the Posts tab. If you want to find posts by the type of methods covered, go to the Courses tab, which organized the materials around the way they are taught in graduate school. The content is the same, but the organization differs.
+There is also a tab for those interesting in learning the R programming language, which I use extensively on this site.
 
 <aside>
 ![](images/thinker_round.png){width=150%}
@@ -20,7 +25,7 @@ If you want to view our latest blog posts, check out the Posts tab. If you want 
 ### Maintained by:  
 
 William M. Murrah, Ph.D.  
-Assistant Professor,  
+Associate Professor,  
 College of Education, Auburn University
 
 ```{r, layout="l-body-outset shaded", echo=FALSE}
