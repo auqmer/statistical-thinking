@@ -1,7 +1,7 @@
 ---
 title: "Statistical Thinking"
 description: |
-  Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community. The goals of QMER include provide knowledge and support for students who desire to conduct high quality research.
+  Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community. The goals of QMER include provide knowledge and support for students who desire to conduct high quality research. To reach the main QMER webpage go to https://aub.ie/qmer
 site: distill::distill_website
 ---
 
