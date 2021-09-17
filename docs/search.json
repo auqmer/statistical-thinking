@@ -6,14 +6,14 @@
       "description": "Some additional details about me and my research.",
       "author": [],
       "contents": "\nDr. William (Hank) Murrah, Ph.D.\nAs an educational researcher, ifocuses on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers.\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:09-05:00"
+      "last_modified": "2021-09-17T09:22:19-05:00"
     },
     {
       "path": "courses.html",
       "title": "Courses",
       "author": [],
       "contents": "\nExperimental Design (ERMA 7300)\nVisualizing and Describing Data\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\nLinear Modeling (ERMA 7310)\nStructural Equation Modeling (ERMA 8340)\nFoundations of Structural Equation Modeling\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\nDAG Basics Video\nDiagramming Causal Graphs Video\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\nMultilevel Modeling (ERMA Special Topics)\nAdvanced Psychometrics (ERMA 8350)\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:10-05:00"
+      "last_modified": "2021-09-17T09:22:20-05:00"
     },
     {
       "path": "index.html",
@@ -21,28 +21,28 @@
       "description": "Welcome to statistical-thinking.com, the blog and tutorial site for Quantitative Methods in Educational Research (QMER) learning community. The goals of QMER include provide knowledge and support for students who desire to conduct high quality research. To reach the main QMER webpage go to https://aub.ie/qmer\n",
       "author": [],
       "contents": "\nOverview of Website\nThis website contains blog posts, tutorials and other materials related to modern quantitative methods. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher’s basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\nThere are a few basic ways to use this site. You can view our latest blog posts as you would the typical blog site by checking out the Posts tab. If you want to find posts by the type of methods covered, go to the Courses tab, which organized the materials around the way they are taught in graduate school. The content is the same, but the organization differs. There is also a tab for those interesting in learning the R programming language, which I use extensively on this site.\nContact\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssociate Professor,\nCollege of Education, Auburn University\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"setView\":[[32.6034,-85.486733],15,[]],\"calls\":[{\"method\":\"addTiles\",\"args\":[\"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"http://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]},{\"method\":\"addPopups\",\"args\":[32.6034,-85.486733,\"<b><a href='https://amp0129.wixsite.com/qmer'>AU QMER<\\/a><\\/b><br/>4064 Haley Center<br/>Auburn AL, 36489\",null,null,{\"maxWidth\":300,\"minWidth\":50,\"autoPan\":true,\"keepInView\":false,\"closeButton\":false,\"className\":\"\"}]}],\"limits\":{\"lat\":[32.6034,32.6034],\"lng\":[-85.486733,-85.486733]}},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:10-05:00"
+      "last_modified": "2021-09-17T09:22:20-05:00"
     },
     {
       "path": "notebooks.html",
       "title": "Notebooks",
       "author": [],
       "contents": "\nThese notebooks are under construction.\nIntroduction to R and RStudio Notebook\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:11-05:00"
+      "last_modified": "2021-09-17T09:22:21-05:00"
     },
     {
       "path": "posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:11-05:00"
+      "last_modified": "2021-09-17T09:22:21-05:00"
     },
     {
       "path": "ruser.html",
       "title": "RuseR Group",
       "author": [],
-      "contents": "\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions\n\n\n\n",
-      "last_modified": "2021-08-25T16:20:12-05:00"
+      "contents": "\nR and RStudio Basics\nIntroduction to R and RStudio\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions\n\n\n\n",
+      "last_modified": "2021-09-17T09:22:22-05:00"
     }
   ],
   "collections": ["posts/posts.json"]
