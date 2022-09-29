@@ -1,0 +1,203 @@
+---
+title: "Intermediate Plotting with `ggplot2`"
+description: |
+  An introduction to plotting data with the `ggplot2` package. 
+author:
+  - name: William Murrah 
+    url: www.statistical-thinking.com
+    affiliation: QMER
+    affiliation_url: aub.ie/qmer
+date: "2022-09-29"
+output: distill::distill_article
+---
+
+## Always Graph Your Data Before you Model!
+
+We live in a very complicated world. So complicated, I think, that we most likely will never be able to fully comprehend it. But we can work to better understand it. In science we do that through modeling. Models are simplifications of reality to the point that we can begin to understand it. Models can be verbal, mathematical, graphical, or mathematical. But they all are oversimplifications of reality.
+
+We can think of our data as an oversimplification of some data generating process or population. Statistical models, a type of mathematical model, are certainly oversimplifications, not just of reality but also of our data. Before you take  your already oversimplified data and simplify it further, you should **always graph your data before modeling**.
+
+## What is `ggplot2`?
+
+The `ggplot2` package provides very attractive, easily customized graphics, using a systematic method. It using a piping process that allows you to create a basic plot then add components, making it very flexible.
+
+It does require learning a specific grammar of graphics.
+
+This document was created based largely on the web-based book *ggplot2: Elegant Graphics for Data Analysis* by Hadley Wickham, the developer of `ggplot2`, which can be found at:
+
+[https://ggplot2-book.org/](https://ggplot2-book.org/)
+
+## What is the "grammar of graphics"?
+
+The grammar of graphics describes the fundamental features of graphics which include:
+
+* data
+* mapping variables onto aesthetics (**aes**)
+* geometric elements called **geom**s
+* statistical transformations (**stat**)
+* coordinate systems (**coord**)
+* subsets of displays (**facet**)
+* themed plots (**theme**)
+
+
+## Basics of `ggplot` functions
+
+```{r}
+library(ggplot2)
+data("diamonds")
+?diamonds
+```
+
+### Description of Diamonds Data from `ggplot2` Package
+
+Prices of over 50,000 round cut diamonds
+
+#### Description
+A dataset containing the prices and other attributes of almost 54,000 diamonds. The variables are as follows:
+
+
+#### Format
+A data frame with 53940 rows and 10 variables:
+
+variable | Description
+---------|------------
+price | price in US dollars (\$326–\$18,823)
+carat | weight of the diamond (0.2–5.01)
+cut | quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+color | diamond colour, from D (best) to J (worst)
+clarity | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best))
+depth | total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43–79)
+table | width of top of diamond relative to widest point (43–95)
+x | length in mm (0–10.74)
+y | width in mm (0–58.9)
+z | depth in mm (0–31.8)
+
+
+### Scatterplot of price as a function of weight
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point()
+```
+
+
+### Adding diamond clarity as an aesthetic
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price, color = clarity)) + geom_point()
+```
+
+
+### Adding cut as an aesthetic
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price, color = clarity, shape = cut)) + geom_point()
+```
+
+This seems a bit busy.
+
+### Faceting
+
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point() + 
+  facet_grid(clarity ~ .)
+```
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price, color = cut)) + geom_point() + 
+  facet_grid(clarity ~ .)
+```
+
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point() + 
+  facet_grid(clarity ~ cut)
+```
+
+
+## Graphing Longitudinal Data
+
+```{r, message=FALSE}
+library(dplyr) 
+library(nlme)    # lme function and BodyWeight data
+library(emmeans) # estimated marginal means 
+library(texreg)  # create model tables
+data("BodyWeight")
+```
+
+### Does Diet Impact Weight Gain in Rats
+
+#### Description
+
+The BodyWeight data frame has 176 rows and 4 columns.
+Hand and Crowder (1996) describe data on the body weights of rats measured over 64 days. These data also appear in Table 2.4 of Crowder and Hand (1990). The body weights of the rats (in grams) are measured on day 1 and every seven days thereafter until day 64, with an extra measurement on day 44. The experiment started several weeks before “day 1.” There are three groups of rats, each on a different diet.
+
+#### Format
+
+This data frame contains the following columns:
+
+variable | Description
+---------|------------
+weight |a numeric vector giving the body weight of the rat (grams).
+Time | a numeric vector giving the time at which the measurement is made (days).
+Rat | an ordered factor with levels 2 < 3 < 4 < 1 < 8 < 5 < 6 < 7 < 11 < 9 < 10 < 12 < 13 < 15 < 14 < 16 identifying the rat whose weight is measured.
+Diet | a factor with levels 1 to 3 indicating the diet that the rat receives.
+
+
+The data are balanced, with 16 rats measured at each of 11 time points (days).
+
+```{r}
+count(BodyWeight, Time)
+```
+
+We can see a trend of gaining weight across days.
+
+```{r}
+aggregate(weight ~ Time, BodyWeight, mean)
+```
+
+We want to model the effect of diet on weight gain.
+We can plot this trend by rat using the `geom_line` geometric element and the `group` aesthetic.
+
+```{r}
+ggplot(BodyWeight, aes(x = Time, y = weight, color = Diet)) + 
+  geom_line(aes(group = Rat))
+```
+
+Let's create a plot that better reflects our model. we'll include a regression line for each diet type with `geom_smooth`. Note we want a linear trend so we set the method to "lm", which stands for linear model.
+
+```{r}
+ggplot(BodyWeight, aes(x = Time, y = weight, color = Diet)) + 
+  geom_line(aes(group = Rat), linetype = "dashed") +
+    geom_smooth(aes(x = Time, y = weight, group = Diet), method = "lm")
+
+```
+
+I won't go into detail about the mixed-effects models below, but let's create three models to address our research question.
+
+```{r}
+BodyWeight$time <- BodyWeight$Time - 1 # Make intercept meaningful
+
+model.t <- lme(weight ~ time,
+           data = BodyWeight,
+           random = ~ 1 | Rat, 
+           method = "ML")
+
+model.t_d <- lme(weight ~ time + Diet,
+            data = BodyWeight,
+            random = ~ 1| Rat, method = "ML")
+
+model.tXd <- lme(weight ~ time * Diet, data = BodyWeight,
+            random = ~ 1 | Rat, method = "ML")
+```
+
+Here we compare the models.
+First, to see if diet is important, then to test whether we have evidence that the interaction term between diet and time is helping us understand the impact of diet.
+
+```{r}
+anova(model.t, model.t_d)
+anova(model.t_d, model.tXd)
+```
+
+Below I include the coefficients of the three models for those interested, but will not interpret the models here.
+
+```{r, results='asis'}
+htmlreg(list(model.t, model.t_d, model.tXd), 
+        custom.model.names = c("Time", "Add Diet", "Interaction"))
+```
+
+
