@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -784,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1025,10 +1027,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1860,9 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1874,6 +1884,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1973,6 +2008,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1995,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2361,7 +2398,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2419,112 +2456,75 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<h3 id="experimental-design-erma-7300">Experimental Design (ERMA
-7300)</h3>
-<h4 id="visualizing-and-describing-data">Visualizing and Describing
-Data</h4>
+<h3 id="experimental-design-erma-7300">Experimental Design (ERMA 7300)</h3>
+<h4 id="visualizing-and-describing-data">Visualizing and Describing Data</h4>
 <ul>
-<li><p>Exploring Data Graphically - <a
-href="https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/">Tutorial</a>
-<a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc">Video</a></p></li>
-<li><p>Measures of Central Tendency - <a
-href="https://auqmer.github.io/statistical-thinking/posts/2020-09-16-central-tendency/">Tutorial</a>
-<a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380">Video</a></p></li>
-<li><p>Measures of Variability - <a
-href="https://auqmer.github.io/statistical-thinking/posts/2020-09-23-variability/">Tutorial</a>
-<a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cad74732-e286-45be-8388-ac2f0144260b">Video</a></p></li>
+<li><p>Exploring Data Graphically - <a href="https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/">Tutorial</a> <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc">Video</a></p></li>
+<li><p>Measures of Central Tendency - <a href="https://auqmer.github.io/statistical-thinking/posts/2020-09-16-central-tendency/">Tutorial</a> <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380">Video</a></p></li>
+<li><p>Measures of Variability - <a href="https://auqmer.github.io/statistical-thinking/posts/2020-09-23-variability/">Tutorial</a> <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cad74732-e286-45be-8388-ac2f0144260b">Video</a></p></li>
 </ul>
 <h3 id="linear-modeling-erma-7310">Linear Modeling (ERMA 7310)</h3>
 <h4 id="foundations-of-modeling">Foundations of Modeling</h4>
 <ul>
-<li>Introduction to R and RStudio - <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=630b1601-916c-43b2-8315-ad8f016cda3e">Video</a></li>
-<li>File Folders and Navigation <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=48773598-f6ba-4771-8515-ad880135ee36">Video</a></li>
+<li>Introduction to R and RStudio -
+<a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=630b1601-916c-43b2-8315-ad8f016cda3e">Video</a></li>
+<li>File Folders and Navigation
+<a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=48773598-f6ba-4771-8515-ad880135ee36">Video</a></li>
 </ul>
-<h3 id="structural-equation-modeling-erma-8340">Structural Equation
-Modeling (ERMA 8340)</h3>
-<h4 id="foundations-of-structural-equation-modeling">Foundations of
-Structural Equation Modeling</h4>
+<h3 id="structural-equation-modeling-erma-8340">Structural Equation Modeling (ERMA 8340)</h3>
+<h4 id="foundations-of-structural-equation-modeling">Foundations of Structural Equation Modeling</h4>
 <ul>
 <li><p>Introduction to Structural Equation Modeling</p></li>
 <li><p>Regression Fundamentals</p>
 <ul>
-<li>Preparing SPSS data for Mplus - <a
-href="https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/">Tutorial</a></li>
-<li>Preparing R data for Mplus - <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=af0df7b4-a9b5-42ad-afbc-acb600081154">Video</a></li>
+<li>Preparing SPSS data for Mplus - <a href="https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/">Tutorial</a></li>
+<li>Preparing R data for Mplus - <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=af0df7b4-a9b5-42ad-afbc-acb600081154">Video</a></li>
 </ul></li>
 <li><p>Modeling and Hypothesis Testing</p>
 <ul>
-<li>Hypothesis Testing <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=da5f16e0-0d76-47bc-ae11-acb5013ecf71">Video</a></li>
-<li>Bootstrapping <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c78c1561-d1c4-45d7-b32d-acb600035b78">Video</a></li>
+<li>Hypothesis Testing <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=da5f16e0-0d76-47bc-ae11-acb5013ecf71">Video</a></li>
+<li>Bootstrapping <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c78c1561-d1c4-45d7-b32d-acb600035b78">Video</a></li>
 </ul></li>
 <li><p>Model Specification - Path Analysis</p>
 <ul>
-<li>Path Specification <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c81e249b-a582-48f5-ac3f-acba01394841">Video</a></li>
-<li>Path Identification <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=22901e97-0c76-4455-b449-acba014708b0">Video</a></li>
-<li>Using Mplus Diagrammer <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cbbebdc0-9d6b-4cba-8701-acba01597164">Video</a></li>
-<li>Using Onyx to diagram <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4455b63f-81c5-4ee4-99f3-acbc016617fe">Video</a></li>
+<li>Path Specification <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c81e249b-a582-48f5-ac3f-acba01394841">Video</a></li>
+<li>Path Identification <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=22901e97-0c76-4455-b449-acba014708b0">Video</a></li>
+<li>Using Mplus Diagrammer <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cbbebdc0-9d6b-4cba-8701-acba01597164">Video</a></li>
+<li>Using Onyx to diagram <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4455b63f-81c5-4ee4-99f3-acbc016617fe">Video</a></li>
 </ul></li>
 <li><p>Graph Theory</p>
 <ul>
-<li>DAG Basics <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d3f0dc2d-90ff-4426-8326-acc1012f38ec">Video</a></li>
-<li>Diagramming Causal Graphs <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=afd52f85-d7a7-4bca-ba9f-acba01509e6e">Video</a><br />
+<li>DAG Basics <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d3f0dc2d-90ff-4426-8326-acc1012f38ec">Video</a></li>
+<li>Diagramming Causal Graphs <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=afd52f85-d7a7-4bca-ba9f-acba01509e6e">Video</a><br />
 </li>
-<li>Thinking Clearly <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d18e317d-29d3-41bc-a2bf-acc3012ee1eb">Video</a></li>
+<li>Thinking Clearly <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d18e317d-29d3-41bc-a2bf-acc3012ee1eb">Video</a></li>
 </ul></li>
-<li><p>Model Specification - CFA <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=551e64d9-979b-4e75-a62b-acc80145e8a4">Video</a></p></li>
+<li><p>Model Specification - CFA <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=551e64d9-979b-4e75-a62b-acc80145e8a4">Video</a></p></li>
 <li><p>Model Specification - SEM</p>
 <ul>
-<li>Specification <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cf0aa371-3c6b-468e-a2a8-accf01875b14">Video</a></li>
-<li>Demonstration <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=64d5faa8-bf06-4903-b922-accf0189cc14">Video</a></li>
+<li>Specification <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cf0aa371-3c6b-468e-a2a8-accf01875b14">Video</a></li>
+<li>Demonstration <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=64d5faa8-bf06-4903-b922-accf0189cc14">Video</a></li>
 </ul></li>
 <li><p>Model Analysis - Local Fit</p>
 <ul>
-<li>Estimation Methods <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=eb6256a9-42fe-46ee-b015-ab8201425373">Video</a></li>
-<li>Standardization and Path Analysis <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fed1886a-cfa8-48eb-b58e-ab82014888d2">Video</a></li>
+<li>Estimation Methods <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=eb6256a9-42fe-46ee-b015-ab8201425373">Video</a></li>
+<li>Standardization and Path Analysis <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fed1886a-cfa8-48eb-b58e-ab82014888d2">Video</a></li>
 </ul></li>
 <li><p>Model Analysis - Global Fit</p>
 <ul>
-<li>Global Fit Theory <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e9f6a28-7a54-443e-afde-ab890112cf50">Video</a></li>
-<li>Global Fit Demonstration <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2f69e5b0-fe89-4472-b3ab-ab8c01449535">Video</a></li>
+<li>Global Fit Theory <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9e9f6a28-7a54-443e-afde-ab890112cf50">Video</a></li>
+<li>Global Fit Demonstration <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2f69e5b0-fe89-4472-b3ab-ab8c01449535">Video</a></li>
 </ul></li>
 <li><p>Model Analysis - CFA</p>
 <ul>
-<li>CFA Analysis <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1ab511d1-ad58-47f8-a057-ab8f0135d932">Video</a></li>
-<li>CFA Analysis Demonstration <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=063488fc-e110-47ce-b32c-ab900130465a">Video</a></li>
+<li>CFA Analysis <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1ab511d1-ad58-47f8-a057-ab8f0135d932">Video</a></li>
+<li>CFA Analysis Demonstration <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=063488fc-e110-47ce-b32c-ab900130465a">Video</a></li>
 </ul></li>
-<li><p>Model Analysis - SEM <a
-href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2c402a8d-2433-449a-a5d8-ab97011b6bad">Video</a></p></li>
+<li><p>Model Analysis - SEM <a href="https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2c402a8d-2433-449a-a5d8-ab97011b6bad">Video</a></p></li>
 </ul>
-<h3 id="multilevel-modeling-erma-special-topics">Multilevel Modeling
-(ERMA Special Topics)</h3>
-<h3 id="advanced-psychometrics-erma-8350">Advanced Psychometrics (ERMA
-8350)</h3>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h3 id="multilevel-modeling-erma-special-topics">Multilevel Modeling (ERMA Special Topics)</h3>
+<h3 id="advanced-psychometrics-erma-8350">Advanced Psychometrics (ERMA 8350)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
