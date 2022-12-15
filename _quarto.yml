@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Statistical Thinking"
+
+  navbar:
+    logo: thinker_round.png
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - notebooks.qmd
+      - Courses.qmd
+    right:
+      - icon: github
+        href: https://github.com/wmmurrah
+        
+  page-footer:
+    border: false
+    left: "William Murrah, 2023"
+    right:
+      - icon: github
+        href: https://github.com/wmmurrah
+format:
+  html:
+    theme: [darkly, custom.scss]
+    css: styles.css
+    toc: true
+
+editor: visual

@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TestWebsite",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Courses.html",
+    "href": "Courses.html",
+    "title": "Courses",
+    "section": "",
+    "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
+  },
+  {
+    "objectID": "notebooks.html",
+    "href": "notebooks.html",
+    "title": "Notebooks",
+    "section": "",
+    "text": "These notebooks are under construction.\nIntroduction to R and RStudio Notebook\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2\n\n\nThis is some text\n\ndata(mtcars)\n\nplot(mpg ~ hp, data = mtcars)\n\n\n\n\n\\[\nY_i = \\beta_0 + \\beta_1 X_i + \\varepsilon_i\n\\]"
+  }
+]
