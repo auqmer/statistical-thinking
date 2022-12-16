@@ -29,7 +29,7 @@ You will also want to read over the `lavaan` documentation and visit the very he
 I always include a header with basic information in my code files.
 
 ```{r, eval = FALSE}
-#***********************************************************************
+#----------------------------------------------------------------------*
 # section 4.14 Summary Statistics --------------------------------------
 # Author: William M. Murrah
 # Description: This code replicates the section 4.14 example on the 
@@ -38,7 +38,7 @@ I always include a header with basic information in my code files.
 # Version history ------------------------------------------------------
 # 2014.05.30: code created
 # 2014.06.01: rewrote heading
-#***********************************************************************
+#----------------------------------------------------------------------*
 # R packages used
 library(lavaan)
 ```
