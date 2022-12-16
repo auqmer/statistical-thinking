@@ -9,14 +9,13 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: "About"
-      - notebooks.qmd
+      - text: "Project Based Notebooks"
+        href: notebooks.qmd
       - courses.qmd
-      - text: "R Users"
+      - text: "R Users Group"
         href: ruser.qmd
-      - text: "Posts"
-        href: posts.qmd
+      - href: about.qmd
+        text: "About"        
         
     right:
       - icon: github
@@ -34,4 +33,5 @@ format:
     css: styles.css
     toc: true
 
-editor: visual
+editor: source
+
