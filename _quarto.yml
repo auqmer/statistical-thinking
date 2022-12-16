@@ -9,9 +9,15 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: "About"
       - notebooks.qmd
-      - Courses.qmd
+      - courses.qmd
+      - text: "R Users"
+        href: ruser.qmd
+      - text: "Posts"
+        href: posts.qmd
+        
     right:
       - icon: github
         href: https://github.com/wmmurrah

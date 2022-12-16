@@ -1,7 +1,7 @@
 [
   {
-    "objectID": "Courses.html",
-    "href": "Courses.html",
+    "objectID": "courses.html",
+    "href": "courses.html",
     "title": "Courses",
     "section": "",
     "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
@@ -12,6 +12,13 @@
     "title": "Notebooks",
     "section": "",
     "text": "These notebooks are under construction.\nIntroduction to R and RStudio Notebook\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook"
+  },
+  {
+    "objectID": "ruser.html",
+    "href": "ruser.html",
+    "title": "RuseR Group",
+    "section": "",
+    "text": "R and RStudio Basics\nIntroduction to R and RStudio\n\n\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
   },
   {
     "objectID": "index.html",
@@ -25,6 +32,6 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "Dr. William (Hank) Murrah, Ph.D.\nAs an educational researcher, ifocuses on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers."
+    "text": "Dr. William (Hank) Murrah, Ph.D.\nAs an educational researcher, I focus on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers."
   }
 ]
