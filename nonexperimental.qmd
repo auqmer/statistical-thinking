@@ -1,6 +1,8 @@
 ---
-title: "RuseR Group"
+title: "Non-Experimental Design and Analysis"
 ---
+
+
 
 ### R and RStudio Basics
 

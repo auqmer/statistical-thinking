@@ -12,8 +12,12 @@ website:
       - text: "Project Based Notebooks"
         href: notebooks.qmd
       - courses.qmd
-      - text: "R Users Group"
-        href: ruser.qmd
+      - text: "Research Methods Resources"
+        menu:
+          - gettingstarted.qmd
+          - experimental.qmd
+          - nonexperimental.qmd
+          - advanced.qmd
       - href: about.qmd
         text: "About"        
         

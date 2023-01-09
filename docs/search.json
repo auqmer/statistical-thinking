@@ -14,13 +14,6 @@
     "text": "These notebooks are under construction.\nIntroduction to R and RStudio Notebook\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook"
   },
   {
-    "objectID": "ruser.html",
-    "href": "ruser.html",
-    "title": "RuseR Group",
-    "section": "",
-    "text": "R and RStudio Basics\nIntroduction to R and RStudio\n\n\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Statistical Thinking",
@@ -33,5 +26,19 @@
     "title": "About Me",
     "section": "",
     "text": "Dr. William (Hank) Murrah, Ph.D.\nAs an educational researcher, I focus on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers."
+  },
+  {
+    "objectID": "nonexperimental.html",
+    "href": "nonexperimental.html",
+    "title": "RuseR Group",
+    "section": "",
+    "text": "R and RStudio Basics\nIntroduction to R and RStudio\n\n\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
+  },
+  {
+    "objectID": "gettingstarted.html#software-for-research",
+    "href": "gettingstarted.html#software-for-research",
+    "title": "Getting Started",
+    "section": "Software for Research",
+    "text": "Software for Research\n\nProgramming Languages vs. Menu-Based Programs\n\n\nOpen-source vs. Proprietary Software\n\n\nR and RStudio\n\n\nPython\n\n\nMenu-Based Software"
   }
 ]
