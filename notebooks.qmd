@@ -4,8 +4,7 @@ title: "Notebooks"
 
 These notebooks are under construction.
 
-[Introduction to R and RStudio Notebook](https://wmmurrah.github.io/introR_RStudioNotebook/)
 
-[Modeling Course Notebook](https://wmmurrah.github.io/modelingBook/)
+[Regression Modeling: A Computational Project-Based Approach](https://wmmurrah.github.io/regressionModelingBook/)
 
-[Advanced Measurement Theory Course Notebook](https://wmmurrah.github.io/AdvancedMeasurementTheoryNotebook/)
+[Advanced Measurement Theory: A Computational Project-Based Approach](https://wmmurrah.github.io/AdvancedMeasurementTheoryNotebook/)

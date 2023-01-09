@@ -4,9 +4,6 @@ title: "Non-Experimental Design and Analysis"
 
 
 
-### R and RStudio Basics
-
-[Introduction to R and RStudio](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=630b1601-916c-43b2-8315-ad8f016cda3e)
 
 ### Summer 2021 Regression in R
 

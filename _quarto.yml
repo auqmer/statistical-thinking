@@ -2,8 +2,29 @@ project:
   type: website
   output-dir: docs
 website:
-  title: "Statistical Thinking"
-
+  sidebar:
+    text: "Research Methods Resources"
+    style: "floating"
+    search: true
+    contents:
+      - section: "Getting Started"
+        contents: 
+          - methodsoverview.qmd
+      - section: "Statistical Software"
+        contents:
+          - software.qmd
+          - introR.qmd
+      - section: "Experimental"
+        contents:
+          - experimental.qmd
+      - section: "Non-Experimental"
+        contents:
+          - nonexperimental.qmd
+      - section: "Advanced Methods"
+        contents:
+          - sem.qmd
+          - advancedmeasurement.qmd
+          - missingdata.qmd
   navbar:
     logo: thinker_round.png
     left:
@@ -12,12 +33,6 @@ website:
       - text: "Project Based Notebooks"
         href: notebooks.qmd
       - courses.qmd
-      - text: "Research Methods Resources"
-        menu:
-          - gettingstarted.qmd
-          - experimental.qmd
-          - nonexperimental.qmd
-          - advanced.qmd
       - href: about.qmd
         text: "About"        
         
@@ -38,4 +53,3 @@ format:
     toc: true
 
 editor: source
-

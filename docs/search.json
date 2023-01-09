@@ -7,18 +7,39 @@
     "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
   },
   {
+    "objectID": "methodsoverview.html#quantitative-methods",
+    "href": "methodsoverview.html#quantitative-methods",
+    "title": "Overview of Research Methods",
+    "section": "Quantitative Methods",
+    "text": "Quantitative Methods"
+  },
+  {
+    "objectID": "methodsoverview.html#qualitative-methods",
+    "href": "methodsoverview.html#qualitative-methods",
+    "title": "Overview of Research Methods",
+    "section": "Qualitative Methods",
+    "text": "Qualitative Methods"
+  },
+  {
+    "objectID": "methodsoverview.html#action-research",
+    "href": "methodsoverview.html#action-research",
+    "title": "Overview of Research Methods",
+    "section": "Action Research",
+    "text": "Action Research"
+  },
+  {
     "objectID": "notebooks.html",
     "href": "notebooks.html",
     "title": "Notebooks",
     "section": "",
-    "text": "These notebooks are under construction.\nIntroduction to R and RStudio Notebook\nModeling Course Notebook\nAdvanced Measurement Theory Course Notebook"
+    "text": "These notebooks are under construction.\nRegression Modeling: A Computational Project-Based Approach\nAdvanced Measurement Theory: A Computational Project-Based Approach"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Statistical Thinking",
     "section": "",
-    "text": "Overview of Website\nThis website contains blog posts, tutorials and other materials related to modern quantitative methods. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher’s basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\nThere are a few basic ways to use this site. You can view our latest blog posts as you would the typical blog site by checking out the Posts tab. If you want to find posts by the type of methods covered, go to the Courses tab, which organized the materials around the way they are taught in graduate school. The content is the same, but the organization differs. There is also a tab for those interesting in learning the R programming language, which I use extensively on this site.\n\n\n\n\n\nContact\n\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssociate Professor,\nCollege of Education, Auburn University"
+    "text": "Overview of Website\nThis website contains resources relevant to research design and analysis applied social and behavioral sciences. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher’s basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\nThere are a few basic ways to use this site. You can view our latest blog posts as you would the typical blog site by checking out the Posts tab. If you want to find posts by the type of methods covered, go to the Courses tab, which organized the materials around the way they are taught in graduate school. The content is the same, but the organization differs. There is also a tab for those interesting in learning the R programming language, which I use extensively on this site.\n\n\n\n\n\nContact\n\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssociate Professor,\nCollege of Education, Auburn University"
   },
   {
     "objectID": "about.html",
@@ -28,17 +49,38 @@
     "text": "Dr. William (Hank) Murrah, Ph.D.\nAs an educational researcher, I focus on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers."
   },
   {
-    "objectID": "nonexperimental.html",
-    "href": "nonexperimental.html",
-    "title": "RuseR Group",
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software for Research",
     "section": "",
-    "text": "R and RStudio Basics\nIntroduction to R and RStudio\n\n\nSummer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
+    "text": "Introduction to R and RStudio"
   },
   {
-    "objectID": "gettingstarted.html#software-for-research",
-    "href": "gettingstarted.html#software-for-research",
-    "title": "Getting Started",
-    "section": "Software for Research",
-    "text": "Software for Research\n\nProgramming Languages vs. Menu-Based Programs\n\n\nOpen-source vs. Proprietary Software\n\n\nR and RStudio\n\n\nPython\n\n\nMenu-Based Software"
+    "objectID": "introR.html",
+    "href": "introR.html",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "Statistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics."
+  },
+  {
+    "objectID": "introR.html#installing-r-and-rstudio",
+    "href": "introR.html#installing-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Installing R and RStudio",
+    "text": "Installing R and RStudio\nThe goal of this chapter is to get you up and running with the R statistical programming language and the RStudio integrated development environment.\nIf you are reading this because you are taking one of my courses, you must decide how you want to use R and RStudio for the course. You have two basic options:\n\nyou can install them on your own computer, or\nyou can use Auburn Universities education virtual lab (VLab), online.\n\nIf you have a computer that you will be using consistently for this course, I recommend installing R and RStudio on that computer. Both are free and will be much easier to use if you install them directly on your computer. If you have decided to install the software on your computer you can skip to the following video. Note, that you must be a student within the university, and have DUO setup to use VLab. If you think you want to use the virtual lab, watch this video:\nUsing VLab to acces R/RStudio\n\nInstalling R\n\n\nInstalling RStudio"
+  },
+  {
+    "objectID": "introR.html#r-as-a-statistical-programming-language",
+    "href": "introR.html#r-as-a-statistical-programming-language",
+    "title": "Introduction to R and RStudio",
+    "section": "R as a Statistical Programming Language",
+    "text": "R as a Statistical Programming Language\nThis chapter describes R as a statistical programming language to give you some basic concepts to understand how R works. Such concepts will hopefully help you organize what you are learning about R. This is important because you will not be able to memorize all of the things you need to do to use R. But, having some general concepts to hang what you are learning on, should help you build a solid skill foundation. This explanation will be a gross oversimplification of R, but it should be a good starting model of R that you can build on as you master the language.\n\n\n\n\nElements of Statistical Programming\nAn object is a thing that has one or more states, and one or more behaviors. Take for example you cell phone. It has many states, such as on or off, and many behaviors, such as making phone calls, sending texts, or surfing the web. Everything in R is an object. Objects in R are very similar to objects like your cell phone, in that they have states and behaviors. Our goal is to learn how to use these objects to help us do science.\nThere are basically two types of objects in R: data objects and function objects. Data objects store information, while function objects process or manipulate information.\n\nExpressions\nWe use objects in R through expressions. An expression is simply a combination of objects that R can evaluate. So, we type something into R, R processes it and gives us the results. For example, if we type 1 + 2 into the R console, it will give us the result 3:\n\n1 + 2\n\n[1] 3\n\n\nSo, expressions are simply objects or combinations of objects submitted to R in a way R can evaluate them.\n\n\nBasic Elements of a Good SPL\n\na rich set of primitive expressions\nmechanisms for combining expressions into more complex expressions\nmeans of abstraction, which allow for naming and manipulating compound objects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrimitive Expressions\n\nEverything in R is an object\nPrimitive objects are the simplest elements of a programming language, and include:\n\nprimitive data\nprimitive functions\n\nThey can be thought of as the basic building blocks for everything else in the language.\nAn expression is an input that the programming language can evaluate, and consists of function and data objects.\n\n\n\nPrimitive Data Types:\nData objects are the primary means of storing information in R. R has a few basic data types:\n\nNumeric -\n\nnumeric\n\nint - integers (1,2)\nnum - real number (1.2, -3.1, 200.0)\n\n\ncharacter or string -\n\ncharacter\n\n\"Hello world!\", \"Ten\", 'Cat'\n\"This is a sentence, which is a string\"\n\"10\" ( in single or double quotes, as long as they match)\n\n\nBoolean or Logical\n\nlogical\n\nTRUE or FALSE (use operators such as or, and and not).\nThey will evaluate to numbers where FALSE evaluates to zero, and TRUE evaluates to one.\nFor example. if you enter TRUE + 1 you will get 2 in return.\n\n\n\n\nmode(TRUE)\n\n[1] \"logical\"\n\nTRUE + 1\n\n[1] 2\n\n\n\n\nPrimitive Functions\nR uses functions to do all computations.\n\nOperators\n\nArithmetic Operators\n\n+, -, *, /, ^\n\nComparison (also called Boolean, Logical or Predicate) Operators\n\n<,>,==, <=, >=, !=\nless than, greater than, equal to, less than or equal to, greater than or equal to, not equal to\nreturn TRUE or FALSE\n\nLogical Operator\n\n&, | ,!\nalso return TRUE or FALSE\n\nOther functions\n\nmode()\nlength()\nsum()\nsqrt()\nlog()\nexp()\n\nAssignment operators (assignment will be discussed below)\n\n<- preferred assignment operator - always use this one\n= this will also work, but can be confusing (note different from ==, the comparison operator)\n-> is also an assignment operator, but we will not use it.\n\n\n\n\n\nProgramming Languages are Not Forgiving\n\nSyntactically valid expressions\nExpressions must be syntactically valid.\n\nsyntax (form)\n\nEnglish: “cat dog boy” - not syntactically valid\nEnglish: “cat hugs boy” - syntactically valid\n\nprogramming language:\n\n“hi” 5 - not syntactically valid\n3.2*5 - syntactically valid\n\n\n\n\nSemantically valid expressions\n\nsemantics - (meaning)\n\nEnglish: “I are hungry” - syntactically valid but semantic error\nprogramming language:\n\n3 + “hi” - semantic error (you can’t use addition on character strings)\n\n\nChomsky: “colorless green ideas sleep furiously”\n\nThis statement is syntactically valid, but does not make sense, so makes a semantic error.\nIn R you have to combine expressions in a way that R “understands” and this combination should be meaningful.\n\n\n\nAssignment\nWe will often want to save data in a variable. We can do that with assignment, which utilizes an assignment operator.\n\nx <- 2\n\n\nx\n\n[1] 2\n\n\n\npet <- \"dog\"\n\n\npet\n\n[1] \"dog\"\n\n\nAssignments are special expressions that are composed of three parts, a name, an assignment operator, and an expression.\nFor the following assignment,\n\nx <- 1:10\n\nx is the name, <- is the assignment operator, and 1:10 is an expression. Names in R can be anything that includes letters, numbers, a period (.) or an underscore (_), as long as it begins with either a letter or a period. Here are some valid, followed by invalid names\n\n# Valid\nIQ\nc3p0\nHeight_inches\nweight.lbs\n.hidden\n\n# Invalid (you will get an error message)\n_cat\n1dog\n%sales\nHeigth-Inches\n\nThere are also some names that cannot be used because they are names of primitive R objects (e.g. if, for, else, in). Type ?reserved in the R console for a complete list.\nThere are at least three assignment operators, as mentioned above, but it is commonly recommended that you use <-, because it makes clear that you are taking some expression and putting it in an object. So we would say of the assignment of x <- 1:10 that x gets the integers 1 through 10, suggesting that we are putting the integers into the object x.\nJust about any expression can be passed to a name with the assignment operator.\n\n\nCombining Expressions\n\n\n\n\n\n\n\nComplex Data Types\n\nScalars, Vectors, Matrices, and Arrays\nLists\nDataframes\n\n\n\nGrouping Homogeneous Data Types\n\ncombining scalars\n\nc()\n\ncombining expressions\n\n{}\n\ncombining vectors\n\ncbind()\nrbind()\n\n\nComplex Functions\n\nVectorization\nNested Functions\nLoops and Conditional execution\n\n\n\nAbstraction\n\nAssignment\n\n\n\n\nData Abstraction\n\n\nFunctional Abstraction\n\n\nAnatomy of a Function\nname <- function(arg_1, arg_2, ...) {\n    expression_1\n    expression_2\n    ...\n    output <- expression_3\n    return(output)\n}"
+  },
+  {
+    "objectID": "nonexperimental.html",
+    "href": "nonexperimental.html",
+    "title": "Non-Experimental Design and Analysis",
+    "section": "",
+    "text": "Summer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
   }
 ]
