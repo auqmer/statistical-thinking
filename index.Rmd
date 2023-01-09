@@ -5,8 +5,6 @@ description: |
 site: distill::distill_website
 ---
 
-# Overview of Website
-
 This website contains blog posts, tutorials and other materials  related to modern quantitative methods.
 While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work.
 This site provides resources that not only build upon a researcher's basic understanding of quantitative methods, but also provide access to such information after completing graduate course work. 

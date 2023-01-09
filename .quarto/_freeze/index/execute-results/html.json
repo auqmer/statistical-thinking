@@ -1,0 +1,14 @@
+{
+  "hash": "2f397b0269d7003fdae2c7658a2ae2c6",
+  "result": {
+    "markdown": "---\ntitle: \"Statistical Thinking\"\n---\n\n\n# Overview of Website\n\nThis website contains resources relevant to research design and analysis applied social and behavioral sciences. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher's basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\n\nThere are a few basic ways to use this site. You can view our latest blog posts as you would the typical blog site by checking out the Posts tab. If you want to find posts by the type of methods covered, go to the Courses tab, which organized the materials around the way they are taught in graduate school. The content is the same, but the organization differs. There is also a tab for those interesting in learning the R programming language, which I use extensively on this site.\n\n<aside>![](images/thinker_round.png){width=\"150%\"}</aside>\n\n# Contact\n\n### Maintained by:\n\nWilliam M. Murrah, Ph.D.\\\nAssociate Professor,\\\nCollege of Education, Auburn University\n\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

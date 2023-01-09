@@ -1,0 +1,56 @@
+{
+  "courses.qmd": {
+    "courses.html": "7cd08234"
+  },
+  "notebooks.qmd": {
+    "notebooks.html": "d4d0adc7"
+  },
+  "ruser.qmd": {
+    "ruser.html": "583e5d40"
+  },
+  "index.qmd": {
+    "index.html": "9fe08953"
+  },
+  "about.qmd": {
+    "about.html": "3bdc4d42"
+  },
+  "posts.qmd": {
+    "posts.html": "8111b508"
+  },
+  "Courses.qmd": {
+    "Courses.html": "148cf112"
+  },
+  "index.Rmd": {
+    "index.html": "cb936446"
+  },
+  "experimental.qmd": {
+    "experimental.html": "f4047de8"
+  },
+  "advanced.qmd": {
+    "advanced.html": "e18d5e50"
+  },
+  "nonexperimental.qmd": {
+    "nonexperimental.html": "702b0f9e"
+  },
+  "gettingstarted.qmd": {
+    "gettingstarted.html": "16490865"
+  },
+  "methodsoverview.qmd": {
+    "methodsoverview.html": "a5668f92"
+  },
+  "software.qmd": {
+    "software.html": "70c11f32"
+  },
+  "introR.qmd": {
+    "introR.html": "54ca7bb6"
+  },
+  "sem.qmd": {
+    "sem.html": "033a1368"
+  },
+  "advancedmeasurement.qmd": {
+    "advancedmeasurement.html": "e7d0e3a3"
+  },
+  "missingdata.qmd": {
+    "missingdata.html": "2e3a2d9a"
+  }
+}

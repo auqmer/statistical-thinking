@@ -1,0 +1,14 @@
+{
+  "hash": "cfb3c440234d60f2a07d35ca318f4938",
+  "result": {
+    "markdown": "---\ntitle: \"About Me\"\n---\n\n\n\n\n### Dr. William (Hank) Murrah, Ph.D.\n\nAs an educational researcher, I focus on understanding how people learn to think. My work falls into three main areas: (1) studying the skills children need to succeed in school; (2) developing interventions that address resource disparities important for learning; (3) developing methods to understand the impact of social and contextual factors on learning, motivation, and achievement. I am co-founder of the Quantitative Methods in Educational Research learning community, which is dedicated to supporting the growth and development of graduate students. A major goal of his when working with graduate students is to provide experiences with empirical research that helps them to stand out as scholars by providing skills needed to succeed as modern educational researchers.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
