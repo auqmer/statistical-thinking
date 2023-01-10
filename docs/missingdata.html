@@ -307,6 +307,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#generate-output-1" id="toc-generate-output-1" class="nav-link" data-scroll-target="#generate-output-1">Generate Output</a></li>
   <li><a href="#wald-test" id="toc-wald-test" class="nav-link" data-scroll-target="#wald-test">Wald Test</a></li>
   </ul></li>
+  <li><a href="#regression-analysis-with-auxiliary-variables" id="toc-regression-analysis-with-auxiliary-variables" class="nav-link" data-scroll-target="#regression-analysis-with-auxiliary-variables">Regression Analysis with Auxiliary Variables’</a>
+  <ul class="collapse">
+  <li><a href="#brute-force-method" id="toc-brute-force-method" class="nav-link" data-scroll-target="#brute-force-method">Brute Force Method</a></li>
+  <li><a href="#using-auxiliary-command-in-semtools" id="toc-using-auxiliary-command-in-semtools" class="nav-link" data-scroll-target="#using-auxiliary-command-in-semtools">Using <strong>auxiliary</strong> Command in <code>semTools</code></a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -616,7 +621,7 @@ iq       1.000 1.000  1.000  0.667  0.667  1.000  1.000  1.000</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">fit.measures=</span><span class="cn">TRUE</span>, <span class="at">rsquare=</span><span class="cn">TRUE</span>, <span class="at">standardize=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Compared to what we learned in the last post, the only thing new to the <strong>summary</strong> function is the <em>rsquare=TRUE</em> argument, which, not surprisingly, results in the model R<sup>2</sup> being included in the summary output.</p>
+<p>Compared to what we learned in the last section, the only thing new to the <strong>summary</strong> function is the <em>rsquare=TRUE</em> argument, which, not surprisingly, results in the model R<sup>2</sup> being included in the summary output.</p>
 <p>I only show the <strong>Parameter estimates</strong> section here:</p>
 <pre><code>Parameter estimates:
 
@@ -664,9 +669,107 @@ $df
 
 $p.value
 [1] 0</code></pre>
-<p>There you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next post.</p>
+<p>There you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next subsection.</p>
+</section>
+</section>
+<section id="regression-analysis-with-auxiliary-variables" class="level2">
+<h2 class="anchored" data-anchor-id="regression-analysis-with-auxiliary-variables">Regression Analysis with Auxiliary Variables’</h2>
+<p>Next I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender’s website <a href="http://www.appliedmissingdata.com/book-examples.html">Applied Missing Data</a>. The purpose of these sections is to make the examples on Craig’s website, which uses Mplus, available to those who prefer to use <code>lavaan</code></p>
+<p>Mplus allows you to use auxiliary variable when using FIML to include variables that help estimate missing values with variables that are not part of the analytic model. There may be variables that are correlated with variables with missing values or variables that are predictive of missing. However, these auxiliary variable are not part of the model you wish to estimate. See Craig’s book <a href="http://www.amazon.com/Applied-Missing-Analysis-Methodology-Sciences/dp/1606236393/ref=sr_1_1?ie=UTF8&amp;qid=1402932586&amp;sr=8-1&amp;keywords=applied%20missing%20data%20analysis">Applied Missing Data Analysis</a> for more information about auxiliary variables.</p>
+<p>I attended a workshop where Craig showed us how to use the auxiliary command in Mplus to make use of auxiliary variables. However, <code>lavaan</code> does not have this option. He also showed us what he called a ‘brute force’ method to include auxiliary variables in Mplus. Here is how to do it in <code>lavaan</code>.</p>
+<section id="brute-force-method" class="level3">
+<h3 class="anchored" data-anchor-id="brute-force-method">Brute Force Method</h3>
+<p>This model is the same as used in my last section, where <strong>job performance</strong> (jobperf) is regressed on <strong>wellbeing</strong> (wbeing) and <strong>job satisfaction</strong> (jobsat). In this example these three variables are the only ones which we want to model. However, <strong>tenure</strong> and <strong>IQ</strong> are related to missingness in these variables. So, we want to use them to help us better estimate our model of interest. If we included them as predictors in the regression model, it would allow us to use all the available information in these five variables, but it would change the model substantially. We can use auxiliary variables to better estimate the original model.</p>
+<section id="import-data-1" class="level4">
+<h4 class="anchored" data-anchor-id="import-data-1">Import Data</h4>
+<p>First we import data, name the variables, and recode the -99’s to <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># employeeAuxiliary.R ---------------------------------------------------</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># R packages used</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import text file into R as a data frame.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>employee <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"path/to/file/employee.dat"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign names to variables.</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(employee) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"age"</span>, <span class="st">"tenure"</span>, <span class="st">"female"</span>, <span class="st">"wbeing"</span>, <span class="st">"jobsat"</span>, </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"jobperf"</span>, <span class="st">"turnover"</span>, <span class="st">"iq"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace all missing values (-99) with R missing value character 'NA'.</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>employee[employee<span class="sc">==-</span><span class="dv">99</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-regression-model-object-brute-force" class="level4">
+<h4 class="anchored" data-anchor-id="create-regression-model-object-brute-force">Create Regression Model Object (Brute Force)</h4>
+<p>Basically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The b1* and b2* are labels used in the Wald test below</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">jobperf ~ b1*wbeing + b2*jobsat</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">wbeing ~~ jobsat</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">wbeing ~~ turnover + iq</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">jobsat ~~ turnover + iq</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="st">jobperf ~~ turnover + iq</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">turnover ~~ iq</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fit-and-summarize-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="fit-and-summarize-the-model">Fit and Summarize the Model</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, employee, <span class="at">missing=</span><span class="st">'fiml'</span>, <span class="at">fixed.x=</span><span class="cn">FALSE</span>, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">meanstructure=</span><span class="cn">TRUE</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">fit.measures=</span><span class="cn">TRUE</span>, <span class="at">rsquare=</span>T, <span class="at">standardize=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wald-test-1" class="level4">
+<h4 class="anchored" data-anchor-id="wald-test-1">Wald test</h4>
+<p>Just as we did in the previous section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestWald</span>(fit, </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">'b1 == 0</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">             b2 == 0'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-auxiliary-command-in-semtools" class="level3">
+<h3 class="anchored" data-anchor-id="using-auxiliary-command-in-semtools">Using <strong>auxiliary</strong> Command in <code>semTools</code></h3>
+<p>First, load the <strong>semTools</strong> package</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="create-regression-model-object-1" class="level4">
+<h4 class="anchored" data-anchor-id="create-regression-model-object-1">Create Regression Model Object</h4>
+<p>Next, create a model object with just the model of interest</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">jobperf ~ wbeing + jobsat</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, create a vector of the names of the auxiliary variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>aux.vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'turnover'</span>, <span class="st">'iq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fit-the-model-2" class="level4">
+<h4 class="anchored" data-anchor-id="fit-the-model-2">Fit the Model</h4>
+<p>Then, fit the model to the new model object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(model2, employee, <span class="at">missing=</span><span class="st">'fiml'</span>, <span class="at">meanstructure=</span><span class="cn">TRUE</span>, <span class="at">fixed.x=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using this model object, fit another model that incorporates the auxiliary variables using the <strong>sem.auxiliary</strong> function from the <code>semTools</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>auxfit <span class="ot">&lt;-</span> <span class="fu">sem.auxiliary</span>(<span class="at">model=</span>fit2, <span class="at">aux=</span>aux.vars, <span class="at">data=</span>employee)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, summarize the model object that includes the auxiliary variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(auxfit, <span class="at">fit.measures=</span><span class="cn">TRUE</span>, <span class="at">rsquare=</span><span class="cn">TRUE</span>, <span class="at">standardize=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 </section>
 </section>

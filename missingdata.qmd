@@ -327,7 +327,7 @@ We are now ready to look at the results.
 summary(fit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)
 ```
 
-Compared to what we learned in the last post, the only thing new to the **summary** function is the *rsquare=TRUE* argument, which, not surprisingly, results in the model R<sup>2</sup> being included in the summary output.
+Compared to what we learned in the last section, the only thing new to the **summary** function is the *rsquare=TRUE* argument, which, not surprisingly, results in the model R<sup>2</sup> being included in the summary output.
 
 I only show the **Parameter estimates** section here:
 
@@ -389,7 +389,7 @@ There you have it! Regression with FIML in R. But, what if you have variables th
 
 ## Regression Analysis with Auxiliary Variables'
 
-Next I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender's website <a href="http://www.appliedmissingdata.com/book-examples.html">Applied Missing Data</a>. The purpose of these posts is to make the examples on Craig's website, which uses Mplus, available to those who prefer to use `lavaan`
+Next I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender's website <a href="http://www.appliedmissingdata.com/book-examples.html">Applied Missing Data</a>. The purpose of these sections is to make the examples on Craig's website, which uses Mplus, available to those who prefer to use `lavaan`
 
 Mplus allows you to use auxiliary variable when using FIML to include variables that help estimate missing values with variables that are not part of the analytic model. There may be variables that are correlated with variables with missing values or variables that are predictive of missing. However, these auxiliary variable are not part of the model you wish to estimate. See Craig's book <a href="http://www.amazon.com/Applied-Missing-Analysis-Methodology-Sciences/dp/1606236393/ref=sr_1_1?ie=UTF8&amp;qid=1402932586&amp;sr=8-1&amp;keywords=applied%20missing%20data%20analysis">Applied Missing Data Analysis</a> for more information about auxiliary variables.
 
@@ -447,7 +447,7 @@ summary(fit, fit.measures=TRUE, rsquare=T, standardize=T)
 
 #### Wald test
 
-Just as we did in the previous post.
+Just as we did in the previous section.
 
 ```{r, eval = FALSE}
 lavTestWald(fit, 
