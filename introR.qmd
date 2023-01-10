@@ -40,17 +40,29 @@ If you think you want to use the virtual lab, watch this video:
 
 ### Installing R
 
+To install R go to [www.cran.r-project.org](https://cran.r-project.org/), select the appropriate operating system and follow the instructions to install R. You must have R install to use RStudio, so do this first.
+
+Here is a video demonstrating the installation of R:
+
+[Install R](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a2f9c1c1-5c37-467f-950c-af8601316714)
 
 
 ### Installing RStudio
 
+To install RStudio go to [www.posit.co](https::/www.posit.co) and follow the links to download the free desktop version of RStudio.
+
+Here is a video demonstrating the installation of Rstudio:
+
+[Install RStudio](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=49f51bd7-88d8-45df-bf7a-af86013377b8)
+
+
 ## R as a Statistical Programming Language
 
-This chapter describes R as a statistical programming language to give you some basic concepts to understand how R works.
-Such concepts will hopefully help you organize what you are learning about R.
+To help you understand R I describe some basic concepts important to understanding R as a statistical programming language (SPL). 
+Such concepts will hopefully help you organize what you are learning.
 This is important because you will not be able to memorize all of the things you need to do to use R.
-But, having some general concepts to hang what you are learning on, should help you build a solid skill foundation.
-This explanation will be a gross oversimplification of R, but it should be a good starting model of R that you can build on as you master the language.
+But, having some general concepts should help you build a solid foundation of skills.
+This explanation will be a gross oversimplification of R, but it should be a good starting model you can build later.
 
 ```{r, echo=FALSE}
 library(knitr)
