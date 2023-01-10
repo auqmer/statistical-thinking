@@ -387,7 +387,7 @@ $p.value
 
 There you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next subsection.
 
-## Regression Analysis with Auxiliary Variables'
+## Regression Analysis with Auxiliary Variables
 
 Next I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender's website <a href="http://www.appliedmissingdata.com/book-examples.html">Applied Missing Data</a>. The purpose of these sections is to make the examples on Craig's website, which uses Mplus, available to those who prefer to use `lavaan`
 
