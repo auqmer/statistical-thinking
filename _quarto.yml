@@ -24,7 +24,10 @@ website:
         contents:
           - sem.qmd
           - advancedmeasurement.qmd
-          - missingdata.qmd
+      - section: "Modern Missing Data Methods"
+        contents:
+          - fiml.qmd
+          - multipleimputation.qmd
   navbar:
     logo: thinker_round.png
     left:

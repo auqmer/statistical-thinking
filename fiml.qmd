@@ -1,5 +1,5 @@
 ---
-title: "Missing Data Analysis"
+title: "Full Information Maximum Likelihood"
 ---
 
 ```{r setup, include=FALSE}
