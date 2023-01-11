@@ -60,7 +60,7 @@
     "href": "introR.html",
     "title": "Introduction to R and RStudio",
     "section": "",
-    "text": "Statistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics."
+    "text": "The breadth and complexity of statistical techniques continues grow, making it difficult to learn details of all methods. Historically, techniques like analysis of variance (ANOVA) and regression, developed in separate fields, and only later were these techniques integrated into what is now the called the generalized linear model. Since then, multiple additional methods have developed, including those that relax assumptions of earlier methods. Traditional software that provides menus for selecting a specific method were useful when the number of methods were a reasonable size, but the continued development of additional methods make it very difficult to fit all in a reasonably navigable set of menus. The clicking of menus also poses problems for reproducibility. Most of the developing methods, continue to fit nicely into, or are extensions of, the generalized linear model. For example, methods such as machine learning and artificial intelligence build on this generalized linear model.\nSo, while it may not be as easy to get started learning statistics with a programming language, it will pay of in the long run.\n\n\nHere are some qualities of menu based statistical programs and statistical programming languages.\n\nStatistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics. It is widely used across many fields of science, it is free to use, and you can almost always find an implementation of a method using R. For these reasons, and many more, I teach statistics using R."
   },
   {
     "objectID": "introR.html#installing-r-and-rstudio",
@@ -68,6 +68,13 @@
     "title": "Introduction to R and RStudio",
     "section": "Installing R and RStudio",
     "text": "Installing R and RStudio\nThe goal of this chapter is to get you up and running with the R statistical programming language and the RStudio integrated development environment.\nIf you are reading this because you are taking one of my courses, you must decide how you want to use R and RStudio for the course. You have two basic options:\n\nyou can install them on your own computer, or\nyou can use Auburn Universities education virtual lab (VLab), online.\n\nIf you have a computer that you will be using consistently for this course, I recommend installing R and RStudio on that computer. Both are free and will be much easier to use if you install them directly on your computer. If you have decided to install the software on your computer you can skip to the following video. Note, that you must be a student within the university, and have DUO setup to use VLab. If you think you want to use the virtual lab, watch this video:\nUsing VLab to acces R/RStudio\n\nInstalling R\nTo install R go to www.cran.r-project.org, select the appropriate operating system and follow the instructions to install R. You must have R install to use RStudio, so do this first.\nHere is a video demonstrating the installation of R:\nInstall R\n\n\nInstalling RStudio\nTo install RStudio go to www.posit.co and follow the links to download the free desktop version of RStudio.\nHere is a video demonstrating the installation of Rstudio:\nInstall RStudio"
+  },
+  {
+    "objectID": "introR.html#a-brief-tour-of-rstudio",
+    "href": "introR.html#a-brief-tour-of-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "A brief Tour of RStudio",
+    "text": "A brief Tour of RStudio\nRStudio is a powerful tool, but it can be a little intimidating at first. The video below is a quick tour of the software:\nTour of RStudio"
   },
   {
     "objectID": "introR.html#r-as-a-statistical-programming-language",

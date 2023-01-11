@@ -4,8 +4,19 @@ title: "Introduction to R and RStudio"
 
 ## Why R and Not Another Statistical Program?
 
+The breadth and complexity of statistical techniques continues grow, making it difficult to learn details of all methods. 
+Historically, techniques like analysis of variance (ANOVA) and regression, developed in separate fields, and only later were these techniques integrated into what is now the called the generalized linear model. 
+Since then, multiple additional methods have developed, including those that relax assumptions of earlier methods. 
+Traditional software that provides menus for selecting a specific method were useful when the number of methods were a reasonable size, but the continued development of additional methods make it very difficult to fit all in a reasonably navigable set of menus. 
+The clicking of menus also poses problems for reproducibility. 
+Most of the developing methods, continue to fit nicely into, or are extensions of, the generalized linear model.
+For example, methods such as machine learning and artificial intelligence build on this generalized linear model. 
+
+So, while it may not be as easy to get started learning statistics with a programming language, it will pay of in the long run. 
 
 ### Statistical Programs versus Statistical Programming Language
+
+Here are some qualities of menu based statistical programs and statistical programming languages.
 
 * Statistical Programs
     + fixed menus
@@ -19,9 +30,11 @@ title: "Introduction to R and RStudio"
 
 
 R is a statistical programming language, which means it is a programming language designed specifically to do statistics.
-
+It is widely used across many fields of science, it is free to use, and you can almost always find an implementation of a method using R.
+For these reasons, and many more, I teach statistics using R.
 
 ## Installing R and RStudio
+
 The goal of this chapter is to get  you up and running with the R statistical programming language and the RStudio integrated development environment. 
 
 If you are reading this because you are taking one of my courses, you must decide how you want to use R and RStudio for the course. 
@@ -55,6 +68,12 @@ Here is a video demonstrating the installation of Rstudio:
 
 [Install RStudio](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=49f51bd7-88d8-45df-bf7a-af86013377b8)
 
+## A brief Tour of RStudio
+
+RStudio is a powerful tool, but it can be a little intimidating at first. 
+The video below is a quick tour of the software:
+
+[Tour of RStudio](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=87fcb766-6201-4a0b-b98b-af87014c7217)
 
 ## R as a Statistical Programming Language
 
