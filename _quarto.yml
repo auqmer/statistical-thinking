@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
 website:
+  google-analytics: "G-W3PRTJPWHR"
   sidebar:
     text: "Research Methods Resources"
     style: "floating"
