@@ -55,6 +55,31 @@ If you think you want to use the virtual lab, watch this video:
 
 To install R go to [www.cran.r-project.org](https://cran.r-project.org/), select the appropriate operating system and follow the instructions to install R. You must have R install to use RStudio, so do this first.
 
+#### Installing R on Windows
+
+To install R on Windows, click on the "Download R for Windows" link on the CRAN page. 
+On the next page click "base" under the Subdirectories heading. On the next page you will see a link entitled "Download `r paste0("R-", R.Version()$major, ".", R.Version()$minor, " For Windows")`" (or the latest version).
+Click that link to download R, and install it the way you would most software on Windows. 
+Note, this page is also a good resource if you have problems intalling R.
+
+#### Installing R on Mac
+
+To install R on Mac, click the "Download R for macOS" link on the CRAN page.
+You will likely see two links toward the top of the page that look something similar to the following, one for each of the two types of processors available on macOS.
+
+M1 chip:  
+`r paste0("R-", R.Version()$major, ".", R.Version()$minor, "-arm64.pkg")`
+
+
+Intel:  
+`r paste0("R-", R.Version()$major, ".", R.Version()$minor, ".pkg")`
+
+Select the one appropriate for your computer.
+If you do not know what type of chip you have, click on the apple icon in the top left corner of your mac and the click "About this Mac".
+Under the processor heading you should see a string of characters.
+If in includes Intel you have an Intel chip, if not, you likely have an M1 chip.
+Newer computers are more likely to have M1 than older ones.
+
 Here is a video demonstrating the installation of R:
 
 [Install R](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a2f9c1c1-5c37-467f-950c-af8601316714)

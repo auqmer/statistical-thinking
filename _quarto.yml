@@ -1,11 +1,12 @@
 project:
   type: website
   output-dir: docs
-website:
-  google-analytics: 
-    tracking-id: "G-W3PRTJPWHR"
 
+website:
+  google-analytics: "G-W3PRTJPWHR"
+  favicon: "favicon512.png"
   sidebar:
+    title: "Research Methods"
     text: "Research Methods Resources"
     style: "floating"
     search: true
