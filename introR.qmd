@@ -332,15 +332,15 @@ include_graphics("images/blockstack.jpg")
 ### Grouping Homogeneous Data Types
 
 * combining scalars
-```
+```{r, eval=FALSE}
 c()
 ```
 * combining expressions
-```
+```{r, eval=FALSE}
 {}
 ```
 * combining vectors
-```
+```{r, eval=FALSE}
 cbind()
 rbind()
 ```
@@ -367,7 +367,7 @@ rbind()
 
 ### Anatomy of a Function
 
-```
+```{r, eval=FALSE}
 name <- function(arg_1, arg_2, ...) {
     expression_1
     expression_2
