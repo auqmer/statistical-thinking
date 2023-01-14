@@ -1,0 +1,19 @@
+---
+title: "Finding Data"
+---
+
+[Google Dataset Search](https://datasetsearch.research.google.com/)
+
+[ICPSR: Find Data](https://www.icpsr.umich.edu/web/pages/ICPSR/index.html)
+
+[UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/)
+
+[Kaggle](https://www.kaggle.com/datasets)
+
+[Amazon AWS datasets](https://registry.opendata.aws/)
+
+[Data Portals](https://dataportals.org/)
+
+[Open Data Monitor](https://opendatamonitor.eu/frontend/web/index.php?r=dashboard%2Findex)
+
+[Wikipedia list of Machine Learning Datasets](https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research)
