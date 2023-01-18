@@ -345,6 +345,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
   <li><a href="#functional-abstraction" id="toc-functional-abstraction" class="nav-link" data-scroll-target="#functional-abstraction">Functional Abstraction</a></li>
   <li><a href="#anatomy-of-a-function" id="toc-anatomy-of-a-function" class="nav-link" data-scroll-target="#anatomy-of-a-function">Anatomy of a Function</a></li>
   </ul></li>
+  <li><a href="#some-r-resources" id="toc-some-r-resources" class="nav-link" data-scroll-target="#some-r-resources">Some R Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -535,7 +536,7 @@ R-4.2.2.pkg</p>
 </section>
 <section id="primitive-functions" class="level3">
 <h3 class="anchored" data-anchor-id="primitive-functions">Primitive Functions</h3>
-<p>R uses functions to do all computations.</p>
+<p>R uses functions to do all computations. When you open R it loads the base R functions. You can do lots of things with the base R functions. Primitive functions are built into R. Below are some of they types of primitive functions and examples.</p>
 <section id="operators" class="level4">
 <h4 class="anchored" data-anchor-id="operators">Operators</h4>
 <ul>
@@ -576,7 +577,7 @@ R-4.2.2.pkg</p>
 <h3 class="anchored" data-anchor-id="programming-languages-are-not-forgiving">Programming Languages are Not Forgiving</h3>
 <section id="syntactically-valid-expressions" class="level4">
 <h4 class="anchored" data-anchor-id="syntactically-valid-expressions">Syntactically valid expressions</h4>
-<p>Expressions must be syntactically valid.</p>
+<p>Expressions must be syntactically valid. This means they must be organized in a way that R understands.</p>
 <ul>
 <li>syntax (form)
 <ul>
@@ -585,23 +586,18 @@ R-4.2.2.pkg</p>
 </ul></li>
 <li>programming language:
 <ul>
-<li>“hi” 5 - not syntactically valid</li>
-<li>3.2*5 - syntactically valid</li>
+<li><code>"hi" 5</code> - not syntactically valid</li>
+<li><code>3.2*5</code> - syntactically valid</li>
 </ul></li>
 </ul>
 </section>
 <section id="semantically-valid-expressions" class="level4">
 <h4 class="anchored" data-anchor-id="semantically-valid-expressions">Semantically valid expressions</h4>
+<p>R statements must also be semantically valid. semantics has to do with meaning.</p>
 <ul>
-<li>semantics - (meaning)
-<ul>
-<li>English: “I are hungry” - syntactically valid but semantic error</li>
-<li>programming language:
-<ul>
-<li>3 + “hi” - semantic error (you can’t use addition on character strings)</li>
-</ul></li>
-</ul></li>
-<li>Chomsky: “colorless green ideas sleep furiously”</li>
+<li><p>English: “I are hungry” - syntactically valid but semantic error</p></li>
+<li><p>programming language: - 3 + “hi” - semantic error (you can’t use addition on character strings)</p></li>
+<li><p>Chomsky: “colorless green ideas sleep furiously”</p></li>
 </ul>
 <p>This statement is syntactically valid, but does not make sense, so makes a semantic error.</p>
 <p><strong>In R you have to combine expressions in a way that R “understands” and this combination should be meaningful</strong>.</p>
@@ -646,9 +642,20 @@ R-4.2.2.pkg</p>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>_cat</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>1dog</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>%sales</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>Heigth<span class="sc">-</span>Inches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>Height<span class="sc">-</span>Inches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are also some names that cannot be used because they are names of primitive R objects (e.g.&nbsp;<code>if</code>, <code>for</code>, <code>else</code>, <code>in</code>). Type <code>?reserved</code> in the R console for a complete list.</p>
+<p>There are at least two names that can, but should not be used. Namely the letters (T and F) which in R are short for TRUE and FALSE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
 <p>There are at least three assignment operators, as mentioned above, but it is commonly recommended that you use <code>&lt;-</code>, because it makes clear that you are taking some expression and putting it in an object. So we would say of the assignment of <code>x &lt;- 1:10</code> that x gets the integers 1 through 10, suggesting that we are putting the integers into the object <code>x</code>.</p>
 <p>Just about any expression can be passed to a name with the assignment operator.</p>
 </section>
@@ -662,11 +669,75 @@ R-4.2.2.pkg</p>
 </section>
 <section id="complex-data-types" class="level3">
 <h3 class="anchored" data-anchor-id="complex-data-types">Complex Data Types</h3>
-<ul>
-<li>Scalars, Vectors, Matrices, and Arrays</li>
-<li>Lists</li>
-<li>Dataframes</li>
-</ul>
+<section id="scalars-vectors-matrices-and-arrays" class="level4">
+<h4 class="anchored" data-anchor-id="scalars-vectors-matrices-and-arrays">Scalars, Vectors, Matrices, and Arrays</h4>
+<p>A <strong>scalar</strong> is a single value such as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>or</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="st">"cat"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "cat"</code></pre>
+</div>
+</div>
+<p>A <strong>vector</strong> is a one-dimensional series of values. For example, the integers 1 through 5 would be a vector of length 5. In R you can create a vector as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>series1_5 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note in R there really are no scalars per se. To R a scalar is a vector of length one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>the <code>is.vector()</code> function tests if an object is a vector. The result lets us know the primitive object <code>4</code> is indeed a vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>And it’s length is one.</p>
+<p><strong>Lists</strong> are the most complex primitive type of data object. A list is a series of any type of object. For example, we might want to record some personal information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>personalInfo <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Rosalind"</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">6</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pet_names =</span> <span class="fu">c</span>(<span class="st">"Sparkles"</span>, <span class="st">"Mr. Bingo Clakerson"</span>, <span class="st">"scruffy"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">favorite_colors =</span> <span class="fu">c</span>(<span class="st">"pink"</span>, <span class="st">"purple"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Dataframes</strong> are special types of lists, that have the same number of values in each of the series in the list. We will use these very often for data analysis. Each row in a data frame is a different unit and each column is a different variables. So, in a data frame each column has the same number of rows, and each row has the same number of columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>class_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Rosalind"</span>, <span class="st">"Emily"</span>, <span class="st">"Drake"</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">46</span>, <span class="dv">48</span>, <span class="dv">44</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>class_info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name age height
+1 Rosalind   6     46
+2    Emily   7     48
+3    Drake   5     44</code></pre>
+</div>
+</div>
+<p>Notice that the data frame <code>class_info</code> is an object that contains other objects. If we want to use one of the objects inside a data frame we can do so by letting R know where to find that object using the <code>$</code> operator. So, if we wanted to see the ages in the <code>class_info</code> data frame we could do so by:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>class_info<span class="sc">$</span>age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6 7 5</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="grouping-homogeneous-data-types" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-homogeneous-data-types">Grouping Homogeneous Data Types</h3>
@@ -674,20 +745,20 @@ R-4.2.2.pkg</p>
 <li>combining scalars</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>combining expressions</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>{}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>{}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>combining vectors</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>()</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="complex-functions" class="level3">
@@ -714,17 +785,22 @@ R-4.2.2.pkg</p>
 <section id="anatomy-of-a-function" class="level3">
 <h3 class="anchored" data-anchor-id="anatomy-of-a-function">Anatomy of a Function</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    expression_1</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    expression_2</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> expression_3</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(output)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    expression_1</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    expression_2</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> expression_3</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(output)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
 </section>
+</section>
+<section id="some-r-resources" class="level2">
+<h2 class="anchored" data-anchor-id="some-r-resources">Some R Resources</h2>
+<p>Below I give links to R resources if you desire to learn more about R.</p>
+<p>A good next step is Roger Peng’s book <em>R Programming for Data Science</em>, which can be read free online at <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>. You can also download a pdf or epub of the book at <a href="https://leanpub.com/rprogramming">https://leanpub.com/rprogramming</a>. Both these links also have links to purchase a printed copy if that works better for you.</p>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -207,6 +207,10 @@ TRUE + 1
 ### Primitive Functions
 
 R uses functions to do all computations.
+When you open R it loads the base R functions.
+You can do lots of things with the base R functions.
+Primitive functions are built into R.
+Below are some of they types of primitive functions and examples.
 
 #### Operators
 
@@ -237,21 +241,24 @@ R uses functions to do all computations.
 
 #### Syntactically valid expressions
 
-Expressions must be syntactically valid. 
+Expressions must be syntactically valid.
+This means they must be organized in a way that R understands.
 
 * syntax (form)
   + English: "cat dog boy" - not syntactically valid
   + English: "cat hugs boy" - syntactically valid
   
 * programming language: 
-    + "hi" 5 - not syntactically valid
-    + 3.2*5 - syntactically valid
+    + ` "hi" 5` - not syntactically valid
+    + ` 3.2*5` - syntactically valid
 
 #### Semantically valid expressions
 
-* semantics - (meaning)
-    + English: "I are hungry" - syntactically valid but semantic error
-    + programming language: 
+R statements must also be semantically valid.
+semantics has to do with meaning.
+
+  * English: "I are hungry" - syntactically valid but semantic error
+  * programming language: 
         - 3 + "hi" - semantic error (you can't use addition on  character strings)
         
 * Chomsky:
@@ -304,10 +311,19 @@ weight.lbs
 _cat
 1dog
 %sales
-Heigth-Inches
+Height-Inches
 ```
 There are also some names that cannot be used because they are names of primitive R objects (e.g. `if`, `for`, `else`, `in`).
 Type `?reserved` in the R console for a complete list.
+
+There are at least two names that can, but should not be used.
+Namely  the letters (T and F) which in R are short for TRUE and FALSE.
+
+```{r}
+T
+F
+```
+
 
 There are at least three assignment operators, as mentioned above, but it is commonly recommended that you use `<-`, because it makes clear that you are taking some expression  and putting it in an object. 
 So we would say of the assignment of `x <- 1:10` that x gets the integers 1 through 10, suggesting that we are putting the integers into the object `x`.
@@ -323,11 +339,76 @@ include_graphics("images/blockstack.jpg")
 
 ### Complex Data Types
 
-* Scalars, Vectors, Matrices, and Arrays
-* Lists
-* Dataframes
+#### Scalars, Vectors, Matrices, and Arrays
 
+A **scalar** is a single value such as:
 
+```{r}
+1
+```
+or
+```{r}
+"cat"
+```
+
+A **vector** is a one-dimensional series of values.
+For example, the integers 1 through 5 would be a vector of length 5.
+In R you can create a vector as follows:
+
+```{r}
+series1_5 <- c(1, 2, 3, 4, 5)
+```
+
+Note in R there really are no scalars per se.
+To R a scalar is a vector of length one.
+
+```{r}
+x <- 4
+is.vector(x)
+```
+the `is.vector()` function tests if an object is a vector.
+The result lets us know the primitive object `4` is indeed a vector.
+
+```{r}
+length(x)
+```
+And it's length is one.
+
+**Lists** are the most complex primitive type of data object.
+A list is a series of any type of object.
+For example, we might want to record some personal information.
+
+```{r}
+personalInfo <- list(
+  name = "Rosalind",
+  age = 6,
+  pet_names = c("Sparkles", "Mr. Bingo Clakerson", "scruffy"),
+  favorite_colors = c("pink", "purple")
+)
+```
+
+**Dataframes** are special types of lists, that have the same number of values in each of the series in the list.
+We will use these very often for data analysis.
+Each row in a data frame is a different unit and each column is a different variables.
+So, in a data frame each column has the same number of rows, and each row has the same number of columns.
+
+```{r}
+class_info <- data.frame(
+  name = c("Rosalind", "Emily", "Drake"),
+  age = c(6, 7, 5),
+  height = c(46, 48, 44)
+  )
+
+class_info
+```
+
+Notice that the data frame `class_info` is an object that contains other objects.
+If we want to use one of the objects inside a data frame we can do so by letting R know where to find that object using the `$` operator.
+So, if we wanted to see the ages in the `class_info` data frame we could do so by:
+
+```{r}
+class_info$age
+```
 
 ### Grouping Homogeneous Data Types
 
@@ -376,3 +457,11 @@ name <- function(arg_1, arg_2, ...) {
     return(output)
 }
 ```
+
+## Some R Resources
+
+Below I give links to R resources if you desire to learn more about R.
+
+A good next step is Roger Peng's book *R Programming for Data Science*, which can be read free online at [https://bookdown.org/rdpeng/rprogdatascience/](https://bookdown.org/rdpeng/rprogdatascience/).
+You can also download a pdf or epub of the book at [https://leanpub.com/rprogramming](https://leanpub.com/rprogramming). 
+Both these links also have links to purchase a printed copy if that works better for you.

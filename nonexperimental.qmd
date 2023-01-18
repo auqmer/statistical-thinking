@@ -2,9 +2,6 @@
 title: "Non-Experimental Design and Analysis"
 ---
 
-
-
-
 ### Summer 2021 Regression in R
 
 Here I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.
