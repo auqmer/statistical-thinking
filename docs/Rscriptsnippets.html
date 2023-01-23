@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multiple Imputation</title>
+<title>R Script snippets</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -123,7 +186,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Multiple Imputation</h1>
+      <h1 class="quarto-secondary-nav-title">R Script snippets</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -181,7 +244,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Rscriptsnippets.html" class="sidebar-item-text sidebar-link">R Script snippets</a>
+  <a href="./Rscriptsnippets.html" class="sidebar-item-text sidebar-link active">R Script snippets</a>
   </div>
 </li>
       </ul>
@@ -251,7 +314,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multipleimputation.html" class="sidebar-item-text sidebar-link active">Multiple Imputation</a>
+  <a href="./multipleimputation.html" class="sidebar-item-text sidebar-link">Multiple Imputation</a>
   </div>
 </li>
       </ul>
@@ -268,7 +331,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Multiple Imputation</h1>
+<h1 class="title d-none d-lg-block">R Script snippets</h1>
 </div>
 
 
@@ -283,6 +346,22 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 
 </header>
 
+<p>One of the many features of RStudio that make R coding easier is the ability to use code snippets, which expand the general auto complete options for certain common code forms. For example, if you type <code>lib</code> in the RStudio console or script editor you will see an auto complete menu pop up with a snipped for the <code>library()</code> function. This would allow you to select this snippet and it would insert <code>library(package)</code> at the cursor, with the word “package” highlighted. You could then type in the name of the package you wanted to load and hit tab to complete the snippet. See <a href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets-in-the-RStudio-IDE">here</a> for more about RStudio snippets.</p>
+<p>You can also create your own snippets, and I want to show how to create a R code script header that I use often. This allows me to start typing the word <code>script</code> at the beginning of an R script and RStudio inserts a header template like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Title: title</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: William Murrah</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Description: description</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: Monday, 23 January 2023</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># R version: R version 4.2.2 (2022-10-31)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Project(working) directory: /Users/wmm0017/Projects/QMER/statistical-thinking</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------------------------------</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, I can insert a title, and description and I have a nice header with important information.</p>
+<p>To set this up first copy the text below:</p>
+<p>Then go to <strong>Tools</strong> in the RStudio menu, then click <strong>Global Options…</strong>, click the <strong>Code</strong> tab go to the bottom and check the Code Snippets box. Then click on Edit Snippets, scroll to the bottom. Make sure you skip a blank line at the bottom and paste the above code, making sure to replace <code>YOUR NAME</code> with your name. Tab spacing and alignment are important. The word snippet should be flush with the left margin, and all other lines should be indented two spaces. If the snippet you inserted isn’t highlighted the way the ones just above it in the Edit Snippets window, you likely have a spacing error. Once you have this entered correctly, hit Save, then Ok. Now you should be able to start typing the word script inside an R script and get the script snippet.</p>
+<p>See the following video for a demonstration:</p>
 
 
 

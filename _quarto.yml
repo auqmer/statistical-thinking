@@ -18,6 +18,8 @@ website:
         contents:
           - software.qmd
           - introR.qmd
+          - Rstudioprojects.qmd
+          - Rscriptsnippets.qmd
       - section: "Experimental"
         contents:
           - experimental.qmd
