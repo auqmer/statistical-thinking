@@ -1,10 +1,10 @@
 snippet script
-    # -----------------------------------------------------------------------
-    # Title: ${1:title}
-    # Author: ${2:William Murrah}
-    # Description: ${3:description}
-    # Created: Monday, 23 January 2023
-    # R version: R version 4.2.2 (2022-10-31)
-    # Project(working) directory: /Users/wmm0017/Projects/QMER/statistical-thinking
-    # -----------------------------------------------------------------------
-    ${0}
+  # -----------------------------------------------------------------------
+  # Title: ${1:title}
+  # Author: ${2:William Murrah}
+  # Description: ${3:description}
+  # Created: Monday, 23 January 2023
+  # R version: R version 4.2.2 (2022-10-31)
+  # Project(working) directory: /Users/wmm0017/Projects/QMER/statistical-thinking
+  # -----------------------------------------------------------------------
+  ${0}

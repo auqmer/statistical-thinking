@@ -27,6 +27,7 @@ Then, I can insert a title, and description and I have a nice header with import
 
 To set this up first copy the text below:
 
+[R snippit code](https://raw.githubusercontent.com/auqmer/statistical-thinking/main/code/snippet.txt)
 
 
 Then go to **Tools** in the RStudio menu, then click **Global Options...**, click the  **Code** tab go to the bottom and check the Code Snippets box.
