@@ -11,15 +11,16 @@ website:
     style: "floating"
     search: true
     contents:
-      - section: "Getting Started"
-        contents: 
-          - methodsoverview.qmd
-      - section: "Statistical Software"
+      - section: "Statistical Software"          
         contents:
           - software.qmd
           - introR.qmd
           - Rstudioprojects.qmd
-          - Rscriptsnippets.qmd
+          - Rscriptsnippets.qmd    
+      - section: "Getting Started"
+        contents: 
+          - methodsoverview.qmd
+          - sampdistinf.qmd
       - section: "Experimental"
         contents:
           - experimental.qmd

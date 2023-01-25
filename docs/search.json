@@ -7,25 +7,242 @@
     "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
   },
   {
-    "objectID": "methodsoverview.html#quantitative-methods",
-    "href": "methodsoverview.html#quantitative-methods",
-    "title": "Overview of Research Methods",
-    "section": "Quantitative Methods",
-    "text": "Quantitative Methods"
+    "objectID": "methodsoverview.html#philosophy-of-science",
+    "href": "methodsoverview.html#philosophy-of-science",
+    "title": "A Modeling Approach",
+    "section": "Philosophy of Science",
+    "text": "Philosophy of Science\nI define reality as consisting of all that exists. This includes not only what we typically think of as physical stuff – like trees, houses, cars, and people – but also things like ideas, beliefs, feelings, etc. You might consider me a physical monist, in that I do not make distinctions between physical and “non-physical” objects. I think if things like ideas as emergent properties of our brains functioning within many layers of context. This belief has a few implications worth noting. First, it assumes that we all live in the same reality – what I do can have an impact on you and what you do can impact me.\nHowever, I am convinced that this reality is extremely complicated. In fact, I am skeptical that we can ever fully understand reality (and by we I mean as a species, much less as individuals).\nDoes this mean we cannot understand reality at all? I don’t think so. I don’t fully understand how my car works, but I do have basic ideas that allow me to problem solve issues such as when it won’t start. When we can’t fully understand something, we are left to build an model of that process. I will talk more about models below, but for now think of a model as an oversimplified representation of a much more complex system. We all create models of reality, and the models we create depend on our values, knowledge, experiences, context, and goals, to name only a few.\nSo, as I see it, modeling is not an option, we all must do it. Furthermore, the oversimplification of reality is not a limitation of science, but is necessary for its progress."
   },
   {
-    "objectID": "methodsoverview.html#qualitative-methods",
-    "href": "methodsoverview.html#qualitative-methods",
-    "title": "Overview of Research Methods",
-    "section": "Qualitative Methods",
-    "text": "Qualitative Methods"
+    "objectID": "methodsoverview.html#the-modeling-approach",
+    "href": "methodsoverview.html#the-modeling-approach",
+    "title": "A Modeling Approach",
+    "section": "The Modeling Approach",
+    "text": "The Modeling Approach\nA great introduction to the modeling approach is an article by Rodgers (2010). I highly recommend reading this article, as it give a great overview of the limitations of strict hypothesis testing, and the advantages of using a modeling approach.\n\nWhat are Scientific Models?\n\nModels are explicit statements about the processes that give rise to observed data. - Little (2013)\n\n\nA mathematical model is a set of assumptions together with implications drawn from them by mathematical reasoning. - Neimark and Estes (1967 quoted in Rodgers, 2010)\n\n\n\nGoals of science\nOften, the three goals of science are stated:\n\nDescribe\nPredict\nExplain\n\nModels are important for all these goals.\nModels are representations of how our key constructs are related. They can be narrative, graphical, or mathematical. Models match reality in some way, and are simpler than reality.\n\n\nWhy do we need models?\nIf we acknowledge the .red[complexity] and .red[interrelatedness] of reality, and our goal is the perfect model, we soon realize To model anything, we would have to model everything!\nAll models are wrong, but some are useful -George Box\n\n\nOccam’s Razor\n\nWe need to balance explanatory power (reducing error) with parsimony (simplicity)\nWe want to constantly ask: “What do we gain by adding complexity?”\nProportion Reduction in Error (PRE)\n\n\n\nScientific Models are NOT Oracles\n\n\n\nScientific Models are Golems"
   },
   {
-    "objectID": "methodsoverview.html#action-research",
-    "href": "methodsoverview.html#action-research",
-    "title": "Overview of Research Methods",
-    "section": "Action Research",
-    "text": "Action Research"
+    "objectID": "methodsoverview.html#simple-models-errors-and-parameters",
+    "href": "methodsoverview.html#simple-models-errors-and-parameters",
+    "title": "A Modeling Approach",
+    "section": "Simple Models: Errors and Parameters",
+    "text": "Simple Models: Errors and Parameters\n\nThe Basic Model\n\nNarrative, Numeric, and Graphical Models\nLet’s start with a simple narrative model:\n“Peer pressure causes smoking.”\nWe can start to convert this to other forms of model. It is often helpful to take our narrative model an turn it into a graphical model.\nHere is a simple graphical model of our example model:\n\n\n\n\n\n\nHere is a generalized graphical representation of our model.\n\n\n\n\n\n\nHere is the general form of a numerical model (an equation) with the three main components: \\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] where,\n\nDATA = What we want to understand or explain\nMODEL = A simpler representation of the DATA\nERROR = Amount by which the model fails to explain the data\n\nWhat is another term for error?\nWe could take our graphical model and turn it into an equation:\n\\[\n\\text{Smoking} = \\text{Friend Smokes} + \\text{ERROR}\n\\]\n\n\n\nA Simple Model\n\nA mathematical representation\n\\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] Population model:\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\nSample model:\n\\[\ny_i = b_0 + e_i\n\\]"
+  },
+  {
+    "objectID": "methodsoverview.html#describing-error",
+    "href": "methodsoverview.html#describing-error",
+    "title": "A Modeling Approach",
+    "section": "Describing Error",
+    "text": "Describing Error\n\nSimplest Model\n\nZero Parameters\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\nWhere \\(B_0\\) is some a priori value, not based on these DATA, but provided by some theoretical consideration\n\ne.g. temperature = 98.6 degrees\nprobability if coin is fair = .50\nchange over time = 0\n\nNot common in behavioral sciences\n\n\n\nSimple Model\n\nOne Parameter\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] Where \\(\\beta_0\\) is an unknown value. The MODEL makes a constant prediction for all cases, but the value of that prediction is to be estimated from the data, so to make ERROR as small as possible.\nThe estimated MODEL is\n\\[\nY_i = b_0 + e_i\n\\]\nWhere \\(b_0\\) is the actual prediction made for each case, estimated from the data, minimizing ERROR.\nThis estimated MODEL can also be written as\n\\[\n\\hat{Y_i} = b_0\n\\]\nNote the difference between the two errors in the parameter model ( \\(\\varepsilon_i\\) ) and the estimated model ( \\(e_i\\) ). The latter is an estimate of the former, just as \\(b_0\\) is an estimate of \\(\\beta_0\\).\n\\[\n\\varepsilon_i = Y_i - \\beta_0\n\\]\n\\[\ne_i = Y_i - b_0 = Y_i - \\hat{Y_i}\n\\]\n\n\n\nMeasures of Central Tendency and Dispersion\n\nWant to find best estimate of \\(\\beta_0\\) that minimizes not individual \\(e_i\\)’s but some aggregate measure of error.\nDifferent ways of aggregating errors lead to different estimates - alternative measures of Central Tendency\nDifferent ways of aggregating errors lead to different estimates of “Typical Error” - alternative measures of Spread\nThis is “descriptive statistics”\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Errors? - Why not?\nMinimize Sum of Absolute Errors (SAE). - best estimate of \\(\\beta_0\\) is the Median\nWhat happens in presence of extreme outlier?\nAbsolute Errors and Outliers\nMedian Absolute Deviation (MAD) as typical measure of spread (median value of \\(e_i\\) given minimization of SAE)\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Squared Errors. Why?\n\nbest estimate of \\(\\beta_0\\) is the Mean\n\nWhat happens in presence of outlier?\n\nSquared Errors and Outliers -Mean Square Error (Variance) as typical measure of spread (mean value of \\(e_i^2\\) given minimization of SSE)\n\n\n\n\nFormalities of Estimation\n\nSimple Model\nDATA = MODEL + ERROR\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] \\[\nY_i = b_0 + e_i\n\\] \\[\n\\hat{Y_i} = b_0\n\\] \\[\nY_i = \\hat{Y_i} + e_i\n\\]\n\\[\ne_i = Y_i - \\hat{Y_i}\n\\]\n\nAggregate Error: Sum of Absolute Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} |e_i| = \\sum_{i=1}^{n}|Y_i - \\hat{Y_i} | = \\sum_{i=1}^{n} | Y_i - b_0|\\]\n\nMinimization estimates \\(\\beta_0\\) as the Median\nMeasure of Spread: Median Absolute Error or Median Absolute Deviation (MAD)\n\n\n\nAggregate Error: Sum of Squared Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} e_i^2 = \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2 = \\sum_{i=1}^{n} (Y_i - b_0)^2 = \\sum_{i=1}^{n} (Y_i - \\bar{Y})^2\\]\n\nMinimization estimates \\(\\beta_0\\) as the Mean\nMeasure of Spread: Mean Squared Error (Variance)\n\n\n\n\n\nMean Squared Error Estimation\n\nRecall that if one estimated \\(n\\) parameters, ERROR would be zero.\n\nIn computation of the MSE, we want to take into account the number of parameters estimated (and the number of additional parameters that could be estimated).\nGeneral formula for MSE:\n\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-p}\\]\n\nSquare root known as the “root mean square error”\n\n\n\nMean Squared Error Estimation\n\nIn case of simple one-parameter model, \\(p = 1\\) and\n\n\\[\\hat{Y_i} = b_0 = \\bar{Y}\\]\nAccordingly,\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-1} = s^2\\]\n\nAnd root mean square error is called the standard deviation\nSo variance is special case of MSE; MSE as unbiased measure of spread (or variance) of errors\nUsual notion: descriptive statistics\nPick a measure of central tendency (mean, median, mode)\nPick a measure of spread\nNO - pick a measure of aggregate error, estimates of \\(\\beta_0\\) follow from that, along with estimates of typical error."
+  },
+  {
+    "objectID": "methodsoverview.html#an-example",
+    "href": "methodsoverview.html#an-example",
+    "title": "A Modeling Approach",
+    "section": "An Example",
+    "text": "An Example\n\n\n       vars  n  mean   sd median trimmed  mad  min max range skew kurtosis   se\nrepht     1 12 67.83 3.66  68.00   67.80 2.97 61.0  75  14.0 0.10    -0.51 1.06\nheight    2 12 68.58 3.37  68.25   68.55 2.59 62.5  75  12.5 0.13    -0.72 0.97\n\n\n           repht    height\nrepht  1.0000000 0.9804921\nheight 0.9804921 1.0000000\n\n\n\nDistribution of measured heights"
+  },
+  {
+    "objectID": "sampdistinf.html",
+    "href": "sampdistinf.html",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "",
+    "text": "R packages used in this chapter:"
+  },
+  {
+    "objectID": "sampdistinf.html#sampling-distributions-of-error",
+    "href": "sampdistinf.html#sampling-distributions-of-error",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Sampling Distributions of Error",
+    "text": "Sampling Distributions of Error\n\nload(\"data/ermahtSP20.Rdata\") # This file can be found on Canvas\nerma <- ermahtSP20\nerma$e <- erma$height - mean(erma$height)\nerma$Eps <- erma$height - 67"
+  },
+  {
+    "objectID": "sampdistinf.html#adult-heights-from-nhanes-study",
+    "href": "sampdistinf.html#adult-heights-from-nhanes-study",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Adult Heights from NHANES Study",
+    "text": "Adult Heights from NHANES Study\n\nlibrary(psych)\nlibrary(NHANES)\ndata(\"NHANES\")\nheight_in <- NHANES[NHANES$Age >= 21, ]$Height*.393701\ndescribe(height_in, fast = TRUE)\n\n   vars    n  mean   sd   min  max range   se\nX1    1 7041 66.45 3.98 52.95 78.9 25.94 0.05\n\n\n\\(\\mu =\\) 67\n\\(\\sigma =\\) 4\n\nprint(erma[ ,c(1,3)])\n\n   id height\n1  ek   65.0\n2  lz   69.0\n3  lk   67.5\n4  bw   75.0\n5  kb   62.5\n6  dg   68.0\n7  cs   72.0\n8  ao   67.0\n9  wb   70.0\n10 tm   72.0\n11 nb   66.5\n12 pm   68.5\n\n\n\ndescribe(erma$height, fast = TRUE)\n\n   vars  n  mean   sd  min max range   se\nX1    1 12 68.58 3.37 62.5  75  12.5 0.97\n\n\n\nload(\"data/ermahtSP20.Rdata\")\n\nmean(ermahtSP20$height)\n\n[1] 68.58333\n\nermahtSP20$height\n\n [1] 65.0 69.0 67.5 75.0 62.5 68.0 72.0 67.0 70.0 72.0 66.5 68.5\n\nround(ermahtSP20$height - mean(ermahtSP20$height),1)\n\n [1] -3.6  0.4 -1.1  6.4 -6.1 -0.6  3.4 -1.6  1.4  3.4 -2.1 -0.1"
+  },
+  {
+    "objectID": "sampdistinf.html#demonstration-of-sampling-distrubtions",
+    "href": "sampdistinf.html#demonstration-of-sampling-distrubtions",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Demonstration of sampling distrubtions",
+    "text": "Demonstration of sampling distrubtions\nTo play around with sampling distributions, go to the following website, scroll down the page to the section called Sampling Distributions and Central Limits Theorem and click on the image called “Sampling Distribution of the Sample Mean (Continuous Population)”\nhttps://artofstat.com/web-apps"
+  },
+  {
+    "objectID": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
+    "href": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Standard Error of the Mean (SEM or S.E.)",
+    "text": "Standard Error of the Mean (SEM or S.E.)\n\nPopulation formula:\n\\[\\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}}\\]\n\n\nSample formula:\n\\[s_{\\bar{x}} = \\frac{s}{\\sqrt{n}}\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#properties-of-estimators",
+    "href": "sampdistinf.html#properties-of-estimators",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Properties of Estimators",
+    "text": "Properties of Estimators\n\nUnbiased: The peak of the sampling distribution equals the parameter value\nEfficient: Most of the estimates are close to the parameter\nConsistency: The more observations the closer the estimates are to the parameter, or said differently, the bigger the sample size the narrower the sampling distribution"
+  },
+  {
+    "objectID": "sampdistinf.html#assumptions-of-linear-models",
+    "href": "sampdistinf.html#assumptions-of-linear-models",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Assumptions of Linear Models",
+    "text": "Assumptions of Linear Models\n\nNormality\nIndependence of Errors\nIdentical Distribution of Errors/Homogeneity of Variance\nUnbiased Errors"
+  },
+  {
+    "objectID": "sampdistinf.html#normality",
+    "href": "sampdistinf.html#normality",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Normality",
+    "text": "Normality\n\nWe assume the ERRORS are normally distributed\nThis is reasonable because:\n\nabundance of empirical evidence of normal errors\npossible to transform variables to have normal errors\nCentral Limits Theorem\n\nCentral Limits Theorem - sampling distributions of the sample mean approximate the normal distribution regardless of the shape of the population distribution.\nThe larger the number of components that go into an average the better this approximation (think unmeasured factors and sample size)."
+  },
+  {
+    "objectID": "sampdistinf.html#independence-of-errors",
+    "href": "sampdistinf.html#independence-of-errors",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Independence of Errors",
+    "text": "Independence of Errors\n\nKnowing one observation’s error tells us nothing about another observation’s error\nViolation Examples\n\nPositive: Couple’s political attitudes\nNegative: Couple’s housework estimates\n\nCare whenever observations are linked in any way"
+  },
+  {
+    "objectID": "sampdistinf.html#identical-distribution-of-errors",
+    "href": "sampdistinf.html#identical-distribution-of-errors",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Identical Distribution of Errors",
+    "text": "Identical Distribution of Errors\n\nEqual variances for all groups\n\nsize of error not related to size of model prediction\nViolations: counts, reaction times, money\n\nHomogeneity of Variance"
+  },
+  {
+    "objectID": "sampdistinf.html#unbiased-error",
+    "href": "sampdistinf.html#unbiased-error",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Unbiased Error",
+    "text": "Unbiased Error\n\nMean of Errors = 0\nOtherwise just becomes part of MODEL\nA researcher issue rather than a data analysis or statistical issue\nSo YOU take care to ensure no bias"
+  },
+  {
+    "objectID": "sampdistinf.html#estimator-for-sigma2",
+    "href": "sampdistinf.html#estimator-for-sigma2",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Estimator for \\(\\sigma^2\\)",
+    "text": "Estimator for \\(\\sigma^2\\)\n\\[\n\\hat{\\sigma}^2 = s^2 = \\frac{SSE}{n-1} = \\sum\\frac{(Y_i - \\bar{Y})^2}{n - 1}\n\\] \\[\n\\hat{\\sigma}^2 = MSE = \\frac{SSE}{n-p} = \\sum\\frac{(Y_i - \\hat{Y_i})^2}{n - p}\n\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#why-n-p-instead-of-n",
+    "href": "sampdistinf.html#why-n-p-instead-of-n",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Why \\(n-p\\) instead of \\(n\\)?",
+    "text": "Why \\(n-p\\) instead of \\(n\\)?\n\\[\nDATA = MODEL + ERROR\n\\]\n\\[\nn = p +(n-p)\n\\]\n\nOnly \\((n-p)\\) independent pieces of information left in ERROR"
+  },
+  {
+    "objectID": "sampdistinf.html#a-problems-in-science",
+    "href": "sampdistinf.html#a-problems-in-science",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "A Problems in Science",
+    "text": "A Problems in Science\n\ninclude_graphics(\"images/manylabs3.png\")"
+  },
+  {
+    "objectID": "sampdistinf.html#overview",
+    "href": "sampdistinf.html#overview",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Overview",
+    "text": "Overview\n\nHypothesis Testing and p-values\nModeling\nLinear Regression"
+  },
+  {
+    "objectID": "sampdistinf.html#hypotheses",
+    "href": "sampdistinf.html#hypotheses",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Hypotheses",
+    "text": "Hypotheses\n\nAn hypothesis is a testable statement about a population.\nIt takes the form of a prediction about the value or range of values a parameter takes."
+  },
+  {
+    "objectID": "sampdistinf.html#the-p-value",
+    "href": "sampdistinf.html#the-p-value",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "The p-value",
+    "text": "The p-value\nA p-value is the probability of obtaining data as extreme or more extreme as obtained in the sample given that the null hypothesis is true.\np-value :\n\\[\np = P(D | H_0)\n\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#observational-learning-albert-bandura-1965",
+    "href": "sampdistinf.html#observational-learning-albert-bandura-1965",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Observational Learning Albert Bandura (1965)",
+    "text": "Observational Learning Albert Bandura (1965)\n\nInfluence of Models’ Reinforcement Contingencies on the acquisition of Imitative Responses\nIn order to test the hypothesis that reinforcements administered to a model influence the performance but not the acquisition of matching responses, groups of children observed an aggressive film-mediated model either rewarded, punished, or left without consequences. A postexposure test revealed that response consequences to the model had produced differential amounts of imitative behavior. Children in the model-punished condition performed significantly fewer matching responses than children in both the model-rewarded and the no-consequences groups. Children in all 3 treatment conditions were then offered attractive reinforcers contingent on their reproducing the model’s aggressive responses. The introduction of positive incentives completely wiped out the previously observed performance differences, revealing an equivalent amount of learning among children in the model-rewarded, model-punished, and the no-consequences conditions."
+  },
+  {
+    "objectID": "sampdistinf.html#hypotheses-1",
+    "href": "sampdistinf.html#hypotheses-1",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Hypotheses",
+    "text": "Hypotheses\n\\(H_0\\): ???\n\n\\(H_1\\): It was predicted that reinforcing consequences to the model would result in significant differences in the performance of imitative behavior with the model-rewarded group displaying the highest number of different classes of matching responses, followed by the no-consequences and the model-punished groups, respectively.\n\\(H_2\\): In accordance with previous findings (Bandura et al., 1961, 1963a) it was also expected that boys would perform significantly more imitative aggression than girls.\n\\(H_3\\): It was predicted, however, that the introduction of positive incentives would wipe out both reinforcement-produced and sex-linked performance differences, revealing an equivalent amount of learning among children in the three treatment conditions.\n\n\nFigure 1. Mean number of different matching responses reproduced by children as a function of positive incentives and the model’s reinforcement contingencies.\n\ninclude_graphics(\"images/banduraBarplot.png\")"
+  },
+  {
+    "objectID": "sampdistinf.html#table-1",
+    "href": "sampdistinf.html#table-1",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Table 1",
+    "text": "Table 1\n\nANOVA Results for Performance Differences\n\n\n\nSource\ndf\nMS\nF\n\n\n\n\nTreatment (T)\n2\n1.21\n3.27*\n\n\nSex (S)\n1\n4.87\n13.16**\n\n\nT X S\n2\n.12\n<1\n\n\nWithin groups\n60\n.37\n\n\n\n\nNote: * p < .05; ** p < .001."
+  },
+  {
+    "objectID": "sampdistinf.html#table-2",
+    "href": "sampdistinf.html#table-2",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Table 2",
+    "text": "Table 2\n\nComparison of Pairs of Means Between Treatment Conditions (t values)\n\n\n\n\n\n\n\n\n\nPerformance\nReward vs. punishment\nReward vs none\nPunishment vs none\n\n\n\n\nAll\n2.20**\n0.55\n2.25**\n\n\nBoys\n1.05\n0.19\n1.24\n\n\nGirls\n2.13**\n0.12\n2.02*"
+  },
+  {
+    "objectID": "sampdistinf.html#what-does-the-p-value-tell-us",
+    "href": "sampdistinf.html#what-does-the-p-value-tell-us",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "What does the \\(p\\)-value Tell Us?",
+    "text": "What does the \\(p\\)-value Tell Us?\n\nthe probability of obtaining a \\(F\\)-value as extreme, or more extreme as 3.27, assuming the null hypothesis is true\nSaid differently, in a world in which different reinforcement contingencies have exacly no effect on the number of aggressive imitations, a \\(F\\)-score of 3.27 or greater would occur less than once in one thousand times in a very large number of randoms samples of size 66."
+  },
+  {
+    "objectID": "sampdistinf.html#what-do-p-values-not-tell-us",
+    "href": "sampdistinf.html#what-do-p-values-not-tell-us",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "What do \\(p\\)-values NOT tell Us?",
+    "text": "What do \\(p\\)-values NOT tell Us?\nRecall:\n\\[\np(D | H_0) \\ne p(H_0 | D)\n\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#lottery",
+    "href": "sampdistinf.html#lottery",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Lottery",
+    "text": "Lottery\nW = winning the lottery\nT = Have a valid lottery ticket\n\\[\np(W|T) \\ne p(T|W)\n\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#lottery-probabilities-in-perspective",
+    "href": "sampdistinf.html#lottery-probabilities-in-perspective",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Lottery probabilities in Perspective",
+    "text": "Lottery probabilities in Perspective\n\n\nThe probability of winning the MegaMillions Georgia Lottery was \\(3.03 \\times 10^{-9}\\) on 1/27/2019.\nThe probability of being struck by lightening in your lifetime is \\(\\frac{1}{3000}\\) ( \\(3.33 \\times 10^{-4}\\) ).\nThe probability of being struck by lightening THIS YEAR is \\(1.43 \\times 10^{-6}\\)."
+  },
+  {
+    "objectID": "sampdistinf.html#cognitive-errors-in-significance-testing",
+    "href": "sampdistinf.html#cognitive-errors-in-significance-testing",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Cognitive Errors in Significance Testing",
+    "text": "Cognitive Errors in Significance Testing\n\nFalse belief that \\(p\\) is the probability that a result happened by chance.\nFalse belief that rejecting the null means the likelihood that this decision was wrong is less than 5%.\nFalse belief that a \\(p\\) value give the probability that the null hypothesis is true.\nFalse belief that \\(1-p\\) is the probability that the alternative hypothesis is true.\nFalse belief that \\(1-p\\) is the probability of finding the same result in another sample."
+  },
+  {
+    "objectID": "sampdistinf.html#model-comparison",
+    "href": "sampdistinf.html#model-comparison",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Model Comparison",
+    "text": "Model Comparison\n\nModel A:\n\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\n\nModel C:\n\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\n\\[\nH_0: \\beta_0 = B_0\n\\]"
+  },
+  {
+    "objectID": "sampdistinf.html#power",
+    "href": "sampdistinf.html#power",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Power",
+    "text": "Power\nhttp://www.artofstat.com/webapps.html"
+  },
+  {
+    "objectID": "sampdistinf.html#punchline",
+    "href": "sampdistinf.html#punchline",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Punchline",
+    "text": "Punchline\n\nAll statistical inference for model comparisons is the same!\nCompute PRE, F* from SSE(A) and SSE(C)\nIf PRE & F* surprising, then reject Model C\nAlways consider Power\nNow let’s build some interesting MODELS (Golems)!"
   },
   {
     "objectID": "notebooks.html",

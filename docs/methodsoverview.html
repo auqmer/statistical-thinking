@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overview of Research Methods</title>
+<title>A Modeling Approach</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,25 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -68,7 +87,12 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 </script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -123,7 +147,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Overview of Research Methods</h1>
+      <h1 class="quarto-secondary-nav-title">A Modeling Approach</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -143,27 +167,12 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting Started</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Statistical Software</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./methodsoverview.html" class="sidebar-item-text sidebar-link active">Overview of Research Methods</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Statistical Software</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./software.html" class="sidebar-item-text sidebar-link">Software for Research</a>
@@ -182,6 +191,26 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Rscriptsnippets.html" class="sidebar-item-text sidebar-link">R Script snippets</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Getting Started</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./methodsoverview.html" class="sidebar-item-text sidebar-link active">A Modeling Approach</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sampdistinf.html" class="sidebar-item-text sidebar-link">Sampling Distributions and Statistical Inference</a>
   </div>
 </li>
       </ul>
@@ -266,9 +295,35 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#philosophy-of-science" id="toc-philosophy-of-science" class="nav-link active" data-scroll-target="#philosophy-of-science">Philosophy of Science</a></li>
-  <li><a href="#quantitative-methods" id="toc-quantitative-methods" class="nav-link" data-scroll-target="#quantitative-methods">Quantitative Methods</a></li>
-  <li><a href="#qualitative-methods" id="toc-qualitative-methods" class="nav-link" data-scroll-target="#qualitative-methods">Qualitative Methods</a></li>
-  <li><a href="#action-research" id="toc-action-research" class="nav-link" data-scroll-target="#action-research">Action Research</a></li>
+  <li><a href="#the-modeling-approach" id="toc-the-modeling-approach" class="nav-link" data-scroll-target="#the-modeling-approach">The Modeling Approach</a>
+  <ul class="collapse">
+  <li><a href="#what-are-scientific-models" id="toc-what-are-scientific-models" class="nav-link" data-scroll-target="#what-are-scientific-models">What are Scientific Models?</a></li>
+  <li><a href="#goals-of-science" id="toc-goals-of-science" class="nav-link" data-scroll-target="#goals-of-science">Goals of science</a></li>
+  <li><a href="#why-do-we-need-models" id="toc-why-do-we-need-models" class="nav-link" data-scroll-target="#why-do-we-need-models">Why do we need models?</a></li>
+  <li><a href="#occams-razor" id="toc-occams-razor" class="nav-link" data-scroll-target="#occams-razor">Occam’s Razor</a></li>
+  <li><a href="#scientific-models-are-not-oracles" id="toc-scientific-models-are-not-oracles" class="nav-link" data-scroll-target="#scientific-models-are-not-oracles">Scientific Models are NOT Oracles</a></li>
+  <li><a href="#scientific-models-are-golems" id="toc-scientific-models-are-golems" class="nav-link" data-scroll-target="#scientific-models-are-golems">Scientific Models are Golems</a></li>
+  </ul></li>
+  <li><a href="#simple-models-errors-and-parameters" id="toc-simple-models-errors-and-parameters" class="nav-link" data-scroll-target="#simple-models-errors-and-parameters">Simple Models: Errors and Parameters</a>
+  <ul class="collapse">
+  <li><a href="#the-basic-model" id="toc-the-basic-model" class="nav-link" data-scroll-target="#the-basic-model">The Basic Model</a></li>
+  <li><a href="#a-simple-model" id="toc-a-simple-model" class="nav-link" data-scroll-target="#a-simple-model">A Simple Model</a></li>
+  </ul></li>
+  <li><a href="#describing-error" id="toc-describing-error" class="nav-link" data-scroll-target="#describing-error">Describing Error</a>
+  <ul class="collapse">
+  <li><a href="#simplest-model" id="toc-simplest-model" class="nav-link" data-scroll-target="#simplest-model">Simplest Model</a></li>
+  <li><a href="#simple-model" id="toc-simple-model" class="nav-link" data-scroll-target="#simple-model">Simple Model</a></li>
+  <li><a href="#measures-of-central-tendency-and-dispersion" id="toc-measures-of-central-tendency-and-dispersion" class="nav-link" data-scroll-target="#measures-of-central-tendency-and-dispersion">Measures of Central Tendency and Dispersion</a></li>
+  <li><a href="#measures-of-central-tendency-and-dispersion-1" id="toc-measures-of-central-tendency-and-dispersion-1" class="nav-link" data-scroll-target="#measures-of-central-tendency-and-dispersion-1">Measures of Central Tendency and Dispersion</a></li>
+  <li><a href="#measures-of-central-tendency-and-dispersion-2" id="toc-measures-of-central-tendency-and-dispersion-2" class="nav-link" data-scroll-target="#measures-of-central-tendency-and-dispersion-2">Measures of Central Tendency and Dispersion</a></li>
+  <li><a href="#formalities-of-estimation" id="toc-formalities-of-estimation" class="nav-link" data-scroll-target="#formalities-of-estimation">Formalities of Estimation</a></li>
+  <li><a href="#mean-squared-error-estimation" id="toc-mean-squared-error-estimation" class="nav-link" data-scroll-target="#mean-squared-error-estimation">Mean Squared Error Estimation</a></li>
+  <li><a href="#mean-squared-error-estimation-1" id="toc-mean-squared-error-estimation-1" class="nav-link" data-scroll-target="#mean-squared-error-estimation-1">Mean Squared Error Estimation</a></li>
+  </ul></li>
+  <li><a href="#an-example" id="toc-an-example" class="nav-link" data-scroll-target="#an-example">An Example</a>
+  <ul class="collapse">
+  <li><a href="#distribution-of-measured-heights" id="toc-distribution-of-measured-heights" class="nav-link" data-scroll-target="#distribution-of-measured-heights">Distribution of measured heights</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -277,7 +332,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Overview of Research Methods</h1>
+<h1 class="title d-none d-lg-block">A Modeling Approach</h1>
 </div>
 
 
@@ -292,22 +347,298 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 
 </header>
 
+<div class="cell">
+
+</div>
 <section id="philosophy-of-science" class="level2">
 <h2 class="anchored" data-anchor-id="philosophy-of-science">Philosophy of Science</h2>
+<p>I define reality as consisting of all that exists. This includes not only what we typically think of as physical stuff – like trees, houses, cars, and people – but also things like ideas, beliefs, feelings, etc. You might consider me a physical monist, in that I do not make distinctions between physical and “non-physical” objects. I think if things like ideas as emergent properties of our brains functioning within many layers of context. This belief has a few implications worth noting. First, it assumes that we all live in the same reality – what I do can have an impact on you and what you do can impact me.</p>
+<p>However, I am convinced that this reality is extremely complicated. In fact, I am skeptical that we can ever fully understand reality (and by we I mean as a species, much less as individuals).</p>
+<p>Does this mean we cannot understand reality at all? I don’t think so. I don’t fully understand how my car works, but I do have basic ideas that allow me to problem solve issues such as when it won’t start. When we can’t fully understand something, we are left to build an model of that process. I will talk more about models below, but for now think of a model as an oversimplified representation of a much more complex system. We all create models of reality, and the models we create depend on our values, knowledge, experiences, context, and goals, to name only a few.</p>
+<p>So, as I see it, modeling is not an option, we all must do it. Furthermore, the oversimplification of reality is not a limitation of science, but is necessary for its progress.</p>
 </section>
-<section id="quantitative-methods" class="level2">
-<h2 class="anchored" data-anchor-id="quantitative-methods">Quantitative Methods</h2>
+<section id="the-modeling-approach" class="level2">
+<h2 class="anchored" data-anchor-id="the-modeling-approach">The Modeling Approach</h2>
+<p>A great introduction to the modeling approach is an article by <span class="citation" data-cites="rodgers2010">Rodgers (<a href="#ref-rodgers2010" role="doc-biblioref">2010</a>)</span>. I highly recommend reading this article, as it give a great overview of the limitations of strict hypothesis testing, and the advantages of using a modeling approach.</p>
+<section id="what-are-scientific-models" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-scientific-models">What are Scientific Models?</h3>
+<blockquote class="blockquote">
+<p>Models are explicit statements about the processes that give rise to observed data. - <em>Little</em> (2013)</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>A mathematical model is a set of assumptions together with implications drawn from them by mathematical reasoning. - <em>Neimark and Estes</em> (1967 quoted in Rodgers, 2010)</p>
+</blockquote>
 </section>
-<section id="qualitative-methods" class="level2">
-<h2 class="anchored" data-anchor-id="qualitative-methods">Qualitative Methods</h2>
+<section id="goals-of-science" class="level3">
+<h3 class="anchored" data-anchor-id="goals-of-science">Goals of science</h3>
+<p>Often, the three goals of science are stated:</p>
+<ol type="1">
+<li>Describe</li>
+<li>Predict</li>
+<li>Explain</li>
+</ol>
+<p>Models are important for all these goals.</p>
+<p>Models are representations of how our key constructs are related. They can be narrative, graphical, or mathematical. Models match reality in some way, and are simpler than reality.</p>
 </section>
-<section id="action-research" class="level2">
-<h2 class="anchored" data-anchor-id="action-research">Action Research</h2>
+<section id="why-do-we-need-models" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-need-models">Why do we need models?</h3>
+<p>If we acknowledge the .red[<strong>complexity</strong>] and .red[<strong>interrelatedness</strong>] of reality, and our goal is the perfect model, we soon realize <strong>To model anything, we would have to model everything</strong>!</p>
+<p><strong>All models are wrong, but some are useful</strong> -<em>George Box</em></p>
+</section>
+<section id="occams-razor" class="level3">
+<h3 class="anchored" data-anchor-id="occams-razor">Occam’s Razor</h3>
+<ul>
+<li>We need to balance explanatory power (reducing error) with parsimony (simplicity)</li>
+<li>We want to constantly ask: “What do we gain by adding complexity?”</li>
+<li>Proportion Reduction in Error (PRE)</li>
+</ul>
+</section>
+<section id="scientific-models-are-not-oracles" class="level3">
+<h3 class="anchored" data-anchor-id="scientific-models-are-not-oracles">Scientific Models are NOT Oracles</h3>
+<p><img src="images/oracle-delphi.jpg" class="img-fluid"></p>
+</section>
+<section id="scientific-models-are-golems" class="level3">
+<h3 class="anchored" data-anchor-id="scientific-models-are-golems">Scientific Models are Golems</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/golem.jpg" style="height:10.0%" width="500"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="simple-models-errors-and-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="simple-models-errors-and-parameters">Simple Models: Errors and Parameters</h2>
+<section id="the-basic-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-basic-model">The Basic Model</h3>
+<section id="narrative-numeric-and-graphical-models" class="level4">
+<h4 class="anchored" data-anchor-id="narrative-numeric-and-graphical-models">Narrative, Numeric, and Graphical Models</h4>
+<p>Let’s start with a simple narrative model:</p>
+<p>“Peer pressure causes smoking.”</p>
+<p>We can start to convert this to other forms of model. It is often helpful to take our narrative model an turn it into a graphical model.</p>
+<p>Here is a simple graphical model of our example model:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9c4ebe1fe04db5fe9af1" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9c4ebe1fe04db5fe9af1">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Here is a generalized graphical representation of our model.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b694fc19268b2ad090d2" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-b694fc19268b2ad090d2">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Here is the general form of a numerical model (an equation) with the three main components: <span class="math display">\[
+\text{DATA} = \text{MODEL} + \text{ERROR}
+\]</span> where,</p>
+<ul>
+<li><strong>DATA</strong> = What we want to understand or explain</li>
+<li><strong>MODEL</strong> = A simpler representation of the DATA</li>
+<li><strong>ERROR</strong> = Amount by which the model fails to explain the data</li>
+</ul>
+<p>What is another term for error?</p>
+<p>We could take our graphical model and turn it into an equation:</p>
+<p><span class="math display">\[
+\text{Smoking} = \text{Friend Smokes} + \text{ERROR}
+\]</span></p>
+</section>
+</section>
+<section id="a-simple-model" class="level3">
+<h3 class="anchored" data-anchor-id="a-simple-model">A Simple Model</h3>
+<section id="a-mathematical-representation" class="level4">
+<h4 class="anchored" data-anchor-id="a-mathematical-representation">A mathematical representation</h4>
+<p><span class="math display">\[
+\text{DATA} = \text{MODEL} + \text{ERROR}
+\]</span> Population model:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \varepsilon_i
+\]</span></p>
+<p>Sample model:</p>
+<p><span class="math display">\[
+y_i = b_0 + e_i
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="describing-error" class="level2">
+<h2 class="anchored" data-anchor-id="describing-error">Describing Error</h2>
+<section id="simplest-model" class="level3">
+<h3 class="anchored" data-anchor-id="simplest-model">Simplest Model</h3>
+<section id="zero-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="zero-parameters">Zero Parameters</h4>
+<p><span class="math display">\[
+Y_i = B_0 + \varepsilon_i
+\]</span></p>
+<p>Where <span class="math inline">\(B_0\)</span> is some a priori value, not based on these DATA, but provided by some theoretical consideration</p>
+<ul>
+<li>e.g.&nbsp;temperature = 98.6 degrees</li>
+<li>probability if coin is fair = .50</li>
+<li>change over time = 0</li>
+</ul>
+<p>Not common in behavioral sciences</p>
+</section>
+</section>
+<section id="simple-model" class="level3">
+<h3 class="anchored" data-anchor-id="simple-model">Simple Model</h3>
+<section id="one-parameter" class="level4">
+<h4 class="anchored" data-anchor-id="one-parameter">One Parameter</h4>
+<p><span class="math display">\[
+Y_i = \beta_0 + \varepsilon_i
+\]</span> Where <span class="math inline">\(\beta_0\)</span> is an unknown value. The MODEL makes a constant prediction for all cases, but the value of that prediction is to be estimated from the data, so to make ERROR as small as possible.</p>
+<p>The estimated MODEL is</p>
+<p><span class="math display">\[
+Y_i = b_0 + e_i
+\]</span></p>
+<p>Where <span class="math inline">\(b_0\)</span> is the actual prediction made for each case, estimated from the data, minimizing ERROR.</p>
+<p>This estimated MODEL can also be written as</p>
+<p><span class="math display">\[
+\hat{Y_i} = b_0
+\]</span></p>
+<p>Note the difference between the two errors in the parameter model ( <span class="math inline">\(\varepsilon_i\)</span> ) and the estimated model ( <span class="math inline">\(e_i\)</span> ). The latter is an estimate of the former, just as <span class="math inline">\(b_0\)</span> is an estimate of <span class="math inline">\(\beta_0\)</span>.</p>
+<p><span class="math display">\[
+\varepsilon_i = Y_i - \beta_0
+\]</span></p>
+<p><span class="math display">\[
+e_i = Y_i - b_0 = Y_i - \hat{Y_i}
+\]</span></p>
+</section>
+</section>
+<section id="measures-of-central-tendency-and-dispersion" class="level3">
+<h3 class="anchored" data-anchor-id="measures-of-central-tendency-and-dispersion">Measures of Central Tendency and Dispersion</h3>
+<ul>
+<li>Want to find best estimate of <span class="math inline">\(\beta_0\)</span> that minimizes not individual <span class="math inline">\(e_i\)</span>’s but some aggregate measure of error.</li>
+<li>Different ways of aggregating errors lead to different estimates - alternative measures of Central Tendency</li>
+<li>Different ways of aggregating errors lead to different estimates of “Typical Error” - alternative measures of Spread</li>
+<li>This is “descriptive statistics”</li>
+</ul>
+</section>
+<section id="measures-of-central-tendency-and-dispersion-1" class="level3">
+<h3 class="anchored" data-anchor-id="measures-of-central-tendency-and-dispersion-1">Measures of Central Tendency and Dispersion</h3>
+<ul>
+<li><p>Minimize Sum of Errors? - Why not?</p></li>
+<li><p>Minimize Sum of Absolute Errors (SAE). - best estimate of <span class="math inline">\(\beta_0\)</span> is the Median</p></li>
+<li><p>What happens in presence of extreme outlier?</p></li>
+<li><p>Absolute Errors and Outliers</p></li>
+<li><p>Median Absolute Deviation (MAD) as typical measure of spread (median value of <span class="math inline">\(e_i\)</span> given minimization of SAE)</p></li>
+</ul>
+</section>
+<section id="measures-of-central-tendency-and-dispersion-2" class="level3">
+<h3 class="anchored" data-anchor-id="measures-of-central-tendency-and-dispersion-2">Measures of Central Tendency and Dispersion</h3>
+<ul>
+<li>Minimize Sum of Squared Errors. Why?
+<ul>
+<li>best estimate of <span class="math inline">\(\beta_0\)</span> is the Mean</li>
+</ul></li>
+<li>What happens in presence of outlier?
+<ul>
+<li>Squared Errors and Outliers -Mean Square Error (Variance) as typical measure of spread (mean value of <span class="math inline">\(e_i^2\)</span> given minimization of SSE)</li>
+</ul></li>
+</ul>
+</section>
+<section id="formalities-of-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="formalities-of-estimation">Formalities of Estimation</h3>
+<section id="simple-model-1" class="level4">
+<h4 class="anchored" data-anchor-id="simple-model-1">Simple Model</h4>
+<p>DATA = MODEL + ERROR</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \varepsilon_i
+\]</span> <span class="math display">\[
+Y_i = b_0 + e_i
+\]</span> <span class="math display">\[
+\hat{Y_i} = b_0
+\]</span> <span class="math display">\[
+Y_i = \hat{Y_i} + e_i
+\]</span></p>
+<p><span class="math display">\[
+e_i = Y_i - \hat{Y_i}
+\]</span></p>
+<section id="aggregate-error-sum-of-absolute-errors" class="level5">
+<h5 class="anchored" data-anchor-id="aggregate-error-sum-of-absolute-errors">Aggregate Error: Sum of Absolute Errors</h5>
+<p><span class="math display">\[\text{Error} = \sum_{i=1}^{n} |e_i| = \sum_{i=1}^{n}|Y_i - \hat{Y_i} | = \sum_{i=1}^{n} | Y_i - b_0|\]</span></p>
+<ul>
+<li>Minimization estimates <span class="math inline">\(\beta_0\)</span> as the Median</li>
+<li>Measure of Spread: Median Absolute Error or Median Absolute Deviation (MAD)</li>
+</ul>
+</section>
+<section id="aggregate-error-sum-of-squared-errors" class="level5">
+<h5 class="anchored" data-anchor-id="aggregate-error-sum-of-squared-errors">Aggregate Error: Sum of Squared Errors</h5>
+<p><span class="math display">\[\text{Error} = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2 = \sum_{i=1}^{n} (Y_i - b_0)^2 = \sum_{i=1}^{n} (Y_i - \bar{Y})^2\]</span></p>
+<ul>
+<li>Minimization estimates <span class="math inline">\(\beta_0\)</span> as the Mean</li>
+<li>Measure of Spread: Mean Squared Error (Variance)</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="mean-squared-error-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-error-estimation">Mean Squared Error Estimation</h3>
+<ul>
+<li>Recall that if one estimated <span class="math inline">\(n\)</span> parameters, ERROR would be zero.<br>
+</li>
+<li>In computation of the MSE, we want to take into account the number of parameters estimated (and the number of additional parameters that could be estimated).</li>
+<li>General formula for MSE:</li>
+</ul>
+<p><span class="math display">\[\text{MSE} = \frac{ \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2}{n-p}\]</span></p>
+<ul>
+<li>Square root known as the “root mean square error”</li>
+</ul>
+</section>
+<section id="mean-squared-error-estimation-1" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-error-estimation-1">Mean Squared Error Estimation</h3>
+<ul>
+<li>In case of simple one-parameter model, <span class="math inline">\(p = 1\)</span> and</li>
+</ul>
+<p><span class="math display">\[\hat{Y_i} = b_0 = \bar{Y}\]</span></p>
+<p>Accordingly,</p>
+<p><span class="math display">\[\text{MSE} = \frac{ \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2}{n-1} = s^2\]</span></p>
+<ul>
+<li><p>And root mean square error is called the standard deviation</p></li>
+<li><p>So variance is special case of MSE; MSE as unbiased measure of spread (or variance) of errors</p></li>
+<li><p>Usual notion: descriptive statistics</p></li>
+<li><p>Pick a measure of central tendency (mean, median, mode)</p></li>
+<li><p>Pick a measure of spread</p></li>
+<li><p>NO - pick a measure of aggregate error, estimates of <span class="math inline">\(\beta_0\)</span> follow from that, along with estimates of typical error.</p></li>
+</ul>
+</section>
+</section>
+<section id="an-example" class="level2">
+<h2 class="anchored" data-anchor-id="an-example">An Example</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       vars  n  mean   sd median trimmed  mad  min max range skew kurtosis   se
+repht     1 12 67.83 3.66  68.00   67.80 2.97 61.0  75  14.0 0.10    -0.51 1.06
+height    2 12 68.58 3.37  68.25   68.55 2.59 62.5  75  12.5 0.13    -0.72 0.97</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           repht    height
+repht  1.0000000 0.9804921
+height 0.9804921 1.0000000</code></pre>
+</div>
+</div>
+<section id="distribution-of-measured-heights" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-measured-heights">Distribution of measured heights</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="methodsoverview_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="methodsoverview_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+
+</section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-rodgers2010" class="csl-entry" role="doc-biblioentry">
+Rodgers, Joseph Lee. 2010. <span>“Statistical and Mathematical Modeling Versus NHST? There<span>’</span>s No Competition!”</span> <em>Journal of Modern Applied Statistical Methods</em> 9 (2): 3.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
