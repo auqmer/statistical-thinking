@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>A Modeling Approach</title>
+<title>Statistical Thinking - A Modeling Approach</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,6 +106,9 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
       <div class="navbar-brand-container">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./thinker_round.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Statistical Thinking</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -418,15 +421,15 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 <p>Here is a simple graphical model of our example model:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9c4ebe1fe04db5fe9af1" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-9c4ebe1fe04db5fe9af1">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f3631f9b230ed5312b6a" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f3631f9b230ed5312b6a">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is a generalized graphical representation of our model.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b694fc19268b2ad090d2" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-b694fc19268b2ad090d2">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fb753df6944f3e5791ba" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-fb753df6944f3e5791ba">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is the general form of a numerical model (an equation) with the three main components: <span class="math display">\[
