@@ -1,248 +1,154 @@
 [
   {
-    "objectID": "courses.html",
-    "href": "courses.html",
-    "title": "Courses",
+    "objectID": "fiml.html",
+    "href": "fiml.html",
+    "title": "Full Information Maximum Likelihood",
     "section": "",
-    "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
+    "text": "Full information maximum likelihood (FIML) is a modern statistical technique for handling missing data. If you are not familiar with FIML, I would recommend the book entitled Applied Missing Data Analysis by Craig Enders. The book is both thorough and accessible, and a good place to start for those not familiar with the ins and outs of modern missing data techniques.\nThe purpose of this FIML in Lavaan section and the related git repository is to take some of the examples related to FIML estimation within a regression framework from the Applied Missing Data website, and translate them into code for the R package lavaan. The code on the Applied Missing Data website in mostly for Mplus, which is quite expensive software. I hope this will give those who don’t have access to Mplus the ability to work through the examples using free and open source software.\nIn this first subsection I start with the basics: how to get descriptive statistics using FIML. The data and Mplus code for this example can be found on the Book Examples page of the Applied Missing Data website. I also created a github repository with the data and R files with equivalent code in lavaan, which can be found here. Remember to replace the file path in the R code below with the file path to the folder in which you unzip the data files.\nYou will also want to read over the lavaan documentation and visit the very helpful lavaan website to take advantage of the tutorials there. With these resources at your disposal, you should be able to use replicate the examples in lavaan. Here, I walk through the major sections of the R code. This is the same code found in the github repository in the R file entitled FIMLdescriptivesCorrelations.R.\n\n\nI always include a header with basic information in my code files.\n\n#-----------------------------------------------------------------------\n# section 4.14 Summary Statistics \n# Author: William M. Murrah\n# Description: This code replicates the section 4.14 example on the \n#              the appliedmissingdata.com website, which generates \n#              descriptive statistics and correlations,\n# Version history ------------------------------------------------------\n# 2014.05.30: code created\n# 2014.06.01: rewrote heading\n#-----------------------------------------------------------------------\n# R packages used\nlibrary(lavaan)\n\n\n\n\nFirst, import the data into R. MPlus uses .dat files which can only contain numbers. Variable names are not included in the .dat file, but instead are included in the Mplus .inp file. I use the read.table function to read the .dat file.\n\n    employee &lt;- read.table(\"data/employee.dat\")\n\nNext, I assign names to the variables in the new data frame.\n\n    # Assign names to variables.\n    names(employee) &lt;- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \n                         \"jobsat\", \"jobperf\", \"turnover\", \"iq\")\n\nThe final step in preparing the data is to recode the data values -99, which are used as missing data values in the .dat file, to NA, which is the missing value indicator in R.\n\n    # Replace all missing values (-99) with R missing value character 'NA'.\n    employee[employee==-99] &lt;- NA\n\n\n\n\nNow that the data are ready, I create a character string with the model using the lavaan syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations.\n\n    # Create descriptive model object\n    model &lt;- '\n    # means\n    age      ~ 1\n    tenure   ~ 1\n    female   ~ 1\n    wbeing   ~ 1\n    jobsat   ~ 1\n    jobperf  ~ 1\n    turnover ~ 1\n    iq       ~ 1\n    \n    # variances\n    age      ~~ age\n    tenure   ~~ tenure\n    female   ~~ female\n    wbeing   ~~ wbeing\n    jobsat   ~~ jobsat\n    jobperf  ~~ jobperf\n    turnover ~~ turnover\n    iq       ~~ iq\n    \n    # covariances/correlations\n    age      ~~ tenure + female + wbeing + jobsat + jobperf + turnover + iq\n    tenure   ~~ female + wbeing + jobsat + jobperf + turnover + iq\n    female   ~~ wbeing + jobsat + jobperf + turnover + iq\n    wbeing   ~~ jobsat + jobperf + turnover + iq\n    jobsat   ~~ jobperf + turnover + iq\n    jobperf  ~~ turnover + iq\n    turnover ~~ iq\n    '\n\n\n\n\nTo fit the model, I use the lavaan sem function. This function takes the first two argument model and data. The third argument is missing ='fiml', which tells lavaan to use FIML (the default is to use listwise deletion).\n\n    fit &lt;- sem(model, employee, missing='fiml')\n\nAlternatively, you could leave the section of the model code under the # means section and use the meanstructure=TRUE argument in the fit function as follows, which give the same results:\n\n    fit &lt;- sem(model, employee, missing='fiml', meanstructure=TRUE)\n\n\n\n\nTo print the results to the console, use the summary function.\n\n    summary(fit, fit.measures=TRUE, standardize=TRUE)\n\nThe fit.measures=TRUE calls fit statistics in the output. This should look familiar to those who have used Mplus.\nlavaan (0.5-16) converged normally after 141 iterations\n\n  Number of observations                           480\n\n  Number of missing patterns                         3\n\n  Estimator                                         ML\n  Minimum Function Test Statistic                0.000\n  Degrees of freedom                                 0\n  P-value (Chi-square)                           1.000\n\nModel test baseline model:\n\n  Minimum Function Test Statistic              527.884\n  Degrees of freedom                                28\n  P-value                                        0.000\n\nUser model versus baseline model:\n\n  Comparative Fit Index (CFI)                    1.000\n  Tucker-Lewis Index (TLI)                       1.000\n\nLoglikelihood and Information Criteria:\n\n  Loglikelihood user model (H0)              -6621.805\n  Loglikelihood unrestricted model (H1)      -6621.805\n\n  Number of free parameters                         44\n  Akaike (AIC)                               13331.609\n  Bayesian (BIC)                             13515.256\n  Sample-size adjusted Bayesian (BIC)        13375.604\n\nRoot Mean Square Error of Approximation:\n\n  RMSEA                                          0.000\n  90 Percent Confidence Interval          0.000  0.000\n  P-value RMSEA &lt;= 0.05                          1.000\n\nStandardized Root Mean Square Residual:\n\n  SRMR                                           0.000\nThe standardize=TRUE argument includes columns with standardized output. the std.all column in lavaan output is the same as the STDYX section in Mplus.\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(&gt;|z|)   Std.lv  Std.all\nCovariances:\n  age ~~\n    tenure            8.459    0.858    9.865    0.000    8.459    0.504\n    female           -0.028    0.122   -0.229    0.819   -0.028   -0.010\n    wbeing            1.148    0.334    3.433    0.001    1.148    0.182\n    jobsat            0.861    0.340    2.531    0.011    0.861    0.136\n    jobperf          -0.330    0.308   -1.072    0.284   -0.330   -0.049\n    turnover         -0.377    0.116   -3.255    0.001   -0.377   -0.150\n    iq                0.674    2.066    0.326    0.744    0.674    0.015\n  tenure ~~\n    female           -0.052    0.071   -0.736    0.462   -0.052   -0.034\n    wbeing            0.569    0.195    2.916    0.004    0.569    0.155\n    jobsat            0.565    0.200    2.822    0.005    0.565    0.154\n    jobperf           0.061    0.178    0.344    0.731    0.061    0.016\n    turnover          0.016    0.066    0.240    0.810    0.016    0.011\n    iq                0.026    1.199    0.022    0.983    0.026    0.001\n  female ~~\n    wbeing            0.067    0.031    2.156    0.031    0.067    0.115\n    jobsat            0.028    0.031    0.881    0.378    0.028    0.047\n    jobperf          -0.009    0.029   -0.323    0.747   -0.009   -0.015\n    turnover          0.001    0.011    0.114    0.909    0.001    0.005\n    iq                0.284    0.192    1.481    0.139    0.284    0.068\n  wbeing ~~\n    jobsat            0.446    0.095    4.714    0.000    0.446    0.322\n    jobperf           0.671    0.084    8.030    0.000    0.671    0.456\n    turnover         -0.141    0.030   -4.768    0.000   -0.141   -0.257\n    iq                2.876    0.530    5.430    0.000    2.876    0.291\n  jobsat ~~\n    jobperf           0.271    0.080    3.378    0.001    0.271    0.184\n    turnover         -0.129    0.030   -4.248    0.000   -0.129   -0.234\n    iq                4.074    0.566    7.195    0.000    4.074    0.411\n  jobperf ~~\n    turnover         -0.203    0.028   -7.168    0.000   -0.203   -0.346\n    iq                4.496    0.523    8.588    0.000    4.496    0.426\n  turnover ~~\n    iq               -0.706    0.182   -3.872    0.000   -0.706   -0.180\n\nIntercepts:\n    age              37.948    0.245  154.633    0.000   37.948    7.058\n    tenure           10.054    0.142   70.601    0.000   10.054    3.222\n    female            0.542    0.023   23.817    0.000    0.542    1.087\n    wbeing            6.288    0.062  100.701    0.000    6.288    5.349\n    jobsat            5.950    0.063   94.052    0.000    5.950    5.053\n    jobperf           6.021    0.057  105.262    0.000    6.021    4.805\n    turnover          0.321    0.021   15.058    0.000    0.321    0.687\n    iq              100.102    0.384  260.475    0.000  100.102   11.889\n\nVariances:\n    age              28.908    1.866                     28.908    1.000\n    tenure            9.735    0.628                      9.735    1.000\n    female            0.248    0.016                      0.248    1.000\n    wbeing            1.382    0.107                      1.382    1.000\n    jobsat            1.386    0.108                      1.386    1.000\n    jobperf           1.570    0.101                      1.570    1.000\n    turnover          0.218    0.014                      0.218    1.000\n    iq               70.892    4.576                     70.892    1.000\nRecall that correlations are standardized covariances, so correlations are found in the std.all column in the Covariances section. Also, intercepts are means, and can be interpreted as the FIML means for the variables.\nFinally, to get the missing data patterns and covariance coverage output that can be included in Mplus output use the following code:\n\n    # Get missing data patterns and covariance coverage similar\n    # to that found in Mplus output.\n    inspect(fit, 'patterns') \n    inspect(fit, 'coverage')\n\nwhich leads to the following output:\n\n\n    age tenure female wbeing jobsat jobprf turnvr iq\n160   1      1      1      1      1      1      1  1\n160   1      1      1      1      0      1      1  1\n160   1      1      1      0      1      1      1  1\n\n\n\n\n         age   tenure female wbeing jobsat jobprf turnvr iq   \nage      1.000                                                \ntenure   1.000 1.000                                          \nfemale   1.000 1.000  1.000                                   \nwbeing   0.667 0.667  0.667  0.667                            \njobsat   0.667 0.667  0.667  0.333  0.667                     \njobperf  1.000 1.000  1.000  0.667  0.667  1.000              \nturnover 1.000 1.000  1.000  0.667  0.667  1.000  1.000       \niq       1.000 1.000  1.000  0.667  0.667  1.000  1.000  1.000\n\n\n\n\n\n\n\nIn this subsection I use FIML to deal with missing data in a multiple regression framework. First, I import the data from a text file named ‘employee.dat’. You can download a zip file of the data from Applied Missing Data website. I also have a github page for these examples here. Remember to replace the file path in the read.table function with the path to the text file location on your computer.\n\nemployee &lt;- read.table(\"data/employee.dat\")\n\nBecause the original text file does not include variable names, I name the variables in the new data frame:\n\nnames(employee) &lt;-  c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                     \"jobperf\", \"turnover\", \"iq\")\n\nthen I recode all data points with the value of -99 in the original text file, which indicates a missing value, to NA, the missing data value recognized by R.\n\nemployee[employee == -99] &lt;-  NA\n\n\n\n\nNow we are ready to create a character string containing the regression model using the lavaan model conventions. Note that b1 and b2 are labels that will be used later for the Wald test. These labels are equivalent to (b1) and (b2) after these variables in the Mplus code.\n\nmodel &lt;- '\n# Regression model \njobperf ~ b1*wbeing + b2*jobsat\n\n# Variances\nwbeing ~~ wbeing\njobsat ~~ jobsat\n\n# Covariance/correlation\nwbeing ~~ jobsat\n'\n\nIn addition to the regression model, I also estimated the variances and covariances of the predictors. I did this to replicate the results of the original Mplus example. In Mplus you have to estimate the variances of all of the predictors if any of them have missing data that you would like to model. In lavaan the fixed.x=FALSE argument has the same effect (see below).\n\n\n\nNext, I use the sem function to fit the model.\n\nfit &lt;- sem(model, employee, missing='fiml', meanstructure=TRUE, \n           fixed.x=FALSE)\n\nListwise deletion is the default, so the missing=‘fiml’ argument tell lavaan to use the FIML instead. I also included the meanstructure=TRUE argument to include the means of the observed variables in the model, and the fixed.x=FALSE argument to estimate the means, variances, and covariances. Again, I do this to replicate the results of the original Mplus example.\n\n\n\nWe are now ready to look at the results.\n\nsummary(fit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)\n\nCompared to what we learned in the last section, the only thing new to the summary function is the rsquare=TRUE argument, which, not surprisingly, results in the model R2 being included in the summary output.\nI only show the Parameter estimates section here:\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(&gt;|z|)   Std.lv  Std.all\nRegressions:\n  jobperf ~\n    wbeing   (b1)     0.476    0.055    8.665    0.000    0.476    0.447\n    jobsat   (b2)     0.027    0.060    0.444    0.657    0.027    0.025\n\nCovariances:\n  wbeing ~~\n    jobsat            0.467    0.098    4.780    0.000    0.467    0.336\n\nIntercepts:\n    jobperf           2.869    0.382    7.518    0.000    2.869    2.289\n    wbeing            6.286    0.063   99.692    0.000    6.286    5.338\n    jobsat            5.959    0.065   91.836    0.000    5.959    5.055\n\nVariances:\n    wbeing            1.387    0.108                      1.387    1.000\n    jobsat            1.390    0.109                      1.390    1.000\n    jobperf           1.243    0.087                      1.243    0.792\n\nR-Square:\n\n    jobperf           0.208\n\n\n\nIn lavaan the Wald test is called separately from the estimation function. This function will use the labels assigned in the model object above.\n\n# Wald test is called seperately.\nlavTestWald(fit,  constraints='b1 == 0\n                               b2 == 0')\n\nResults of Wald Test\n$stat\n[1] 95.88081\n\n$df\n[1] 2\n\n$p.value\n[1] 0\nThere you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next subsection.\n\n\n\n\nNext I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender’s website Applied Missing Data. The purpose of these sections is to make the examples on Craig’s website, which uses Mplus, available to those who prefer to use lavaan\nMplus allows you to use auxiliary variable when using FIML to include variables that help estimate missing values with variables that are not part of the analytic model. There may be variables that are correlated with variables with missing values or variables that are predictive of missing. However, these auxiliary variable are not part of the model you wish to estimate. See Craig’s book Applied Missing Data Analysis for more information about auxiliary variables.\nI attended a workshop where Craig showed us how to use the auxiliary command in Mplus to make use of auxiliary variables. However, lavaan does not have this option. He also showed us what he called a ‘brute force’ method to include auxiliary variables in Mplus. Here is how to do it in lavaan.\n\n\nThis model is the same as used in my last section, where job performance (jobperf) is regressed on wellbeing (wbeing) and job satisfaction (jobsat). In this example these three variables are the only ones which we want to model. However, tenure and IQ are related to missingness in these variables. So, we want to use them to help us better estimate our model of interest. If we included them as predictors in the regression model, it would allow us to use all the available information in these five variables, but it would change the model substantially. We can use auxiliary variables to better estimate the original model.\n\n\nFirst we import data, name the variables, and recode the -99’s to NA.\n\n# employeeAuxiliary.R ---------------------------------------------------\n\n# R packages used\nlibrary(lavaan)\n# Import text file into R as a data frame.\n\nemployee &lt;- read.table(\"path/to/file/employee.dat\")\n\n# Assign names to variables.\n\nnames(employee) &lt;- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                 \"jobperf\", \"turnover\", \"iq\")\n\n# Replace all missing values (-99) with R missing value character 'NA'.\nemployee[employee==-99] &lt;- NA\n\n\n\n\nBasically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.\n\n# The b1* and b2* are labels used in the Wald test below\nmodel &lt;- '\njobperf ~ b1*wbeing + b2*jobsat\nwbeing ~~ jobsat\nwbeing ~~ turnover + iq\njobsat ~~ turnover + iq\njobperf ~~ turnover + iq\nturnover ~~ iq\n'\n\n\n\n\n\nfit &lt;- sem(model, employee, missing='fiml', fixed.x=FALSE, \n           meanstructure=TRUE)\nsummary(fit, fit.measures=TRUE, rsquare=T, standardize=T)\n\n\n\n\nJust as we did in the previous section.\n\nlavTestWald(fit, \n            'b1 == 0\n             b2 == 0')\n\n\n\n\n\nFirst, load the semTools package\n\nlibrary(semTools)\n\n\n\nNext, create a model object with just the model of interest\n\nmodel2 &lt;- '\njobperf ~ wbeing + jobsat\n'\n\nThen, create a vector of the names of the auxiliary variables\n\naux.vars &lt;- c('turnover', 'iq')\n\n\n\n\nThen, fit the model to the new model object.\n\nfit2 &lt;- sem(model2, employee, missing='fiml', meanstructure=TRUE, fixed.x=FALSE)\n\nUsing this model object, fit another model that incorporates the auxiliary variables using the sem.auxiliary function from the semTools package.\n\nauxfit &lt;- sem.auxiliary(model=fit2, aux=aux.vars, data=employee)\n\nFinally, summarize the model object that includes the auxiliary variables.\n\nsummary(auxfit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)",
+    "crumbs": [
+      "Home",
+      "Modern Missing Data Methods",
+      "Full Information Maximum Likelihood"
+    ]
   },
   {
-    "objectID": "methodsoverview.html#philosophy-of-science",
-    "href": "methodsoverview.html#philosophy-of-science",
-    "title": "A Modeling Approach",
-    "section": "Philosophy of Science",
-    "text": "Philosophy of Science\nI define reality as consisting of all that exists. This includes not only what we typically think of as physical stuff – like trees, houses, cars, and people – but also things like ideas, beliefs, feelings, etc. You might consider me a physical monist, in that I do not make distinctions between physical and “non-physical” objects. I think if things like ideas as emergent properties of our brains functioning within many layers of context. This belief has a few implications worth noting. First, it assumes that we all live in the same reality – what I do can have an impact on you and what you do can impact me.\nHowever, I am convinced that this reality is extremely complicated. In fact, I am skeptical that we can ever fully understand reality (and by we I mean as a species, much less as individuals).\nDoes this mean we cannot understand reality at all? I don’t think so. I don’t fully understand how my car works, but I do have basic ideas that allow me to problem solve issues such as when it won’t start. When we can’t fully understand something, we are left to build an model of that process. I will talk more about models below, but for now think of a model as an oversimplified representation of a much more complex system. We all create models of reality, and the models we create depend on our values, knowledge, experiences, context, and goals, to name only a few.\nSo, as I see it, modeling is not an option, we all must do it. Furthermore, the oversimplification of reality is not a limitation of science, but is necessary for its progress."
-  },
-  {
-    "objectID": "methodsoverview.html#the-modeling-approach",
-    "href": "methodsoverview.html#the-modeling-approach",
-    "title": "A Modeling Approach",
-    "section": "The Modeling Approach",
-    "text": "The Modeling Approach\nA great introduction to the modeling approach is an article by Rodgers (2010). I highly recommend reading this article, as it give a great overview of the limitations of strict hypothesis testing, and the advantages of using a modeling approach.\n\nWhat are Scientific Models?\n\nModels are explicit statements about the processes that give rise to observed data. - Little (2013)\n\n\nA mathematical model is a set of assumptions together with implications drawn from them by mathematical reasoning. - Neimark and Estes (1967 quoted in Rodgers, 2010)\n\n\n\nGoals of science\nOften, the three goals of science are stated:\n\nDescribe\nPredict\nExplain\n\nModels are important for all these goals.\nModels are representations of how our key constructs are related. They can be narrative, graphical, or mathematical. Models match reality in some way, and are simpler than reality.\n\n\nWhy do we need models?\nIf we acknowledge the .red[complexity] and .red[interrelatedness] of reality, and our goal is the perfect model, we soon realize To model anything, we would have to model everything!\nAll models are wrong, but some are useful -George Box\n\n\nOccam’s Razor\n\nWe need to balance explanatory power (reducing error) with parsimony (simplicity)\nWe want to constantly ask: “What do we gain by adding complexity?”\nProportion Reduction in Error (PRE)\n\n\n\nScientific Models are NOT Oracles\n\n\n\nScientific Models are Golems"
-  },
-  {
-    "objectID": "methodsoverview.html#simple-models-errors-and-parameters",
-    "href": "methodsoverview.html#simple-models-errors-and-parameters",
-    "title": "A Modeling Approach",
-    "section": "Simple Models: Errors and Parameters",
-    "text": "Simple Models: Errors and Parameters\n\nThe Basic Model\n\nNarrative, Numeric, and Graphical Models\nLet’s start with a simple narrative model:\n“Peer pressure causes smoking.”\nWe can start to convert this to other forms of model. It is often helpful to take our narrative model an turn it into a graphical model.\nHere is a simple graphical model of our example model:\n\n\n\n\n\n\nHere is a generalized graphical representation of our model.\n\n\n\n\n\n\nHere is the general form of a numerical model (an equation) with the three main components: \\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] where,\n\nDATA = What we want to understand or explain\nMODEL = A simpler representation of the DATA\nERROR = Amount by which the model fails to explain the data\n\nWhat is another term for error?\nWe could take our graphical model and turn it into an equation:\n\\[\n\\text{Smoking} = \\text{Friend Smokes} + \\text{ERROR}\n\\]\n\n\n\nA Simple Model\n\nA mathematical representation\n\\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] Population model:\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\nSample model:\n\\[\ny_i = b_0 + e_i\n\\]"
-  },
-  {
-    "objectID": "methodsoverview.html#describing-error",
-    "href": "methodsoverview.html#describing-error",
-    "title": "A Modeling Approach",
-    "section": "Describing Error",
-    "text": "Describing Error\n\nSimplest Model\n\nZero Parameters\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\nWhere \\(B_0\\) is some a priori value, not based on these DATA, but provided by some theoretical consideration\n\ne.g. temperature = 98.6 degrees\nprobability if coin is fair = .50\nchange over time = 0\n\nNot common in behavioral sciences\n\n\n\nSimple Model\n\nOne Parameter\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] Where \\(\\beta_0\\) is an unknown value. The MODEL makes a constant prediction for all cases, but the value of that prediction is to be estimated from the data, so to make ERROR as small as possible.\nThe estimated MODEL is\n\\[\nY_i = b_0 + e_i\n\\]\nWhere \\(b_0\\) is the actual prediction made for each case, estimated from the data, minimizing ERROR.\nThis estimated MODEL can also be written as\n\\[\n\\hat{Y_i} = b_0\n\\]\nNote the difference between the two errors in the parameter model ( \\(\\varepsilon_i\\) ) and the estimated model ( \\(e_i\\) ). The latter is an estimate of the former, just as \\(b_0\\) is an estimate of \\(\\beta_0\\).\n\\[\n\\varepsilon_i = Y_i - \\beta_0\n\\]\n\\[\ne_i = Y_i - b_0 = Y_i - \\hat{Y_i}\n\\]\n\n\n\nMeasures of Central Tendency and Dispersion\n\nWant to find best estimate of \\(\\beta_0\\) that minimizes not individual \\(e_i\\)’s but some aggregate measure of error.\nDifferent ways of aggregating errors lead to different estimates - alternative measures of Central Tendency\nDifferent ways of aggregating errors lead to different estimates of “Typical Error” - alternative measures of Spread\nThis is “descriptive statistics”\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Errors? - Why not?\nMinimize Sum of Absolute Errors (SAE). - best estimate of \\(\\beta_0\\) is the Median\nWhat happens in presence of extreme outlier?\nAbsolute Errors and Outliers\nMedian Absolute Deviation (MAD) as typical measure of spread (median value of \\(e_i\\) given minimization of SAE)\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Squared Errors. Why?\n\nbest estimate of \\(\\beta_0\\) is the Mean\n\nWhat happens in presence of outlier?\n\nSquared Errors and Outliers -Mean Square Error (Variance) as typical measure of spread (mean value of \\(e_i^2\\) given minimization of SSE)\n\n\n\n\nFormalities of Estimation\n\nSimple Model\nDATA = MODEL + ERROR\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] \\[\nY_i = b_0 + e_i\n\\] \\[\n\\hat{Y_i} = b_0\n\\] \\[\nY_i = \\hat{Y_i} + e_i\n\\]\n\\[\ne_i = Y_i - \\hat{Y_i}\n\\]\n\nAggregate Error: Sum of Absolute Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} |e_i| = \\sum_{i=1}^{n}|Y_i - \\hat{Y_i} | = \\sum_{i=1}^{n} | Y_i - b_0|\\]\n\nMinimization estimates \\(\\beta_0\\) as the Median\nMeasure of Spread: Median Absolute Error or Median Absolute Deviation (MAD)\n\n\n\nAggregate Error: Sum of Squared Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} e_i^2 = \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2 = \\sum_{i=1}^{n} (Y_i - b_0)^2 = \\sum_{i=1}^{n} (Y_i - \\bar{Y})^2\\]\n\nMinimization estimates \\(\\beta_0\\) as the Mean\nMeasure of Spread: Mean Squared Error (Variance)\n\n\n\n\n\nMean Squared Error Estimation\n\nRecall that if one estimated \\(n\\) parameters, ERROR would be zero.\n\nIn computation of the MSE, we want to take into account the number of parameters estimated (and the number of additional parameters that could be estimated).\nGeneral formula for MSE:\n\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-p}\\]\n\nSquare root known as the “root mean square error”\n\n\n\nMean Squared Error Estimation\n\nIn case of simple one-parameter model, \\(p = 1\\) and\n\n\\[\\hat{Y_i} = b_0 = \\bar{Y}\\]\nAccordingly,\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-1} = s^2\\]\n\nAnd root mean square error is called the standard deviation\nSo variance is special case of MSE; MSE as unbiased measure of spread (or variance) of errors\nUsual notion: descriptive statistics\nPick a measure of central tendency (mean, median, mode)\nPick a measure of spread\nNO - pick a measure of aggregate error, estimates of \\(\\beta_0\\) follow from that, along with estimates of typical error."
-  },
-  {
-    "objectID": "methodsoverview.html#an-example",
-    "href": "methodsoverview.html#an-example",
-    "title": "A Modeling Approach",
-    "section": "An Example",
-    "text": "An Example\n\n\n       vars  n  mean   sd median trimmed  mad  min max range skew kurtosis   se\nrepht     1 12 67.83 3.66  68.00   67.80 2.97 61.0  75  14.0 0.10    -0.51 1.06\nheight    2 12 68.58 3.37  68.25   68.55 2.59 62.5  75  12.5 0.13    -0.72 0.97\n\n\n           repht    height\nrepht  1.0000000 0.9804921\nheight 0.9804921 1.0000000\n\n\n\nDistribution of measured heights"
-  },
-  {
-    "objectID": "sampdistinf.html",
-    "href": "sampdistinf.html",
-    "title": "Sampling Distributions and Statistical Inference",
+    "objectID": "fiml.html#descriptive-statistics",
+    "href": "fiml.html#descriptive-statistics",
+    "title": "Full Information Maximum Likelihood",
     "section": "",
-    "text": "R packages used in this chapter:"
+    "text": "Full information maximum likelihood (FIML) is a modern statistical technique for handling missing data. If you are not familiar with FIML, I would recommend the book entitled Applied Missing Data Analysis by Craig Enders. The book is both thorough and accessible, and a good place to start for those not familiar with the ins and outs of modern missing data techniques.\nThe purpose of this FIML in Lavaan section and the related git repository is to take some of the examples related to FIML estimation within a regression framework from the Applied Missing Data website, and translate them into code for the R package lavaan. The code on the Applied Missing Data website in mostly for Mplus, which is quite expensive software. I hope this will give those who don’t have access to Mplus the ability to work through the examples using free and open source software.\nIn this first subsection I start with the basics: how to get descriptive statistics using FIML. The data and Mplus code for this example can be found on the Book Examples page of the Applied Missing Data website. I also created a github repository with the data and R files with equivalent code in lavaan, which can be found here. Remember to replace the file path in the R code below with the file path to the folder in which you unzip the data files.\nYou will also want to read over the lavaan documentation and visit the very helpful lavaan website to take advantage of the tutorials there. With these resources at your disposal, you should be able to use replicate the examples in lavaan. Here, I walk through the major sections of the R code. This is the same code found in the github repository in the R file entitled FIMLdescriptivesCorrelations.R.\n\n\nI always include a header with basic information in my code files.\n\n#-----------------------------------------------------------------------\n# section 4.14 Summary Statistics \n# Author: William M. Murrah\n# Description: This code replicates the section 4.14 example on the \n#              the appliedmissingdata.com website, which generates \n#              descriptive statistics and correlations,\n# Version history ------------------------------------------------------\n# 2014.05.30: code created\n# 2014.06.01: rewrote heading\n#-----------------------------------------------------------------------\n# R packages used\nlibrary(lavaan)\n\n\n\n\nFirst, import the data into R. MPlus uses .dat files which can only contain numbers. Variable names are not included in the .dat file, but instead are included in the Mplus .inp file. I use the read.table function to read the .dat file.\n\n    employee &lt;- read.table(\"data/employee.dat\")\n\nNext, I assign names to the variables in the new data frame.\n\n    # Assign names to variables.\n    names(employee) &lt;- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \n                         \"jobsat\", \"jobperf\", \"turnover\", \"iq\")\n\nThe final step in preparing the data is to recode the data values -99, which are used as missing data values in the .dat file, to NA, which is the missing value indicator in R.\n\n    # Replace all missing values (-99) with R missing value character 'NA'.\n    employee[employee==-99] &lt;- NA\n\n\n\n\nNow that the data are ready, I create a character string with the model using the lavaan syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations.\n\n    # Create descriptive model object\n    model &lt;- '\n    # means\n    age      ~ 1\n    tenure   ~ 1\n    female   ~ 1\n    wbeing   ~ 1\n    jobsat   ~ 1\n    jobperf  ~ 1\n    turnover ~ 1\n    iq       ~ 1\n    \n    # variances\n    age      ~~ age\n    tenure   ~~ tenure\n    female   ~~ female\n    wbeing   ~~ wbeing\n    jobsat   ~~ jobsat\n    jobperf  ~~ jobperf\n    turnover ~~ turnover\n    iq       ~~ iq\n    \n    # covariances/correlations\n    age      ~~ tenure + female + wbeing + jobsat + jobperf + turnover + iq\n    tenure   ~~ female + wbeing + jobsat + jobperf + turnover + iq\n    female   ~~ wbeing + jobsat + jobperf + turnover + iq\n    wbeing   ~~ jobsat + jobperf + turnover + iq\n    jobsat   ~~ jobperf + turnover + iq\n    jobperf  ~~ turnover + iq\n    turnover ~~ iq\n    '\n\n\n\n\nTo fit the model, I use the lavaan sem function. This function takes the first two argument model and data. The third argument is missing ='fiml', which tells lavaan to use FIML (the default is to use listwise deletion).\n\n    fit &lt;- sem(model, employee, missing='fiml')\n\nAlternatively, you could leave the section of the model code under the # means section and use the meanstructure=TRUE argument in the fit function as follows, which give the same results:\n\n    fit &lt;- sem(model, employee, missing='fiml', meanstructure=TRUE)\n\n\n\n\nTo print the results to the console, use the summary function.\n\n    summary(fit, fit.measures=TRUE, standardize=TRUE)\n\nThe fit.measures=TRUE calls fit statistics in the output. This should look familiar to those who have used Mplus.\nlavaan (0.5-16) converged normally after 141 iterations\n\n  Number of observations                           480\n\n  Number of missing patterns                         3\n\n  Estimator                                         ML\n  Minimum Function Test Statistic                0.000\n  Degrees of freedom                                 0\n  P-value (Chi-square)                           1.000\n\nModel test baseline model:\n\n  Minimum Function Test Statistic              527.884\n  Degrees of freedom                                28\n  P-value                                        0.000\n\nUser model versus baseline model:\n\n  Comparative Fit Index (CFI)                    1.000\n  Tucker-Lewis Index (TLI)                       1.000\n\nLoglikelihood and Information Criteria:\n\n  Loglikelihood user model (H0)              -6621.805\n  Loglikelihood unrestricted model (H1)      -6621.805\n\n  Number of free parameters                         44\n  Akaike (AIC)                               13331.609\n  Bayesian (BIC)                             13515.256\n  Sample-size adjusted Bayesian (BIC)        13375.604\n\nRoot Mean Square Error of Approximation:\n\n  RMSEA                                          0.000\n  90 Percent Confidence Interval          0.000  0.000\n  P-value RMSEA &lt;= 0.05                          1.000\n\nStandardized Root Mean Square Residual:\n\n  SRMR                                           0.000\nThe standardize=TRUE argument includes columns with standardized output. the std.all column in lavaan output is the same as the STDYX section in Mplus.\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(&gt;|z|)   Std.lv  Std.all\nCovariances:\n  age ~~\n    tenure            8.459    0.858    9.865    0.000    8.459    0.504\n    female           -0.028    0.122   -0.229    0.819   -0.028   -0.010\n    wbeing            1.148    0.334    3.433    0.001    1.148    0.182\n    jobsat            0.861    0.340    2.531    0.011    0.861    0.136\n    jobperf          -0.330    0.308   -1.072    0.284   -0.330   -0.049\n    turnover         -0.377    0.116   -3.255    0.001   -0.377   -0.150\n    iq                0.674    2.066    0.326    0.744    0.674    0.015\n  tenure ~~\n    female           -0.052    0.071   -0.736    0.462   -0.052   -0.034\n    wbeing            0.569    0.195    2.916    0.004    0.569    0.155\n    jobsat            0.565    0.200    2.822    0.005    0.565    0.154\n    jobperf           0.061    0.178    0.344    0.731    0.061    0.016\n    turnover          0.016    0.066    0.240    0.810    0.016    0.011\n    iq                0.026    1.199    0.022    0.983    0.026    0.001\n  female ~~\n    wbeing            0.067    0.031    2.156    0.031    0.067    0.115\n    jobsat            0.028    0.031    0.881    0.378    0.028    0.047\n    jobperf          -0.009    0.029   -0.323    0.747   -0.009   -0.015\n    turnover          0.001    0.011    0.114    0.909    0.001    0.005\n    iq                0.284    0.192    1.481    0.139    0.284    0.068\n  wbeing ~~\n    jobsat            0.446    0.095    4.714    0.000    0.446    0.322\n    jobperf           0.671    0.084    8.030    0.000    0.671    0.456\n    turnover         -0.141    0.030   -4.768    0.000   -0.141   -0.257\n    iq                2.876    0.530    5.430    0.000    2.876    0.291\n  jobsat ~~\n    jobperf           0.271    0.080    3.378    0.001    0.271    0.184\n    turnover         -0.129    0.030   -4.248    0.000   -0.129   -0.234\n    iq                4.074    0.566    7.195    0.000    4.074    0.411\n  jobperf ~~\n    turnover         -0.203    0.028   -7.168    0.000   -0.203   -0.346\n    iq                4.496    0.523    8.588    0.000    4.496    0.426\n  turnover ~~\n    iq               -0.706    0.182   -3.872    0.000   -0.706   -0.180\n\nIntercepts:\n    age              37.948    0.245  154.633    0.000   37.948    7.058\n    tenure           10.054    0.142   70.601    0.000   10.054    3.222\n    female            0.542    0.023   23.817    0.000    0.542    1.087\n    wbeing            6.288    0.062  100.701    0.000    6.288    5.349\n    jobsat            5.950    0.063   94.052    0.000    5.950    5.053\n    jobperf           6.021    0.057  105.262    0.000    6.021    4.805\n    turnover          0.321    0.021   15.058    0.000    0.321    0.687\n    iq              100.102    0.384  260.475    0.000  100.102   11.889\n\nVariances:\n    age              28.908    1.866                     28.908    1.000\n    tenure            9.735    0.628                      9.735    1.000\n    female            0.248    0.016                      0.248    1.000\n    wbeing            1.382    0.107                      1.382    1.000\n    jobsat            1.386    0.108                      1.386    1.000\n    jobperf           1.570    0.101                      1.570    1.000\n    turnover          0.218    0.014                      0.218    1.000\n    iq               70.892    4.576                     70.892    1.000\nRecall that correlations are standardized covariances, so correlations are found in the std.all column in the Covariances section. Also, intercepts are means, and can be interpreted as the FIML means for the variables.\nFinally, to get the missing data patterns and covariance coverage output that can be included in Mplus output use the following code:\n\n    # Get missing data patterns and covariance coverage similar\n    # to that found in Mplus output.\n    inspect(fit, 'patterns') \n    inspect(fit, 'coverage')\n\nwhich leads to the following output:\n\n\n    age tenure female wbeing jobsat jobprf turnvr iq\n160   1      1      1      1      1      1      1  1\n160   1      1      1      1      0      1      1  1\n160   1      1      1      0      1      1      1  1\n\n\n\n\n         age   tenure female wbeing jobsat jobprf turnvr iq   \nage      1.000                                                \ntenure   1.000 1.000                                          \nfemale   1.000 1.000  1.000                                   \nwbeing   0.667 0.667  0.667  0.667                            \njobsat   0.667 0.667  0.667  0.333  0.667                     \njobperf  1.000 1.000  1.000  0.667  0.667  1.000              \nturnover 1.000 1.000  1.000  0.667  0.667  1.000  1.000       \niq       1.000 1.000  1.000  0.667  0.667  1.000  1.000  1.000",
+    "crumbs": [
+      "Home",
+      "Modern Missing Data Methods",
+      "Full Information Maximum Likelihood"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#sampling-distributions-of-error",
-    "href": "sampdistinf.html#sampling-distributions-of-error",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Sampling Distributions of Error",
-    "text": "Sampling Distributions of Error\n\nload(\"data/ermahtSP20.Rdata\") # This file can be found on Canvas\nerma <- ermahtSP20\nerma$e <- erma$height - mean(erma$height)\nerma$Eps <- erma$height - 67"
+    "objectID": "fiml.html#regression-analysis",
+    "href": "fiml.html#regression-analysis",
+    "title": "Full Information Maximum Likelihood",
+    "section": "",
+    "text": "In this subsection I use FIML to deal with missing data in a multiple regression framework. First, I import the data from a text file named ‘employee.dat’. You can download a zip file of the data from Applied Missing Data website. I also have a github page for these examples here. Remember to replace the file path in the read.table function with the path to the text file location on your computer.\n\nemployee &lt;- read.table(\"data/employee.dat\")\n\nBecause the original text file does not include variable names, I name the variables in the new data frame:\n\nnames(employee) &lt;-  c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                     \"jobperf\", \"turnover\", \"iq\")\n\nthen I recode all data points with the value of -99 in the original text file, which indicates a missing value, to NA, the missing data value recognized by R.\n\nemployee[employee == -99] &lt;-  NA\n\n\n\n\nNow we are ready to create a character string containing the regression model using the lavaan model conventions. Note that b1 and b2 are labels that will be used later for the Wald test. These labels are equivalent to (b1) and (b2) after these variables in the Mplus code.\n\nmodel &lt;- '\n# Regression model \njobperf ~ b1*wbeing + b2*jobsat\n\n# Variances\nwbeing ~~ wbeing\njobsat ~~ jobsat\n\n# Covariance/correlation\nwbeing ~~ jobsat\n'\n\nIn addition to the regression model, I also estimated the variances and covariances of the predictors. I did this to replicate the results of the original Mplus example. In Mplus you have to estimate the variances of all of the predictors if any of them have missing data that you would like to model. In lavaan the fixed.x=FALSE argument has the same effect (see below).\n\n\n\nNext, I use the sem function to fit the model.\n\nfit &lt;- sem(model, employee, missing='fiml', meanstructure=TRUE, \n           fixed.x=FALSE)\n\nListwise deletion is the default, so the missing=‘fiml’ argument tell lavaan to use the FIML instead. I also included the meanstructure=TRUE argument to include the means of the observed variables in the model, and the fixed.x=FALSE argument to estimate the means, variances, and covariances. Again, I do this to replicate the results of the original Mplus example.\n\n\n\nWe are now ready to look at the results.\n\nsummary(fit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)\n\nCompared to what we learned in the last section, the only thing new to the summary function is the rsquare=TRUE argument, which, not surprisingly, results in the model R2 being included in the summary output.\nI only show the Parameter estimates section here:\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(&gt;|z|)   Std.lv  Std.all\nRegressions:\n  jobperf ~\n    wbeing   (b1)     0.476    0.055    8.665    0.000    0.476    0.447\n    jobsat   (b2)     0.027    0.060    0.444    0.657    0.027    0.025\n\nCovariances:\n  wbeing ~~\n    jobsat            0.467    0.098    4.780    0.000    0.467    0.336\n\nIntercepts:\n    jobperf           2.869    0.382    7.518    0.000    2.869    2.289\n    wbeing            6.286    0.063   99.692    0.000    6.286    5.338\n    jobsat            5.959    0.065   91.836    0.000    5.959    5.055\n\nVariances:\n    wbeing            1.387    0.108                      1.387    1.000\n    jobsat            1.390    0.109                      1.390    1.000\n    jobperf           1.243    0.087                      1.243    0.792\n\nR-Square:\n\n    jobperf           0.208\n\n\n\nIn lavaan the Wald test is called separately from the estimation function. This function will use the labels assigned in the model object above.\n\n# Wald test is called seperately.\nlavTestWald(fit,  constraints='b1 == 0\n                               b2 == 0')\n\nResults of Wald Test\n$stat\n[1] 95.88081\n\n$df\n[1] 2\n\n$p.value\n[1] 0\nThere you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next subsection.",
+    "crumbs": [
+      "Home",
+      "Modern Missing Data Methods",
+      "Full Information Maximum Likelihood"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#adult-heights-from-nhanes-study",
-    "href": "sampdistinf.html#adult-heights-from-nhanes-study",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Adult Heights from NHANES Study",
-    "text": "Adult Heights from NHANES Study\n\nlibrary(psych)\nlibrary(NHANES)\ndata(\"NHANES\")\nheight_in <- NHANES[NHANES$Age >= 21, ]$Height*.393701\ndescribe(height_in, fast = TRUE)\n\n   vars    n  mean   sd   min  max range   se\nX1    1 7041 66.45 3.98 52.95 78.9 25.94 0.05\n\n\n\\(\\mu =\\) 67\n\\(\\sigma =\\) 4\n\nprint(erma[ ,c(1,3)])\n\n   id height\n1  ek   65.0\n2  lz   69.0\n3  lk   67.5\n4  bw   75.0\n5  kb   62.5\n6  dg   68.0\n7  cs   72.0\n8  ao   67.0\n9  wb   70.0\n10 tm   72.0\n11 nb   66.5\n12 pm   68.5\n\n\n\ndescribe(erma$height, fast = TRUE)\n\n   vars  n  mean   sd  min max range   se\nX1    1 12 68.58 3.37 62.5  75  12.5 0.97\n\n\n\nload(\"data/ermahtSP20.Rdata\")\n\nmean(ermahtSP20$height)\n\n[1] 68.58333\n\nermahtSP20$height\n\n [1] 65.0 69.0 67.5 75.0 62.5 68.0 72.0 67.0 70.0 72.0 66.5 68.5\n\nround(ermahtSP20$height - mean(ermahtSP20$height),1)\n\n [1] -3.6  0.4 -1.1  6.4 -6.1 -0.6  3.4 -1.6  1.4  3.4 -2.1 -0.1"
+    "objectID": "fiml.html#regression-analysis-with-auxiliary-variables",
+    "href": "fiml.html#regression-analysis-with-auxiliary-variables",
+    "title": "Full Information Maximum Likelihood",
+    "section": "",
+    "text": "Next I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender’s website Applied Missing Data. The purpose of these sections is to make the examples on Craig’s website, which uses Mplus, available to those who prefer to use lavaan\nMplus allows you to use auxiliary variable when using FIML to include variables that help estimate missing values with variables that are not part of the analytic model. There may be variables that are correlated with variables with missing values or variables that are predictive of missing. However, these auxiliary variable are not part of the model you wish to estimate. See Craig’s book Applied Missing Data Analysis for more information about auxiliary variables.\nI attended a workshop where Craig showed us how to use the auxiliary command in Mplus to make use of auxiliary variables. However, lavaan does not have this option. He also showed us what he called a ‘brute force’ method to include auxiliary variables in Mplus. Here is how to do it in lavaan.\n\n\nThis model is the same as used in my last section, where job performance (jobperf) is regressed on wellbeing (wbeing) and job satisfaction (jobsat). In this example these three variables are the only ones which we want to model. However, tenure and IQ are related to missingness in these variables. So, we want to use them to help us better estimate our model of interest. If we included them as predictors in the regression model, it would allow us to use all the available information in these five variables, but it would change the model substantially. We can use auxiliary variables to better estimate the original model.\n\n\nFirst we import data, name the variables, and recode the -99’s to NA.\n\n# employeeAuxiliary.R ---------------------------------------------------\n\n# R packages used\nlibrary(lavaan)\n# Import text file into R as a data frame.\n\nemployee &lt;- read.table(\"path/to/file/employee.dat\")\n\n# Assign names to variables.\n\nnames(employee) &lt;- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                 \"jobperf\", \"turnover\", \"iq\")\n\n# Replace all missing values (-99) with R missing value character 'NA'.\nemployee[employee==-99] &lt;- NA\n\n\n\n\nBasically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.\n\n# The b1* and b2* are labels used in the Wald test below\nmodel &lt;- '\njobperf ~ b1*wbeing + b2*jobsat\nwbeing ~~ jobsat\nwbeing ~~ turnover + iq\njobsat ~~ turnover + iq\njobperf ~~ turnover + iq\nturnover ~~ iq\n'\n\n\n\n\n\nfit &lt;- sem(model, employee, missing='fiml', fixed.x=FALSE, \n           meanstructure=TRUE)\nsummary(fit, fit.measures=TRUE, rsquare=T, standardize=T)\n\n\n\n\nJust as we did in the previous section.\n\nlavTestWald(fit, \n            'b1 == 0\n             b2 == 0')\n\n\n\n\n\nFirst, load the semTools package\n\nlibrary(semTools)\n\n\n\nNext, create a model object with just the model of interest\n\nmodel2 &lt;- '\njobperf ~ wbeing + jobsat\n'\n\nThen, create a vector of the names of the auxiliary variables\n\naux.vars &lt;- c('turnover', 'iq')\n\n\n\n\nThen, fit the model to the new model object.\n\nfit2 &lt;- sem(model2, employee, missing='fiml', meanstructure=TRUE, fixed.x=FALSE)\n\nUsing this model object, fit another model that incorporates the auxiliary variables using the sem.auxiliary function from the semTools package.\n\nauxfit &lt;- sem.auxiliary(model=fit2, aux=aux.vars, data=employee)\n\nFinally, summarize the model object that includes the auxiliary variables.\n\nsummary(auxfit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)",
+    "crumbs": [
+      "Home",
+      "Modern Missing Data Methods",
+      "Full Information Maximum Likelihood"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#demonstration-of-sampling-distrubtions",
-    "href": "sampdistinf.html#demonstration-of-sampling-distrubtions",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Demonstration of sampling distrubtions",
-    "text": "Demonstration of sampling distrubtions\nTo play around with sampling distributions, go to the following website, scroll down the page to the section called Sampling Distributions and Central Limits Theorem and click on the image called “Sampling Distribution of the Sample Mean (Continuous Population)”\nhttps://artofstat.com/web-apps"
+    "objectID": "introR.html",
+    "href": "introR.html",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "The breadth and complexity of statistical techniques continues grow, making it difficult to learn details of all methods. Historically, techniques like analysis of variance (ANOVA) and regression, developed in separate fields, and only later were these techniques integrated into what is now the called the generalized linear model. Since then, multiple additional methods have developed, including those that relax assumptions of earlier methods. Traditional software that provides menus for selecting a specific method were useful when the number of methods were a reasonable size, but the continued development of additional methods make it very difficult to fit all in a reasonably navigable set of menus. The clicking of menus also poses problems for reproducibility. Most of the developing methods, continue to fit nicely into, or are extensions of, the generalized linear model. For example, methods such as machine learning and artificial intelligence build on this generalized linear model.\nSo, while it may not be as easy to get started learning statistics with a programming language, it will pay of in the long run.\n\n\nHere are some qualities of menu based statistical programs and statistical programming languages.\n\nStatistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics. It is widely used across many fields of science, it is free to use, and you can almost always find an implementation of a method using R. For these reasons, and many more, I teach statistics using R.",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
-    "href": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Standard Error of the Mean (SEM or S.E.)",
-    "text": "Standard Error of the Mean (SEM or S.E.)\n\nPopulation formula:\n\\[\\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}}\\]\n\n\nSample formula:\n\\[s_{\\bar{x}} = \\frac{s}{\\sqrt{n}}\\]"
+    "objectID": "introR.html#why-r-and-not-another-statistical-program",
+    "href": "introR.html#why-r-and-not-another-statistical-program",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "The breadth and complexity of statistical techniques continues grow, making it difficult to learn details of all methods. Historically, techniques like analysis of variance (ANOVA) and regression, developed in separate fields, and only later were these techniques integrated into what is now the called the generalized linear model. Since then, multiple additional methods have developed, including those that relax assumptions of earlier methods. Traditional software that provides menus for selecting a specific method were useful when the number of methods were a reasonable size, but the continued development of additional methods make it very difficult to fit all in a reasonably navigable set of menus. The clicking of menus also poses problems for reproducibility. Most of the developing methods, continue to fit nicely into, or are extensions of, the generalized linear model. For example, methods such as machine learning and artificial intelligence build on this generalized linear model.\nSo, while it may not be as easy to get started learning statistics with a programming language, it will pay of in the long run.\n\n\nHere are some qualities of menu based statistical programs and statistical programming languages.\n\nStatistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics. It is widely used across many fields of science, it is free to use, and you can almost always find an implementation of a method using R. For these reasons, and many more, I teach statistics using R.",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#properties-of-estimators",
-    "href": "sampdistinf.html#properties-of-estimators",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Properties of Estimators",
-    "text": "Properties of Estimators\n\nUnbiased: The peak of the sampling distribution equals the parameter value\nEfficient: Most of the estimates are close to the parameter\nConsistency: The more observations the closer the estimates are to the parameter, or said differently, the bigger the sample size the narrower the sampling distribution"
+    "objectID": "introR.html#installing-r-and-rstudio",
+    "href": "introR.html#installing-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Installing R and RStudio",
+    "text": "Installing R and RStudio\nThe goal of this chapter is to get you up and running with the R statistical programming language and the RStudio integrated development environment.\nIf you are reading this because you are taking one of my courses, you must decide how you want to use R and RStudio for the course. You have two basic options:\n\nyou can install them on your own computer, or\nyou can use Auburn Universities education virtual lab (VLab), online.\n\nIf you have a computer that you will be using consistently for this course, I recommend installing R and RStudio on that computer. Both are free and will be much easier to use if you install them directly on your computer. If you have decided to install the software on your computer you can skip to the following video. Note, that you must be a student within the university, and have DUO setup to use VLab. If you think you want to use the virtual lab, watch this video:\nUsing VLab to acces R/RStudio\n\nInstalling R\nTo install R go to www.cran.r-project.org, select the appropriate operating system and follow the instructions to install R. You must have R install to use RStudio, so do this first.\n\nInstalling R on Windows\nTo install R on Windows, click on the “Download R for Windows” link on the CRAN page. On the next page click “base” under the Subdirectories heading. On the next page you will see a link entitled “Download R-4.5.0 For Windows” (or the latest version). Click that link to download R, and install it the way you would most software on Windows. Note, this page is also a good resource if you have problems intalling R.\n\n\nInstalling R on Mac\nTo install R on Mac, click the “Download R for macOS” link on the CRAN page. You will likely see two links toward the top of the page that look something similar to the following, one for each of the two types of processors available on macOS.\nM1 chip:\nR-4.5.0-arm64.pkg\nIntel:\nR-4.5.0.pkg\nSelect the one appropriate for your computer. If you do not know what type of chip you have, click on the apple icon in the top left corner of your mac and the click “About this Mac”. Under the processor heading you should see a string of characters. If in includes Intel you have an Intel chip, if not, you likely have an M1 chip. Newer computers are more likely to have M1 than older ones.\nHere is a video demonstrating the installation of R:\nInstall R\n\n\n\nInstalling RStudio\nTo install RStudio go to www.posit.co and follow the links to download the free desktop version of RStudio.\nHere is a video demonstrating the installation of Rstudio:\nInstall RStudio",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#assumptions-of-linear-models",
-    "href": "sampdistinf.html#assumptions-of-linear-models",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Assumptions of Linear Models",
-    "text": "Assumptions of Linear Models\n\nNormality\nIndependence of Errors\nIdentical Distribution of Errors/Homogeneity of Variance\nUnbiased Errors"
+    "objectID": "introR.html#a-brief-tour-of-rstudio",
+    "href": "introR.html#a-brief-tour-of-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "A brief Tour of RStudio",
+    "text": "A brief Tour of RStudio\nRStudio is a powerful tool, but it can be a little intimidating at first. The video below is a quick tour of the software:\nTour of RStudio",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#normality",
-    "href": "sampdistinf.html#normality",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Normality",
-    "text": "Normality\n\nWe assume the ERRORS are normally distributed\nThis is reasonable because:\n\nabundance of empirical evidence of normal errors\npossible to transform variables to have normal errors\nCentral Limits Theorem\n\nCentral Limits Theorem - sampling distributions of the sample mean approximate the normal distribution regardless of the shape of the population distribution.\nThe larger the number of components that go into an average the better this approximation (think unmeasured factors and sample size)."
+    "objectID": "introR.html#r-as-a-statistical-programming-language",
+    "href": "introR.html#r-as-a-statistical-programming-language",
+    "title": "Introduction to R and RStudio",
+    "section": "R as a Statistical Programming Language",
+    "text": "R as a Statistical Programming Language\nTo help you understand R I describe some basic concepts important to understanding R as a statistical programming language (SPL). Such concepts will hopefully help you organize what you are learning. This is important because you will not be able to memorize all of the things you need to do to use R. But, having some general concepts should help you build a solid foundation of skills. This explanation will be a gross oversimplification of R, but it should be a good starting model you can build later.\n\nElements of Statistical Programming\nAn object is a thing that has one or more states, and one or more behaviors. Take for example you cell phone. It has many states, such as on or off, and many behaviors, such as making phone calls, sending texts, or surfing the web. Everything in R is an object. Objects in R are very similar to objects like your cell phone, in that they have states and behaviors. Our goal is to learn how to use these objects to help us do science.\nThere are basically two types of objects in R: data objects and function objects. Data objects store information, while function objects process or manipulate information.\n\nExpressions\nWe use objects in R through expressions. An expression is simply a combination of objects that R can evaluate. So, we type something into R, R processes it and gives us the results. For example, if we type 1 + 2 into the R console, it will give us the result 3:\n\n1 + 2\n\n[1] 3\n\n\nSo, expressions are simply objects or combinations of objects submitted to R in a way R can evaluate them.\n\n\nBasic Elements of a Good SPL\n\na rich set of primitive expressions\nmechanisms for combining expressions into more complex expressions\nmeans of abstraction, which allow for naming and manipulating compound objects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrimitive Expressions\n\nEverything in R is an object\nPrimitive objects are the simplest elements of a programming language, and include:\n\nprimitive data\nprimitive functions\n\nThey can be thought of as the basic building blocks for everything else in the language.\nAn expression is an input that the programming language can evaluate, and consists of function and data objects.\n\n\n\nPrimitive Data Types:\nData objects are the primary means of storing information in R. R has a few basic data types:\n\nNumeric -\n\nnumeric\n\nint - integers (1,2)\nnum - real number (1.2, -3.1, 200.0)\n\n\ncharacter or string -\n\ncharacter\n\n\"Hello world!\", \"Ten\", 'Cat'\n\"This is a sentence, which is a string\"\n\"10\" ( in single or double quotes, as long as they match)\n\n\nBoolean or Logical\n\nlogical\n\nTRUE or FALSE (use operators such as or, and and not).\nThey will evaluate to numbers where FALSE evaluates to zero, and TRUE evaluates to one.\nFor example. if you enter TRUE + 1 you will get 2 in return.\n\n\n\n\nmode(TRUE)\n\n[1] \"logical\"\n\nTRUE + 1\n\n[1] 2\n\n\n\n\nPrimitive Functions\nR uses functions to do all computations. When you open R it loads the base R functions. You can do lots of things with the base R functions. Primitive functions are built into R. Below are some of they types of primitive functions and examples.\n\nOperators\n\nArithmetic Operators\n\n+, -, *, /, ^\n\nComparison (also called Boolean, Logical or Predicate) Operators\n\n&lt;,&gt;,==, &lt;=, &gt;=, !=\nless than, greater than, equal to, less than or equal to, greater than or equal to, not equal to\nreturn TRUE or FALSE\n\nLogical Operator\n\n&, | ,!\nalso return TRUE or FALSE\n\nOther functions\n\nmode()\nlength()\nsum()\nsqrt()\nlog()\nexp()\n\nAssignment operators (assignment will be discussed below)\n\n&lt;- preferred assignment operator - always use this one\n= this will also work, but can be confusing (note different from ==, the comparison operator)\n-&gt; is also an assignment operator, but we will not use it.\n\n\n\n\n\nProgramming Languages are Not Forgiving\n\nSyntactically valid expressions\nExpressions must be syntactically valid. This means they must be organized in a way that R understands.\n\nsyntax (form)\n\nEnglish: “cat dog boy” - not syntactically valid\nEnglish: “cat hugs boy” - syntactically valid\n\nprogramming language:\n\n\"hi\" 5 - not syntactically valid\n3.2*5 - syntactically valid\n\n\n\n\nSemantically valid expressions\nR statements must also be semantically valid. semantics has to do with meaning.\n\nEnglish: “I are hungry” - syntactically valid but semantic error\nprogramming language: - 3 + “hi” - semantic error (you can’t use addition on character strings)\nChomsky: “colorless green ideas sleep furiously”\n\nThis statement is syntactically valid, but does not make sense, so makes a semantic error.\nIn R you have to combine expressions in a way that R “understands” and this combination should be meaningful.\n\n\n\nAssignment\nWe will often want to save data in a variable. We can do that with assignment, which utilizes an assignment operator.\n\nx &lt;- 2\n\n\nx\n\n[1] 2\n\n\n\npet &lt;- \"dog\"\n\n\npet\n\n[1] \"dog\"\n\n\nAssignments are special expressions that are composed of three parts, a name, an assignment operator, and an expression.\nFor the following assignment,\n\nx &lt;- 1:10\n\nx is the name, &lt;- is the assignment operator, and 1:10 is an expression. Names in R can be anything that includes letters, numbers, a period (.) or an underscore (_), as long as it begins with either a letter or a period. Here are some valid, followed by invalid names\n\n# Valid\nIQ\nc3p0\nHeight_inches\nweight.lbs\n.hidden\n\n# Invalid (you will get an error message)\n_cat\n1dog\n%sales\nHeight-Inches\n\nThere are also some names that cannot be used because they are names of primitive R objects (e.g. if, for, else, in). Type ?reserved in the R console for a complete list.\nThere are at least two names that can, but should not be used. Namely the letters (T and F) which in R are short for TRUE and FALSE.\n\nT\n\n[1] TRUE\n\nF\n\n[1] FALSE\n\n\nThere are at least three assignment operators, as mentioned above, but it is commonly recommended that you use &lt;-, because it makes clear that you are taking some expression and putting it in an object. So we would say of the assignment of x &lt;- 1:10 that x gets the integers 1 through 10, suggesting that we are putting the integers into the object x.\nJust about any expression can be passed to a name with the assignment operator.\n\n\nCombining Expressions\n\n\n\n\n\n\n\n\n\n\n\nComplex Data Types\n\nScalars, Vectors, Matrices, and Arrays\nA scalar is a single value such as:\n\n1\n\n[1] 1\n\n\nor\n\n\"cat\"\n\n[1] \"cat\"\n\n\nA vector is a one-dimensional series of values. For example, the integers 1 through 5 would be a vector of length 5. In R you can create a vector as follows:\n\nseries1_5 &lt;- c(1, 2, 3, 4, 5)\n\nNote in R there really are no scalars per se. To R a scalar is a vector of length one.\n\nx &lt;- 4\nis.vector(x)\n\n[1] TRUE\n\n\nthe is.vector() function tests if an object is a vector. The result lets us know the primitive object 4 is indeed a vector.\n\nlength(x)\n\n[1] 1\n\n\nAnd it’s length is one.\nLists are the most complex primitive type of data object. A list is a series of any type of object. For example, we might want to record some personal information.\n\npersonalInfo &lt;- list(\n  name = \"Rosalind\",\n  age = 6,\n  pet_names = c(\"Sparkles\", \"Mr. Bingo Clakerson\", \"scruffy\"),\n  favorite_colors = c(\"pink\", \"purple\")\n)\n\nDataframes are special types of lists, that have the same number of values in each of the series in the list. We will use these very often for data analysis. Each row in a data frame is a different unit and each column is a different variables. So, in a data frame each column has the same number of rows, and each row has the same number of columns.\n\nclass_info &lt;- data.frame(\n  name = c(\"Rosalind\", \"Emily\", \"Drake\"),\n  age = c(6, 7, 5),\n  height = c(46, 48, 44)\n  )\n\nclass_info\n\n      name age height\n1 Rosalind   6     46\n2    Emily   7     48\n3    Drake   5     44\n\n\nNotice that the data frame class_info is an object that contains other objects. If we want to use one of the objects inside a data frame we can do so by letting R know where to find that object using the $ operator. So, if we wanted to see the ages in the class_info data frame we could do so by:\n\nclass_info$age\n\n[1] 6 7 5\n\n\n\n\n\nGrouping Homogeneous Data Types\n\ncombining scalars\n\n\nc()\n\n\ncombining expressions\n\n\n{}\n\n\ncombining vectors\n\n\ncbind()\nrbind()\n\n\n\nComplex Functions\n\nVectorization\nNested Functions\nLoops and Conditional execution\n\n\n\nAbstraction\n\nAssignment\n\n\n\n\nData Abstraction\n\n\nFunctional Abstraction\n\n\nAnatomy of a Function\n\nname &lt;- function(arg_1, arg_2, ...) {\n    expression_1\n    expression_2\n    ...\n    output &lt;- expression_3\n    return(output)\n}",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#independence-of-errors",
-    "href": "sampdistinf.html#independence-of-errors",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Independence of Errors",
-    "text": "Independence of Errors\n\nKnowing one observation’s error tells us nothing about another observation’s error\nViolation Examples\n\nPositive: Couple’s political attitudes\nNegative: Couple’s housework estimates\n\nCare whenever observations are linked in any way"
+    "objectID": "introR.html#some-r-resources",
+    "href": "introR.html#some-r-resources",
+    "title": "Introduction to R and RStudio",
+    "section": "Some R Resources",
+    "text": "Some R Resources\nBelow I give links to R resources if you desire to learn more about R.\nA good next step is Roger Peng’s book R Programming for Data Science, which can be read free online at https://bookdown.org/rdpeng/rprogdatascience/. You can also download a pdf or epub of the book at https://leanpub.com/rprogramming. Both these links also have links to purchase a printed copy if that works better for you.",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Introduction to R and RStudio"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#identical-distribution-of-errors",
-    "href": "sampdistinf.html#identical-distribution-of-errors",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Identical Distribution of Errors",
-    "text": "Identical Distribution of Errors\n\nEqual variances for all groups\n\nsize of error not related to size of model prediction\nViolations: counts, reaction times, money\n\nHomogeneity of Variance"
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software for Research",
+    "section": "",
+    "text": "Introduction to R and RStudio",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Software for Research"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#unbiased-error",
-    "href": "sampdistinf.html#unbiased-error",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Unbiased Error",
-    "text": "Unbiased Error\n\nMean of Errors = 0\nOtherwise just becomes part of MODEL\nA researcher issue rather than a data analysis or statistical issue\nSo YOU take care to ensure no bias"
+    "objectID": "software.html#software-for-research",
+    "href": "software.html#software-for-research",
+    "title": "Software for Research",
+    "section": "",
+    "text": "Introduction to R and RStudio",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "Software for Research"
+    ]
   },
   {
-    "objectID": "sampdistinf.html#estimator-for-sigma2",
-    "href": "sampdistinf.html#estimator-for-sigma2",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Estimator for \\(\\sigma^2\\)",
-    "text": "Estimator for \\(\\sigma^2\\)\n\\[\n\\hat{\\sigma}^2 = s^2 = \\frac{SSE}{n-1} = \\sum\\frac{(Y_i - \\bar{Y})^2}{n - 1}\n\\] \\[\n\\hat{\\sigma}^2 = MSE = \\frac{SSE}{n-p} = \\sum\\frac{(Y_i - \\hat{Y_i})^2}{n - p}\n\\]"
-  },
-  {
-    "objectID": "sampdistinf.html#why-n-p-instead-of-n",
-    "href": "sampdistinf.html#why-n-p-instead-of-n",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Why \\(n-p\\) instead of \\(n\\)?",
-    "text": "Why \\(n-p\\) instead of \\(n\\)?\n\\[\nDATA = MODEL + ERROR\n\\]\n\\[\nn = p +(n-p)\n\\]\n\nOnly \\((n-p)\\) independent pieces of information left in ERROR"
-  },
-  {
-    "objectID": "sampdistinf.html#a-problems-in-science",
-    "href": "sampdistinf.html#a-problems-in-science",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "A Problems in Science",
-    "text": "A Problems in Science\n\ninclude_graphics(\"images/manylabs3.png\")"
-  },
-  {
-    "objectID": "sampdistinf.html#overview",
-    "href": "sampdistinf.html#overview",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Overview",
-    "text": "Overview\n\nHypothesis Testing and p-values\nModeling\nLinear Regression"
-  },
-  {
-    "objectID": "sampdistinf.html#hypotheses",
-    "href": "sampdistinf.html#hypotheses",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Hypotheses",
-    "text": "Hypotheses\n\nAn hypothesis is a testable statement about a population.\nIt takes the form of a prediction about the value or range of values a parameter takes."
-  },
-  {
-    "objectID": "sampdistinf.html#the-p-value",
-    "href": "sampdistinf.html#the-p-value",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "The p-value",
-    "text": "The p-value\nA p-value is the probability of obtaining data as extreme or more extreme as obtained in the sample given that the null hypothesis is true.\np-value :\n\\[\np = P(D | H_0)\n\\]"
-  },
-  {
-    "objectID": "sampdistinf.html#observational-learning-albert-bandura-1965",
-    "href": "sampdistinf.html#observational-learning-albert-bandura-1965",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Observational Learning Albert Bandura (1965)",
-    "text": "Observational Learning Albert Bandura (1965)\n\nInfluence of Models’ Reinforcement Contingencies on the acquisition of Imitative Responses\nIn order to test the hypothesis that reinforcements administered to a model influence the performance but not the acquisition of matching responses, groups of children observed an aggressive film-mediated model either rewarded, punished, or left without consequences. A postexposure test revealed that response consequences to the model had produced differential amounts of imitative behavior. Children in the model-punished condition performed significantly fewer matching responses than children in both the model-rewarded and the no-consequences groups. Children in all 3 treatment conditions were then offered attractive reinforcers contingent on their reproducing the model’s aggressive responses. The introduction of positive incentives completely wiped out the previously observed performance differences, revealing an equivalent amount of learning among children in the model-rewarded, model-punished, and the no-consequences conditions."
-  },
-  {
-    "objectID": "sampdistinf.html#hypotheses-1",
-    "href": "sampdistinf.html#hypotheses-1",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Hypotheses",
-    "text": "Hypotheses\n\\(H_0\\): ???\n\n\\(H_1\\): It was predicted that reinforcing consequences to the model would result in significant differences in the performance of imitative behavior with the model-rewarded group displaying the highest number of different classes of matching responses, followed by the no-consequences and the model-punished groups, respectively.\n\\(H_2\\): In accordance with previous findings (Bandura et al., 1961, 1963a) it was also expected that boys would perform significantly more imitative aggression than girls.\n\\(H_3\\): It was predicted, however, that the introduction of positive incentives would wipe out both reinforcement-produced and sex-linked performance differences, revealing an equivalent amount of learning among children in the three treatment conditions.\n\n\nFigure 1. Mean number of different matching responses reproduced by children as a function of positive incentives and the model’s reinforcement contingencies.\n\ninclude_graphics(\"images/banduraBarplot.png\")"
-  },
-  {
-    "objectID": "sampdistinf.html#table-1",
-    "href": "sampdistinf.html#table-1",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Table 1",
-    "text": "Table 1\n\nANOVA Results for Performance Differences\n\n\n\nSource\ndf\nMS\nF\n\n\n\n\nTreatment (T)\n2\n1.21\n3.27*\n\n\nSex (S)\n1\n4.87\n13.16**\n\n\nT X S\n2\n.12\n<1\n\n\nWithin groups\n60\n.37\n\n\n\n\nNote: * p < .05; ** p < .001."
-  },
-  {
-    "objectID": "sampdistinf.html#table-2",
-    "href": "sampdistinf.html#table-2",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Table 2",
-    "text": "Table 2\n\nComparison of Pairs of Means Between Treatment Conditions (t values)\n\n\n\n\n\n\n\n\n\nPerformance\nReward vs. punishment\nReward vs none\nPunishment vs none\n\n\n\n\nAll\n2.20**\n0.55\n2.25**\n\n\nBoys\n1.05\n0.19\n1.24\n\n\nGirls\n2.13**\n0.12\n2.02*"
-  },
-  {
-    "objectID": "sampdistinf.html#what-does-the-p-value-tell-us",
-    "href": "sampdistinf.html#what-does-the-p-value-tell-us",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "What does the \\(p\\)-value Tell Us?",
-    "text": "What does the \\(p\\)-value Tell Us?\n\nthe probability of obtaining a \\(F\\)-value as extreme, or more extreme as 3.27, assuming the null hypothesis is true\nSaid differently, in a world in which different reinforcement contingencies have exacly no effect on the number of aggressive imitations, a \\(F\\)-score of 3.27 or greater would occur less than once in one thousand times in a very large number of randoms samples of size 66."
-  },
-  {
-    "objectID": "sampdistinf.html#what-do-p-values-not-tell-us",
-    "href": "sampdistinf.html#what-do-p-values-not-tell-us",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "What do \\(p\\)-values NOT tell Us?",
-    "text": "What do \\(p\\)-values NOT tell Us?\nRecall:\n\\[\np(D | H_0) \\ne p(H_0 | D)\n\\]"
-  },
-  {
-    "objectID": "sampdistinf.html#lottery",
-    "href": "sampdistinf.html#lottery",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Lottery",
-    "text": "Lottery\nW = winning the lottery\nT = Have a valid lottery ticket\n\\[\np(W|T) \\ne p(T|W)\n\\]"
-  },
-  {
-    "objectID": "sampdistinf.html#lottery-probabilities-in-perspective",
-    "href": "sampdistinf.html#lottery-probabilities-in-perspective",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Lottery probabilities in Perspective",
-    "text": "Lottery probabilities in Perspective\n\n\nThe probability of winning the MegaMillions Georgia Lottery was \\(3.03 \\times 10^{-9}\\) on 1/27/2019.\nThe probability of being struck by lightening in your lifetime is \\(\\frac{1}{3000}\\) ( \\(3.33 \\times 10^{-4}\\) ).\nThe probability of being struck by lightening THIS YEAR is \\(1.43 \\times 10^{-6}\\)."
-  },
-  {
-    "objectID": "sampdistinf.html#cognitive-errors-in-significance-testing",
-    "href": "sampdistinf.html#cognitive-errors-in-significance-testing",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Cognitive Errors in Significance Testing",
-    "text": "Cognitive Errors in Significance Testing\n\nFalse belief that \\(p\\) is the probability that a result happened by chance.\nFalse belief that rejecting the null means the likelihood that this decision was wrong is less than 5%.\nFalse belief that a \\(p\\) value give the probability that the null hypothesis is true.\nFalse belief that \\(1-p\\) is the probability that the alternative hypothesis is true.\nFalse belief that \\(1-p\\) is the probability of finding the same result in another sample."
-  },
-  {
-    "objectID": "sampdistinf.html#model-comparison",
-    "href": "sampdistinf.html#model-comparison",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Model Comparison",
-    "text": "Model Comparison\n\nModel A:\n\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\n\nModel C:\n\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\n\\[\nH_0: \\beta_0 = B_0\n\\]"
-  },
-  {
-    "objectID": "sampdistinf.html#power",
-    "href": "sampdistinf.html#power",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Power",
-    "text": "Power\nhttp://www.artofstat.com/webapps.html"
-  },
-  {
-    "objectID": "sampdistinf.html#punchline",
-    "href": "sampdistinf.html#punchline",
-    "title": "Sampling Distributions and Statistical Inference",
-    "section": "Punchline",
-    "text": "Punchline\n\nAll statistical inference for model comparisons is the same!\nCompute PRE, F* from SSE(A) and SSE(C)\nIf PRE & F* surprising, then reject Model C\nAlways consider Power\nNow let’s build some interesting MODELS (Golems)!"
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Statistical Thinking",
+    "section": "",
+    "text": "This website contains resources relevant to research design and analysis applied social and behavioral sciences. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher’s basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\nThe menu at the left of the pages will allow you to navigate through the topics. There is also a search option which can be used by clicking the magnifying glass in the top right of the site. The navigation bar at the top of the page has additional links that may be useful.\nI hope you find the content useful!\n\nContact\n\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssociate Professor,\nCollege of Education, Auburn University"
   },
   {
     "objectID": "notebooks.html",
@@ -252,11 +158,438 @@
     "text": "These notebooks are under construction.\nRegression Modeling: A Computational Project-Based Approach\nAdvanced Measurement Theory: A Computational Project-Based Approach"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Statistical Thinking",
+    "objectID": "courses.html",
+    "href": "courses.html",
+    "title": "Courses",
     "section": "",
-    "text": "This website contains resources relevant to research design and analysis applied social and behavioral sciences. While basic courses in statistics are essential to most graduate programs, they generally are not sufficient to prepare researchers to advance modern fields of inquiry, particularly on the cutting edge of modern empirical work. This site provides resources that not only build upon a researcher’s basic understanding of quantitative methods, but also provide access to such information after completing graduate course work.\nThe menu at the left of the pages will allow you to navigate through the topics. There is also a search option which can be used by clicking the magnifying glass in the top right of the site. The navigation bar at the top of the page has additional links that may be useful.\nI hope you find the content useful!\n\nContact\n\nMaintained by:\nWilliam M. Murrah, Ph.D.\nAssociate Professor,\nCollege of Education, Auburn University"
+    "text": "Experimental Design (ERMA 7300)\n\nVisualizing and Describing Data\n\nExploring Data Graphically - Tutorial Video\nMeasures of Central Tendency - Tutorial Video\nMeasures of Variability - Tutorial Video\n\n\n\n\nLinear Modeling (ERMA 7310)\n\nFoundations of Modeling\n\nIntroduction to R and RStudio - Video\nFile Folders and Navigation Video\n\n\n\n\nStructural Equation Modeling (ERMA 8340)\n\nFoundations of Structural Equation Modeling\n\nIntroduction to Structural Equation Modeling\nRegression Fundamentals\n\nPreparing SPSS data for Mplus - Tutorial\nPreparing R data for Mplus - Video\n\nModeling and Hypothesis Testing\n\nHypothesis Testing Video\nBootstrapping Video\n\nModel Specification - Path Analysis\n\nPath Specification Video\nPath Identification Video\nUsing Mplus Diagrammer Video\nUsing Onyx to diagram Video\n\nGraph Theory\n\nDAG Basics Video\nDiagramming Causal Graphs Video\n\nThinking Clearly Video\n\nModel Specification - CFA Video\nModel Specification - SEM\n\nSpecification Video\nDemonstration Video\n\nModel Analysis - Local Fit\n\nEstimation Methods Video\nStandardization and Path Analysis Video\n\nModel Analysis - Global Fit\n\nGlobal Fit Theory Video\nGlobal Fit Demonstration Video\n\nModel Analysis - CFA\n\nCFA Analysis Video\nCFA Analysis Demonstration Video\n\nModel Analysis - SEM Video\n\n\n\n\nMultilevel Modeling (ERMA Special Topics)\n\n\nAdvanced Psychometrics (ERMA 8350)"
+  },
+  {
+    "objectID": "methodsoverview.html",
+    "href": "methodsoverview.html",
+    "title": "A Modeling Approach",
+    "section": "",
+    "text": "I define reality as consisting of all that exists. This includes not only what we typically think of as physical stuff – like trees, houses, cars, and people – but also things like ideas, beliefs, feelings, etc. You might consider me a physical monist, in that I do not make distinctions between physical and “non-physical” objects. I think if things like ideas as emergent properties of our brains functioning within many layers of context. This belief has a few implications worth noting. First, it assumes that we all live in the same reality – what I do can have an impact on you and what you do can impact me.\nHowever, I am convinced that this reality is extremely complicated. In fact, I am skeptical that we can ever fully understand reality (and by we I mean as a species, much less as individuals).\nDoes this mean we cannot understand reality at all? I don’t think so. I don’t fully understand how my car works, but I do have basic ideas that allow me to problem solve issues such as when it won’t start. When we can’t fully understand something, we are left to build an model of that process. I will talk more about models below, but for now think of a model as an oversimplified representation of a much more complex system. We all create models of reality, and the models we create depend on our values, knowledge, experiences, context, and goals, to name only a few.\nSo, as I see it, modeling is not an option, we all must do it. Furthermore, the oversimplification of reality is not a limitation of science, but is necessary for its progress.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "methodsoverview.html#philosophy-of-science",
+    "href": "methodsoverview.html#philosophy-of-science",
+    "title": "A Modeling Approach",
+    "section": "",
+    "text": "I define reality as consisting of all that exists. This includes not only what we typically think of as physical stuff – like trees, houses, cars, and people – but also things like ideas, beliefs, feelings, etc. You might consider me a physical monist, in that I do not make distinctions between physical and “non-physical” objects. I think if things like ideas as emergent properties of our brains functioning within many layers of context. This belief has a few implications worth noting. First, it assumes that we all live in the same reality – what I do can have an impact on you and what you do can impact me.\nHowever, I am convinced that this reality is extremely complicated. In fact, I am skeptical that we can ever fully understand reality (and by we I mean as a species, much less as individuals).\nDoes this mean we cannot understand reality at all? I don’t think so. I don’t fully understand how my car works, but I do have basic ideas that allow me to problem solve issues such as when it won’t start. When we can’t fully understand something, we are left to build an model of that process. I will talk more about models below, but for now think of a model as an oversimplified representation of a much more complex system. We all create models of reality, and the models we create depend on our values, knowledge, experiences, context, and goals, to name only a few.\nSo, as I see it, modeling is not an option, we all must do it. Furthermore, the oversimplification of reality is not a limitation of science, but is necessary for its progress.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "methodsoverview.html#the-modeling-approach",
+    "href": "methodsoverview.html#the-modeling-approach",
+    "title": "A Modeling Approach",
+    "section": "The Modeling Approach",
+    "text": "The Modeling Approach\nA great introduction to the modeling approach is an article by Rodgers (2010). I highly recommend reading this article, as it give a great overview of the limitations of strict hypothesis testing, and the advantages of using a modeling approach.\n\nWhat are Scientific Models?\n\nModels are explicit statements about the processes that give rise to observed data. - Little (2013)\n\n\nA mathematical model is a set of assumptions together with implications drawn from them by mathematical reasoning. - Neimark and Estes (1967 quoted in Rodgers, 2010)\n\n\n\nGoals of science\nOften, the three goals of science are stated:\n\nDescribe\nPredict\nExplain\n\nModels are important for all these goals.\nModels are representations of how our key constructs are related. They can be narrative, graphical, or mathematical. Models match reality in some way, and are simpler than reality.\n\n\nWhy do we need models?\nIf we acknowledge the .red[complexity] and .red[interrelatedness] of reality, and our goal is the perfect model, we soon realize To model anything, we would have to model everything!\nAll models are wrong, but some are useful -George Box\n\n\nOccam’s Razor\n\nWe need to balance explanatory power (reducing error) with parsimony (simplicity)\nWe want to constantly ask: “What do we gain by adding complexity?”\nProportion Reduction in Error (PRE)\n\n\n\nScientific Models are NOT Oracles\n\n\n\nScientific Models are Golems",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "methodsoverview.html#simple-models-errors-and-parameters",
+    "href": "methodsoverview.html#simple-models-errors-and-parameters",
+    "title": "A Modeling Approach",
+    "section": "Simple Models: Errors and Parameters",
+    "text": "Simple Models: Errors and Parameters\n\nThe Basic Model\n\nNarrative, Numeric, and Graphical Models\nLet’s start with a simple narrative model:\n“Peer pressure causes smoking.”\nWe can start to convert this to other forms of model. It is often helpful to take our narrative model an turn it into a graphical model.\nHere is a simple graphical model of our example model:\n\n\n\n\n\n\nHere is a generalized graphical representation of our model.\n\n\n\n\n\n\nHere is the general form of a numerical model (an equation) with the three main components: \\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] where,\n\nDATA = What we want to understand or explain\nMODEL = A simpler representation of the DATA\nERROR = Amount by which the model fails to explain the data\n\nWhat is another term for error?\nWe could take our graphical model and turn it into an equation:\n\\[\n\\text{Smoking} = \\text{Friend Smokes} + \\text{ERROR}\n\\]\n\n\n\nA Simple Model\n\nA mathematical representation\n\\[\n\\text{DATA} = \\text{MODEL} + \\text{ERROR}\n\\] Population model:\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\nSample model:\n\\[\ny_i = b_0 + e_i\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "methodsoverview.html#describing-error",
+    "href": "methodsoverview.html#describing-error",
+    "title": "A Modeling Approach",
+    "section": "Describing Error",
+    "text": "Describing Error\n\nSimplest Model\n\nZero Parameters\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\nWhere \\(B_0\\) is some a priori value, not based on these DATA, but provided by some theoretical consideration\n\ne.g. temperature = 98.6 degrees\nprobability if coin is fair = .50\nchange over time = 0\n\nNot common in behavioral sciences\n\n\n\nSimple Model\n\nOne Parameter\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] Where \\(\\beta_0\\) is an unknown value. The MODEL makes a constant prediction for all cases, but the value of that prediction is to be estimated from the data, so to make ERROR as small as possible.\nThe estimated MODEL is\n\\[\nY_i = b_0 + e_i\n\\]\nWhere \\(b_0\\) is the actual prediction made for each case, estimated from the data, minimizing ERROR.\nThis estimated MODEL can also be written as\n\\[\n\\hat{Y_i} = b_0\n\\]\nNote the difference between the two errors in the parameter model ( \\(\\varepsilon_i\\) ) and the estimated model ( \\(e_i\\) ). The latter is an estimate of the former, just as \\(b_0\\) is an estimate of \\(\\beta_0\\).\n\\[\n\\varepsilon_i = Y_i - \\beta_0\n\\]\n\\[\ne_i = Y_i - b_0 = Y_i - \\hat{Y_i}\n\\]\n\n\n\nMeasures of Central Tendency and Dispersion\n\nWant to find best estimate of \\(\\beta_0\\) that minimizes not individual \\(e_i\\)’s but some aggregate measure of error.\nDifferent ways of aggregating errors lead to different estimates - alternative measures of Central Tendency\nDifferent ways of aggregating errors lead to different estimates of “Typical Error” - alternative measures of Spread\nThis is “descriptive statistics”\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Errors? - Why not?\nMinimize Sum of Absolute Errors (SAE). - best estimate of \\(\\beta_0\\) is the Median\nWhat happens in presence of extreme outlier?\nAbsolute Errors and Outliers\nMedian Absolute Deviation (MAD) as typical measure of spread (median value of \\(e_i\\) given minimization of SAE)\n\n\n\nMeasures of Central Tendency and Dispersion\n\nMinimize Sum of Squared Errors. Why?\n\nbest estimate of \\(\\beta_0\\) is the Mean\n\nWhat happens in presence of outlier?\n\nSquared Errors and Outliers -Mean Square Error (Variance) as typical measure of spread (mean value of \\(e_i^2\\) given minimization of SSE)\n\n\n\n\nFormalities of Estimation\n\nSimple Model\nDATA = MODEL + ERROR\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\] \\[\nY_i = b_0 + e_i\n\\] \\[\n\\hat{Y_i} = b_0\n\\] \\[\nY_i = \\hat{Y_i} + e_i\n\\]\n\\[\ne_i = Y_i - \\hat{Y_i}\n\\]\n\nAggregate Error: Sum of Absolute Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} |e_i| = \\sum_{i=1}^{n}|Y_i - \\hat{Y_i} | = \\sum_{i=1}^{n} | Y_i - b_0|\\]\n\nMinimization estimates \\(\\beta_0\\) as the Median\nMeasure of Spread: Median Absolute Error or Median Absolute Deviation (MAD)\n\n\n\nAggregate Error: Sum of Squared Errors\n\\[\\text{Error} = \\sum_{i=1}^{n} e_i^2 = \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2 = \\sum_{i=1}^{n} (Y_i - b_0)^2 = \\sum_{i=1}^{n} (Y_i - \\bar{Y})^2\\]\n\nMinimization estimates \\(\\beta_0\\) as the Mean\nMeasure of Spread: Mean Squared Error (Variance)\n\n\n\n\n\nMean Squared Error Estimation\n\nRecall that if one estimated \\(n\\) parameters, ERROR would be zero.\n\nIn computation of the MSE, we want to take into account the number of parameters estimated (and the number of additional parameters that could be estimated).\nGeneral formula for MSE:\n\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-p}\\]\n\nSquare root known as the “root mean square error”\n\n\n\nMean Squared Error Estimation\n\nIn case of simple one-parameter model, \\(p = 1\\) and\n\n\\[\\hat{Y_i} = b_0 = \\bar{Y}\\]\nAccordingly,\n\\[\\text{MSE} = \\frac{ \\sum_{i=1}^{n} (Y_i - \\hat{Y_i})^2}{n-1} = s^2\\]\n\nAnd root mean square error is called the standard deviation\nSo variance is special case of MSE; MSE as unbiased measure of spread (or variance) of errors\nUsual notion: descriptive statistics\nPick a measure of central tendency (mean, median, mode)\nPick a measure of spread\nNO - pick a measure of aggregate error, estimates of \\(\\beta_0\\) follow from that, along with estimates of typical error.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "methodsoverview.html#an-example",
+    "href": "methodsoverview.html#an-example",
+    "title": "A Modeling Approach",
+    "section": "An Example",
+    "text": "An Example\n\n\n       vars  n  mean   sd median trimmed  mad  min max range skew kurtosis   se\nrepht     1 12 67.83 3.66  68.00   67.80 2.97 61.0  75  14.0 0.10    -0.51 1.06\nheight    2 12 68.58 3.37  68.25   68.55 2.59 62.5  75  12.5 0.13    -0.72 0.97\n\n\n           repht    height\nrepht  1.0000000 0.9804921\nheight 0.9804921 1.0000000\n\n\n\nDistribution of measured heights",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "A Modeling Approach"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html",
+    "href": "sampdistinf.html",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "",
+    "text": "R packages used in this chapter:\nlibrary(knitr)\nlibrary(mosaic)\nlibrary(Lock5Data)\nlibrary(supernova)\nlibrary(DiagrammeR)\nlibrary(psych)",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#sampling-distributions-of-error",
+    "href": "sampdistinf.html#sampling-distributions-of-error",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Sampling Distributions of Error",
+    "text": "Sampling Distributions of Error\n\nload(\"data/ermahtSP20.Rdata\") # This file can be found on Canvas\nerma &lt;- ermahtSP20\nerma$e &lt;- erma$height - mean(erma$height)\nerma$Eps &lt;- erma$height - 67",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#adult-heights-from-nhanes-study",
+    "href": "sampdistinf.html#adult-heights-from-nhanes-study",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Adult Heights from NHANES Study",
+    "text": "Adult Heights from NHANES Study\n\nlibrary(psych)\nlibrary(NHANES)\ndata(\"NHANES\")\nheight_in &lt;- NHANES[NHANES$Age &gt;= 21, ]$Height*.393701\ndescribe(height_in, fast = TRUE)\n\n   vars    n  mean   sd median   min  max range skew kurtosis   se\nX1    1 7041 66.45 3.98  66.38 52.95 78.9 25.94 0.04    -0.38 0.05\n\n\n\\(\\mu =\\) 67\n\\(\\sigma =\\) 4\n\nprint(erma[ ,c(1,3)])\n\n   id height\n1  ek   65.0\n2  lz   69.0\n3  lk   67.5\n4  bw   75.0\n5  kb   62.5\n6  dg   68.0\n7  cs   72.0\n8  ao   67.0\n9  wb   70.0\n10 tm   72.0\n11 nb   66.5\n12 pm   68.5\n\n\n\ndescribe(erma$height, fast = TRUE)\n\n   vars  n  mean   sd median  min max range skew kurtosis   se\nX1    1 12 68.58 3.37  68.25 62.5  75  12.5 0.13    -0.72 0.97\n\n\n\nload(\"data/ermahtSP20.Rdata\")\n\nmean(ermahtSP20$height)\n\n[1] 68.58333\n\nermahtSP20$height\n\n [1] 65.0 69.0 67.5 75.0 62.5 68.0 72.0 67.0 70.0 72.0 66.5 68.5\n\nround(ermahtSP20$height - mean(ermahtSP20$height),1)\n\n [1] -3.6  0.4 -1.1  6.4 -6.1 -0.6  3.4 -1.6  1.4  3.4 -2.1 -0.1",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#demonstration-of-sampling-distrubtions",
+    "href": "sampdistinf.html#demonstration-of-sampling-distrubtions",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Demonstration of sampling distrubtions",
+    "text": "Demonstration of sampling distrubtions\nTo play around with sampling distributions, go to the following website, scroll down the page to the section called Sampling Distributions and Central Limits Theorem and click on the image called “Sampling Distribution of the Sample Mean (Continuous Population)”\nhttps://artofstat.com/web-apps",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
+    "href": "sampdistinf.html#standard-error-of-the-mean-sem-or-s.e.",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Standard Error of the Mean (SEM or S.E.)",
+    "text": "Standard Error of the Mean (SEM or S.E.)\n\nPopulation formula:\n\\[\\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}}\\]\n\n\nSample formula:\n\\[s_{\\bar{x}} = \\frac{s}{\\sqrt{n}}\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#properties-of-estimators",
+    "href": "sampdistinf.html#properties-of-estimators",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Properties of Estimators",
+    "text": "Properties of Estimators\n\nUnbiased: The peak of the sampling distribution equals the parameter value\nEfficient: Most of the estimates are close to the parameter\nConsistency: The more observations the closer the estimates are to the parameter, or said differently, the bigger the sample size the narrower the sampling distribution",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#assumptions-of-linear-models",
+    "href": "sampdistinf.html#assumptions-of-linear-models",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Assumptions of Linear Models",
+    "text": "Assumptions of Linear Models\n\nNormality\nIndependence of Errors\nIdentical Distribution of Errors/Homogeneity of Variance\nUnbiased Errors",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#normality",
+    "href": "sampdistinf.html#normality",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Normality",
+    "text": "Normality\n\nWe assume the ERRORS are normally distributed\nThis is reasonable because:\n\nabundance of empirical evidence of normal errors\npossible to transform variables to have normal errors\nCentral Limits Theorem\n\nCentral Limits Theorem - sampling distributions of the sample mean approximate the normal distribution regardless of the shape of the population distribution.\nThe larger the number of components that go into an average the better this approximation (think unmeasured factors and sample size).",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#independence-of-errors",
+    "href": "sampdistinf.html#independence-of-errors",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Independence of Errors",
+    "text": "Independence of Errors\n\nKnowing one observation’s error tells us nothing about another observation’s error\nViolation Examples\n\nPositive: Couple’s political attitudes\nNegative: Couple’s housework estimates\n\nCare whenever observations are linked in any way",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#identical-distribution-of-errors",
+    "href": "sampdistinf.html#identical-distribution-of-errors",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Identical Distribution of Errors",
+    "text": "Identical Distribution of Errors\n\nEqual variances for all groups\n\nsize of error not related to size of model prediction\nViolations: counts, reaction times, money\n\nHomogeneity of Variance",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#unbiased-error",
+    "href": "sampdistinf.html#unbiased-error",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Unbiased Error",
+    "text": "Unbiased Error\n\nMean of Errors = 0\nOtherwise just becomes part of MODEL\nA researcher issue rather than a data analysis or statistical issue\nSo YOU take care to ensure no bias",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#estimator-for-sigma2",
+    "href": "sampdistinf.html#estimator-for-sigma2",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Estimator for \\(\\sigma^2\\)",
+    "text": "Estimator for \\(\\sigma^2\\)\n\\[\n\\hat{\\sigma}^2 = s^2 = \\frac{SSE}{n-1} = \\sum\\frac{(Y_i - \\bar{Y})^2}{n - 1}\n\\] \\[\n\\hat{\\sigma}^2 = MSE = \\frac{SSE}{n-p} = \\sum\\frac{(Y_i - \\hat{Y_i})^2}{n - p}\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#why-n-p-instead-of-n",
+    "href": "sampdistinf.html#why-n-p-instead-of-n",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Why \\(n-p\\) instead of \\(n\\)?",
+    "text": "Why \\(n-p\\) instead of \\(n\\)?\n\\[\nDATA = MODEL + ERROR\n\\]\n\\[\nn = p +(n-p)\n\\]\n\nOnly \\((n-p)\\) independent pieces of information left in ERROR",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#a-problems-in-science",
+    "href": "sampdistinf.html#a-problems-in-science",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "A Problems in Science",
+    "text": "A Problems in Science\n\ninclude_graphics(\"images/manylabs3.png\")",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#overview",
+    "href": "sampdistinf.html#overview",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Overview",
+    "text": "Overview\n\nHypothesis Testing and p-values\nModeling\nLinear Regression",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#hypotheses",
+    "href": "sampdistinf.html#hypotheses",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Hypotheses",
+    "text": "Hypotheses\n\nAn hypothesis is a testable statement about a population.\nIt takes the form of a prediction about the value or range of values a parameter takes.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#the-p-value",
+    "href": "sampdistinf.html#the-p-value",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "The p-value",
+    "text": "The p-value\nA p-value is the probability of obtaining data as extreme or more extreme as obtained in the sample given that the null hypothesis is true.\np-value :\n\\[\np = P(D | H_0)\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#observational-learning-albert-bandura-1965",
+    "href": "sampdistinf.html#observational-learning-albert-bandura-1965",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Observational Learning Albert Bandura (1965)",
+    "text": "Observational Learning Albert Bandura (1965)\n\nInfluence of Models’ Reinforcement Contingencies on the acquisition of Imitative Responses\nIn order to test the hypothesis that reinforcements administered to a model influence the performance but not the acquisition of matching responses, groups of children observed an aggressive film-mediated model either rewarded, punished, or left without consequences. A postexposure test revealed that response consequences to the model had produced differential amounts of imitative behavior. Children in the model-punished condition performed significantly fewer matching responses than children in both the model-rewarded and the no-consequences groups. Children in all 3 treatment conditions were then offered attractive reinforcers contingent on their reproducing the model’s aggressive responses. The introduction of positive incentives completely wiped out the previously observed performance differences, revealing an equivalent amount of learning among children in the model-rewarded, model-punished, and the no-consequences conditions.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#hypotheses-1",
+    "href": "sampdistinf.html#hypotheses-1",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Hypotheses",
+    "text": "Hypotheses\n\\(H_0\\): ???\n\n\\(H_1\\): It was predicted that reinforcing consequences to the model would result in significant differences in the performance of imitative behavior with the model-rewarded group displaying the highest number of different classes of matching responses, followed by the no-consequences and the model-punished groups, respectively.\n\\(H_2\\): In accordance with previous findings (Bandura et al., 1961, 1963a) it was also expected that boys would perform significantly more imitative aggression than girls.\n\\(H_3\\): It was predicted, however, that the introduction of positive incentives would wipe out both reinforcement-produced and sex-linked performance differences, revealing an equivalent amount of learning among children in the three treatment conditions.\n\n\nFigure 1. Mean number of different matching responses reproduced by children as a function of positive incentives and the model’s reinforcement contingencies.\n\ninclude_graphics(\"images/banduraBarplot.png\")",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#table-1",
+    "href": "sampdistinf.html#table-1",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Table 1",
+    "text": "Table 1\n\nANOVA Results for Performance Differences\n\n\n\nSource\ndf\nMS\nF\n\n\n\n\nTreatment (T)\n2\n1.21\n3.27*\n\n\nSex (S)\n1\n4.87\n13.16**\n\n\nT X S\n2\n.12\n&lt;1\n\n\nWithin groups\n60\n.37\n\n\n\n\nNote: * p &lt; .05; ** p &lt; .001.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#table-2",
+    "href": "sampdistinf.html#table-2",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Table 2",
+    "text": "Table 2\n\nComparison of Pairs of Means Between Treatment Conditions (t values)\n\n\n\n\n\n\n\n\n\nPerformance\nReward vs. punishment\nReward vs none\nPunishment vs none\n\n\n\n\nAll\n2.20**\n0.55\n2.25**\n\n\nBoys\n1.05\n0.19\n1.24\n\n\nGirls\n2.13**\n0.12\n2.02*",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#what-does-the-p-value-tell-us",
+    "href": "sampdistinf.html#what-does-the-p-value-tell-us",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "What does the \\(p\\)-value Tell Us?",
+    "text": "What does the \\(p\\)-value Tell Us?\n\nthe probability of obtaining a \\(F\\)-value as extreme, or more extreme as 3.27, assuming the null hypothesis is true\nSaid differently, in a world in which different reinforcement contingencies have exacly no effect on the number of aggressive imitations, a \\(F\\)-score of 3.27 or greater would occur less than once in one thousand times in a very large number of randoms samples of size 66.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#what-do-p-values-not-tell-us",
+    "href": "sampdistinf.html#what-do-p-values-not-tell-us",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "What do \\(p\\)-values NOT tell Us?",
+    "text": "What do \\(p\\)-values NOT tell Us?\nRecall:\n\\[\np(D | H_0) \\ne p(H_0 | D)\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#lottery",
+    "href": "sampdistinf.html#lottery",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Lottery",
+    "text": "Lottery\nW = winning the lottery\nT = Have a valid lottery ticket\n\\[\np(W|T) \\ne p(T|W)\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#lottery-probabilities-in-perspective",
+    "href": "sampdistinf.html#lottery-probabilities-in-perspective",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Lottery probabilities in Perspective",
+    "text": "Lottery probabilities in Perspective\n\n\nThe probability of winning the MegaMillions Georgia Lottery was \\(3.03 \\times 10^{-9}\\) on 1/27/2019.\nThe probability of being struck by lightening in your lifetime is \\(\\frac{1}{3000}\\) ( \\(3.33 \\times 10^{-4}\\) ).\nThe probability of being struck by lightening THIS YEAR is \\(1.43 \\times 10^{-6}\\).",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#cognitive-errors-in-significance-testing",
+    "href": "sampdistinf.html#cognitive-errors-in-significance-testing",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Cognitive Errors in Significance Testing",
+    "text": "Cognitive Errors in Significance Testing\n\nFalse belief that \\(p\\) is the probability that a result happened by chance.\nFalse belief that rejecting the null means the likelihood that this decision was wrong is less than 5%.\nFalse belief that a \\(p\\) value give the probability that the null hypothesis is true.\nFalse belief that \\(1-p\\) is the probability that the alternative hypothesis is true.\nFalse belief that \\(1-p\\) is the probability of finding the same result in another sample.",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#model-comparison",
+    "href": "sampdistinf.html#model-comparison",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Model Comparison",
+    "text": "Model Comparison\n\nModel A:\n\n\\[\nY_i = \\beta_0 + \\varepsilon_i\n\\]\n\nModel C:\n\n\\[\nY_i = B_0 + \\varepsilon_i\n\\]\n\\[\nH_0: \\beta_0 = B_0\n\\]",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#power",
+    "href": "sampdistinf.html#power",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Power",
+    "text": "Power\nhttp://www.artofstat.com/webapps.html",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "sampdistinf.html#punchline",
+    "href": "sampdistinf.html#punchline",
+    "title": "Sampling Distributions and Statistical Inference",
+    "section": "Punchline",
+    "text": "Punchline\n\nAll statistical inference for model comparisons is the same!\nCompute PRE, F* from SSE(A) and SSE(C)\nIf PRE & F* surprising, then reject Model C\nAlways consider Power\nNow let’s build some interesting MODELS (Golems)!",
+    "crumbs": [
+      "Home",
+      "Getting Started",
+      "Sampling Distributions and Statistical Inference"
+    ]
+  },
+  {
+    "objectID": "scales.html",
+    "href": "scales.html",
+    "title": "SCALES Lab",
+    "section": "",
+    "text": "SCALES website (Under Construction)\nSCALES Project Template\nSCALES Lab Handbook"
   },
   {
     "objectID": "about.html",
@@ -270,14 +603,12 @@
     "href": "Rscriptsnippets.html",
     "title": "R Script snippets",
     "section": "",
-    "text": "One of the many features of RStudio that make R coding easier is the ability to use code snippets, which expand the general auto complete options for certain common code forms. For example, if you type lib in the RStudio console or script editor you will see an auto complete menu pop up with a snipped for the library() function. This would allow you to select this snippet and it would insert library(package) at the cursor, with the word “package” highlighted. You could then type in the name of the package you wanted to load and hit tab to complete the snippet. See here for more about RStudio snippets.\nYou can also create your own snippets, and I want to show how to create a R code script header that I use often. This allows me to start typing the word script at the beginning of an R script and RStudio inserts a header template like this:\n\n# -----------------------------------------------------------------------\n# Title: title\n# Author: William Murrah\n# Description: description\n# Created: Monday, 23 January 2023\n# R version: R version 4.2.2 (2022-10-31)\n# Project(working) directory: /Users/wmm0017/Projects/QMER/statistical-thinking\n# -----------------------------------------------------------------------\n\nThen, I can insert a title, and description and I have a nice header with important information.\nTo set this up first copy the text below:\nR snippit code\nThen go to Tools in the RStudio menu, then click Global Options…, click the Code tab go to the bottom and check the Code Snippets box. Then click on Edit Snippets, scroll to the bottom. Make sure you skip a blank line at the bottom and paste the above code, making sure to replace YOUR NAME with your name. Tab spacing and alignment are important. The word snippet should be flush with the left margin, and all other lines should be indented two spaces. If the snippet you inserted isn’t highlighted the way the ones just above it in the Edit Snippets window, you likely have a spacing error. Once you have this entered correctly, hit Save, then Ok. Now you should be able to start typing the word script inside an R script and get the script snippet.\nSee the following video for a demonstration:"
-  },
-  {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software for Research",
-    "section": "",
-    "text": "Introduction to R and RStudio"
+    "text": "One of the many features of RStudio that make R coding easier is the ability to use code snippets, which expand the general auto complete options for certain common code forms. For example, if you type lib in the RStudio console or script editor you will see an auto complete menu pop up with a snipped for the library() function. This would allow you to select this snippet and it would insert library(package) at the cursor, with the word “package” highlighted. You could then type in the name of the package you wanted to load and hit tab to complete the snippet. See here for more about RStudio snippets.\nYou can also create your own snippets, and I want to show how to create a R code script header that I use often. This allows me to start typing the word script at the beginning of an R script and RStudio inserts a header template like this:\n\n# -----------------------------------------------------------------------\n# Title: title\n# Author: William Murrah\n# Description: description\n# Created: Monday, 23 January 2023\n# R version: R version 4.2.2 (2022-10-31)\n# Project(working) directory: /Users/wmm0017/Projects/QMER/statistical-thinking\n# -----------------------------------------------------------------------\n\nThen, I can insert a title, and description and I have a nice header with important information.\nTo set this up first copy the text below:\nR snippit code\nThen go to Tools in the RStudio menu, then click Global Options…, click the Code tab go to the bottom and check the Code Snippets box. Then click on Edit Snippets, scroll to the bottom. Make sure you skip a blank line at the bottom and paste the above code, making sure to replace YOUR NAME with your name. Tab spacing and alignment are important. The word snippet should be flush with the left margin, and all other lines should be indented two spaces. If the snippet you inserted isn’t highlighted the way the ones just above it in the Edit Snippets window, you likely have a spacing error. Once you have this entered correctly, hit Save, then Ok. Now you should be able to start typing the word script inside an R script and get the script snippet.\nSee the following video for a demonstration:",
+    "crumbs": [
+      "Home",
+      "Statistical Software",
+      "R Script snippets"
+    ]
   },
   {
     "objectID": "finddata.html",
@@ -287,52 +618,15 @@
     "text": "Google Dataset Search\nICPSR: Find Data\nUC Irvine Machine Learning Repository\nKaggle\nAmazon AWS datasets\nData Portals\nOpen Data Monitor\nWikipedia list of Machine Learning Datasets"
   },
   {
-    "objectID": "introR.html",
-    "href": "introR.html",
-    "title": "Introduction to R and RStudio",
-    "section": "",
-    "text": "The breadth and complexity of statistical techniques continues grow, making it difficult to learn details of all methods. Historically, techniques like analysis of variance (ANOVA) and regression, developed in separate fields, and only later were these techniques integrated into what is now the called the generalized linear model. Since then, multiple additional methods have developed, including those that relax assumptions of earlier methods. Traditional software that provides menus for selecting a specific method were useful when the number of methods were a reasonable size, but the continued development of additional methods make it very difficult to fit all in a reasonably navigable set of menus. The clicking of menus also poses problems for reproducibility. Most of the developing methods, continue to fit nicely into, or are extensions of, the generalized linear model. For example, methods such as machine learning and artificial intelligence build on this generalized linear model.\nSo, while it may not be as easy to get started learning statistics with a programming language, it will pay of in the long run.\n\n\nHere are some qualities of menu based statistical programs and statistical programming languages.\n\nStatistical Programs\n\nfixed menus\nlimited procedures (at least in the menus)\nleads to compartmentalizing models (e.g. ANOVA, regression, GLM)\n\nStatistical Programming Languages (SPLs)\n\nTuring complete: if you can create an algorithm you can program it\nVery flexible\nIntegration of models: One model to rule them all!\n\n\nR is a statistical programming language, which means it is a programming language designed specifically to do statistics. It is widely used across many fields of science, it is free to use, and you can almost always find an implementation of a method using R. For these reasons, and many more, I teach statistics using R."
-  },
-  {
-    "objectID": "introR.html#installing-r-and-rstudio",
-    "href": "introR.html#installing-r-and-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "Installing R and RStudio",
-    "text": "Installing R and RStudio\nThe goal of this chapter is to get you up and running with the R statistical programming language and the RStudio integrated development environment.\nIf you are reading this because you are taking one of my courses, you must decide how you want to use R and RStudio for the course. You have two basic options:\n\nyou can install them on your own computer, or\nyou can use Auburn Universities education virtual lab (VLab), online.\n\nIf you have a computer that you will be using consistently for this course, I recommend installing R and RStudio on that computer. Both are free and will be much easier to use if you install them directly on your computer. If you have decided to install the software on your computer you can skip to the following video. Note, that you must be a student within the university, and have DUO setup to use VLab. If you think you want to use the virtual lab, watch this video:\nUsing VLab to acces R/RStudio\n\nInstalling R\nTo install R go to www.cran.r-project.org, select the appropriate operating system and follow the instructions to install R. You must have R install to use RStudio, so do this first.\n\nInstalling R on Windows\nTo install R on Windows, click on the “Download R for Windows” link on the CRAN page. On the next page click “base” under the Subdirectories heading. On the next page you will see a link entitled “Download R-4.2.2 For Windows” (or the latest version). Click that link to download R, and install it the way you would most software on Windows. Note, this page is also a good resource if you have problems intalling R.\n\n\nInstalling R on Mac\nTo install R on Mac, click the “Download R for macOS” link on the CRAN page. You will likely see two links toward the top of the page that look something similar to the following, one for each of the two types of processors available on macOS.\nM1 chip:\nR-4.2.2-arm64.pkg\nIntel:\nR-4.2.2.pkg\nSelect the one appropriate for your computer. If you do not know what type of chip you have, click on the apple icon in the top left corner of your mac and the click “About this Mac”. Under the processor heading you should see a string of characters. If in includes Intel you have an Intel chip, if not, you likely have an M1 chip. Newer computers are more likely to have M1 than older ones.\nHere is a video demonstrating the installation of R:\nInstall R\n\n\n\nInstalling RStudio\nTo install RStudio go to www.posit.co and follow the links to download the free desktop version of RStudio.\nHere is a video demonstrating the installation of Rstudio:\nInstall RStudio"
-  },
-  {
-    "objectID": "introR.html#a-brief-tour-of-rstudio",
-    "href": "introR.html#a-brief-tour-of-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "A brief Tour of RStudio",
-    "text": "A brief Tour of RStudio\nRStudio is a powerful tool, but it can be a little intimidating at first. The video below is a quick tour of the software:\nTour of RStudio"
-  },
-  {
-    "objectID": "introR.html#r-as-a-statistical-programming-language",
-    "href": "introR.html#r-as-a-statistical-programming-language",
-    "title": "Introduction to R and RStudio",
-    "section": "R as a Statistical Programming Language",
-    "text": "R as a Statistical Programming Language\nTo help you understand R I describe some basic concepts important to understanding R as a statistical programming language (SPL). Such concepts will hopefully help you organize what you are learning. This is important because you will not be able to memorize all of the things you need to do to use R. But, having some general concepts should help you build a solid foundation of skills. This explanation will be a gross oversimplification of R, but it should be a good starting model you can build later.\n\n\n\n\nElements of Statistical Programming\nAn object is a thing that has one or more states, and one or more behaviors. Take for example you cell phone. It has many states, such as on or off, and many behaviors, such as making phone calls, sending texts, or surfing the web. Everything in R is an object. Objects in R are very similar to objects like your cell phone, in that they have states and behaviors. Our goal is to learn how to use these objects to help us do science.\nThere are basically two types of objects in R: data objects and function objects. Data objects store information, while function objects process or manipulate information.\n\nExpressions\nWe use objects in R through expressions. An expression is simply a combination of objects that R can evaluate. So, we type something into R, R processes it and gives us the results. For example, if we type 1 + 2 into the R console, it will give us the result 3:\n\n1 + 2\n\n[1] 3\n\n\nSo, expressions are simply objects or combinations of objects submitted to R in a way R can evaluate them.\n\n\nBasic Elements of a Good SPL\n\na rich set of primitive expressions\nmechanisms for combining expressions into more complex expressions\nmeans of abstraction, which allow for naming and manipulating compound objects\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrimitive Expressions\n\nEverything in R is an object\nPrimitive objects are the simplest elements of a programming language, and include:\n\nprimitive data\nprimitive functions\n\nThey can be thought of as the basic building blocks for everything else in the language.\nAn expression is an input that the programming language can evaluate, and consists of function and data objects.\n\n\n\nPrimitive Data Types:\nData objects are the primary means of storing information in R. R has a few basic data types:\n\nNumeric -\n\nnumeric\n\nint - integers (1,2)\nnum - real number (1.2, -3.1, 200.0)\n\n\ncharacter or string -\n\ncharacter\n\n\"Hello world!\", \"Ten\", 'Cat'\n\"This is a sentence, which is a string\"\n\"10\" ( in single or double quotes, as long as they match)\n\n\nBoolean or Logical\n\nlogical\n\nTRUE or FALSE (use operators such as or, and and not).\nThey will evaluate to numbers where FALSE evaluates to zero, and TRUE evaluates to one.\nFor example. if you enter TRUE + 1 you will get 2 in return.\n\n\n\n\nmode(TRUE)\n\n[1] \"logical\"\n\nTRUE + 1\n\n[1] 2\n\n\n\n\nPrimitive Functions\nR uses functions to do all computations. When you open R it loads the base R functions. You can do lots of things with the base R functions. Primitive functions are built into R. Below are some of they types of primitive functions and examples.\n\nOperators\n\nArithmetic Operators\n\n+, -, *, /, ^\n\nComparison (also called Boolean, Logical or Predicate) Operators\n\n<,>,==, <=, >=, !=\nless than, greater than, equal to, less than or equal to, greater than or equal to, not equal to\nreturn TRUE or FALSE\n\nLogical Operator\n\n&, | ,!\nalso return TRUE or FALSE\n\nOther functions\n\nmode()\nlength()\nsum()\nsqrt()\nlog()\nexp()\n\nAssignment operators (assignment will be discussed below)\n\n<- preferred assignment operator - always use this one\n= this will also work, but can be confusing (note different from ==, the comparison operator)\n-> is also an assignment operator, but we will not use it.\n\n\n\n\n\nProgramming Languages are Not Forgiving\n\nSyntactically valid expressions\nExpressions must be syntactically valid. This means they must be organized in a way that R understands.\n\nsyntax (form)\n\nEnglish: “cat dog boy” - not syntactically valid\nEnglish: “cat hugs boy” - syntactically valid\n\nprogramming language:\n\n\"hi\" 5 - not syntactically valid\n3.2*5 - syntactically valid\n\n\n\n\nSemantically valid expressions\nR statements must also be semantically valid. semantics has to do with meaning.\n\nEnglish: “I are hungry” - syntactically valid but semantic error\nprogramming language: - 3 + “hi” - semantic error (you can’t use addition on character strings)\nChomsky: “colorless green ideas sleep furiously”\n\nThis statement is syntactically valid, but does not make sense, so makes a semantic error.\nIn R you have to combine expressions in a way that R “understands” and this combination should be meaningful.\n\n\n\nAssignment\nWe will often want to save data in a variable. We can do that with assignment, which utilizes an assignment operator.\n\nx <- 2\n\n\nx\n\n[1] 2\n\n\n\npet <- \"dog\"\n\n\npet\n\n[1] \"dog\"\n\n\nAssignments are special expressions that are composed of three parts, a name, an assignment operator, and an expression.\nFor the following assignment,\n\nx <- 1:10\n\nx is the name, <- is the assignment operator, and 1:10 is an expression. Names in R can be anything that includes letters, numbers, a period (.) or an underscore (_), as long as it begins with either a letter or a period. Here are some valid, followed by invalid names\n\n# Valid\nIQ\nc3p0\nHeight_inches\nweight.lbs\n.hidden\n\n# Invalid (you will get an error message)\n_cat\n1dog\n%sales\nHeight-Inches\n\nThere are also some names that cannot be used because they are names of primitive R objects (e.g. if, for, else, in). Type ?reserved in the R console for a complete list.\nThere are at least two names that can, but should not be used. Namely the letters (T and F) which in R are short for TRUE and FALSE.\n\nT\n\n[1] TRUE\n\nF\n\n[1] FALSE\n\n\nThere are at least three assignment operators, as mentioned above, but it is commonly recommended that you use <-, because it makes clear that you are taking some expression and putting it in an object. So we would say of the assignment of x <- 1:10 that x gets the integers 1 through 10, suggesting that we are putting the integers into the object x.\nJust about any expression can be passed to a name with the assignment operator.\n\n\nCombining Expressions\n\n\n\n\n\n\n\nComplex Data Types\n\nScalars, Vectors, Matrices, and Arrays\nA scalar is a single value such as:\n\n1\n\n[1] 1\n\n\nor\n\n\"cat\"\n\n[1] \"cat\"\n\n\nA vector is a one-dimensional series of values. For example, the integers 1 through 5 would be a vector of length 5. In R you can create a vector as follows:\n\nseries1_5 <- c(1, 2, 3, 4, 5)\n\nNote in R there really are no scalars per se. To R a scalar is a vector of length one.\n\nx <- 4\nis.vector(x)\n\n[1] TRUE\n\n\nthe is.vector() function tests if an object is a vector. The result lets us know the primitive object 4 is indeed a vector.\n\nlength(x)\n\n[1] 1\n\n\nAnd it’s length is one.\nLists are the most complex primitive type of data object. A list is a series of any type of object. For example, we might want to record some personal information.\n\npersonalInfo <- list(\n  name = \"Rosalind\",\n  age = 6,\n  pet_names = c(\"Sparkles\", \"Mr. Bingo Clakerson\", \"scruffy\"),\n  favorite_colors = c(\"pink\", \"purple\")\n)\n\nDataframes are special types of lists, that have the same number of values in each of the series in the list. We will use these very often for data analysis. Each row in a data frame is a different unit and each column is a different variables. So, in a data frame each column has the same number of rows, and each row has the same number of columns.\n\nclass_info <- data.frame(\n  name = c(\"Rosalind\", \"Emily\", \"Drake\"),\n  age = c(6, 7, 5),\n  height = c(46, 48, 44)\n  )\n\nclass_info\n\n      name age height\n1 Rosalind   6     46\n2    Emily   7     48\n3    Drake   5     44\n\n\nNotice that the data frame class_info is an object that contains other objects. If we want to use one of the objects inside a data frame we can do so by letting R know where to find that object using the $ operator. So, if we wanted to see the ages in the class_info data frame we could do so by:\n\nclass_info$age\n\n[1] 6 7 5\n\n\n\n\n\nGrouping Homogeneous Data Types\n\ncombining scalars\n\n\nc()\n\n\ncombining expressions\n\n\n{}\n\n\ncombining vectors\n\n\ncbind()\nrbind()\n\n\n\nComplex Functions\n\nVectorization\nNested Functions\nLoops and Conditional execution\n\n\n\nAbstraction\n\nAssignment\n\n\n\n\nData Abstraction\n\n\nFunctional Abstraction\n\n\nAnatomy of a Function\n\nname <- function(arg_1, arg_2, ...) {\n    expression_1\n    expression_2\n    ...\n    output <- expression_3\n    return(output)\n}"
-  },
-  {
-    "objectID": "introR.html#some-r-resources",
-    "href": "introR.html#some-r-resources",
-    "title": "Introduction to R and RStudio",
-    "section": "Some R Resources",
-    "text": "Some R Resources\nBelow I give links to R resources if you desire to learn more about R.\nA good next step is Roger Peng’s book R Programming for Data Science, which can be read free online at https://bookdown.org/rdpeng/rprogdatascience/. You can also download a pdf or epub of the book at https://leanpub.com/rprogramming. Both these links also have links to purchase a printed copy if that works better for you."
-  },
-  {
     "objectID": "nonexperimental.html",
     "href": "nonexperimental.html",
     "title": "Non-Experimental Design and Analysis",
     "section": "",
-    "text": "Summer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions"
-  },
-  {
-    "objectID": "fiml.html",
-    "href": "fiml.html",
-    "title": "Full Information Maximum Likelihood",
-    "section": "",
-    "text": "Full information maximum likelihood (FIML) is a modern statistical technique for handling missing data. If you are not familiar with FIML, I would recommend the book entitled Applied Missing Data Analysis by Craig Enders. The book is both thorough and accessible, and a good place to start for those not familiar with the ins and outs of modern missing data techniques.\nThe purpose of this FIML in Lavaan section and the related git repository is to take some of the examples related to FIML estimation within a regression framework from the Applied Missing Data website, and translate them into code for the R package lavaan. The code on the Applied Missing Data website in mostly for Mplus, which is quite expensive software. I hope this will give those who don’t have access to Mplus the ability to work through the examples using free and open source software.\nIn this first subsection I start with the basics: how to get descriptive statistics using FIML. The data and Mplus code for this example can be found on the Book Examples page of the Applied Missing Data website. I also created a github repository with the data and R files with equivalent code in lavaan, which can be found here. Remember to replace the file path in the R code below with the file path to the folder in which you unzip the data files.\nYou will also want to read over the lavaan documentation and visit the very helpful lavaan website to take advantage of the tutorials there. With these resources at your disposal, you should be able to use replicate the examples in lavaan. Here, I walk through the major sections of the R code. This is the same code found in the github repository in the R file entitled FIMLdescriptivesCorrelations.R.\n\n\nI always include a header with basic information in my code files.\n\n#-----------------------------------------------------------------------\n# section 4.14 Summary Statistics \n# Author: William M. Murrah\n# Description: This code replicates the section 4.14 example on the \n#              the appliedmissingdata.com website, which generates \n#              descriptive statistics and correlations,\n# Version history ------------------------------------------------------\n# 2014.05.30: code created\n# 2014.06.01: rewrote heading\n#-----------------------------------------------------------------------\n# R packages used\nlibrary(lavaan)\n\n\n\n\nFirst, import the data into R. MPlus uses .dat files which can only contain numbers. Variable names are not included in the .dat file, but instead are included in the Mplus .inp file. I use the read.table function to read the .dat file.\n\n    employee <- read.table(\"data/employee.dat\")\n\nNext, I assign names to the variables in the new data frame.\n\n    # Assign names to variables.\n    names(employee) <- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \n                         \"jobsat\", \"jobperf\", \"turnover\", \"iq\")\n\nThe final step in preparing the data is to recode the data values -99, which are used as missing data values in the .dat file, to NA, which is the missing value indicator in R.\n\n    # Replace all missing values (-99) with R missing value character 'NA'.\n    employee[employee==-99] <- NA\n\n\n\n\nNow that the data are ready, I create a character string with the model using the lavaan syntax. For descriptives and correlations I model the mean, variances, and covariance/correlations.\n\n    # Create descriptive model object\n    model <- '\n    # means\n    age      ~ 1\n    tenure   ~ 1\n    female   ~ 1\n    wbeing   ~ 1\n    jobsat   ~ 1\n    jobperf  ~ 1\n    turnover ~ 1\n    iq       ~ 1\n    \n    # variances\n    age      ~~ age\n    tenure   ~~ tenure\n    female   ~~ female\n    wbeing   ~~ wbeing\n    jobsat   ~~ jobsat\n    jobperf  ~~ jobperf\n    turnover ~~ turnover\n    iq       ~~ iq\n    \n    # covariances/correlations\n    age      ~~ tenure + female + wbeing + jobsat + jobperf + turnover + iq\n    tenure   ~~ female + wbeing + jobsat + jobperf + turnover + iq\n    female   ~~ wbeing + jobsat + jobperf + turnover + iq\n    wbeing   ~~ jobsat + jobperf + turnover + iq\n    jobsat   ~~ jobperf + turnover + iq\n    jobperf  ~~ turnover + iq\n    turnover ~~ iq\n    '\n\n\n\n\nTo fit the model, I use the lavaan sem function. This function takes the first two argument model and data. The third argument is missing ='fiml', which tells lavaan to use FIML (the default is to use listwise deletion).\n\n    fit <- sem(model, employee, missing='fiml')\n\nAlternatively, you could leave the section of the model code under the # means section and use the meanstructure=TRUE argument in the fit function as follows, which give the same results:\n\n    fit <- sem(model, employee, missing='fiml', meanstructure=TRUE)\n\n\n\n\nTo print the results to the console, use the summary function.\n\n    summary(fit, fit.measures=TRUE, standardize=TRUE)\n\nThe fit.measures=TRUE calls fit statistics in the output. This should look familiar to those who have used Mplus.\nlavaan (0.5-16) converged normally after 141 iterations\n\n  Number of observations                           480\n\n  Number of missing patterns                         3\n\n  Estimator                                         ML\n  Minimum Function Test Statistic                0.000\n  Degrees of freedom                                 0\n  P-value (Chi-square)                           1.000\n\nModel test baseline model:\n\n  Minimum Function Test Statistic              527.884\n  Degrees of freedom                                28\n  P-value                                        0.000\n\nUser model versus baseline model:\n\n  Comparative Fit Index (CFI)                    1.000\n  Tucker-Lewis Index (TLI)                       1.000\n\nLoglikelihood and Information Criteria:\n\n  Loglikelihood user model (H0)              -6621.805\n  Loglikelihood unrestricted model (H1)      -6621.805\n\n  Number of free parameters                         44\n  Akaike (AIC)                               13331.609\n  Bayesian (BIC)                             13515.256\n  Sample-size adjusted Bayesian (BIC)        13375.604\n\nRoot Mean Square Error of Approximation:\n\n  RMSEA                                          0.000\n  90 Percent Confidence Interval          0.000  0.000\n  P-value RMSEA <= 0.05                          1.000\n\nStandardized Root Mean Square Residual:\n\n  SRMR                                           0.000\nThe standardize=TRUE argument includes columns with standardized output. the std.all column in lavaan output is the same as the STDYX section in Mplus.\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(>|z|)   Std.lv  Std.all\nCovariances:\n  age ~~\n    tenure            8.459    0.858    9.865    0.000    8.459    0.504\n    female           -0.028    0.122   -0.229    0.819   -0.028   -0.010\n    wbeing            1.148    0.334    3.433    0.001    1.148    0.182\n    jobsat            0.861    0.340    2.531    0.011    0.861    0.136\n    jobperf          -0.330    0.308   -1.072    0.284   -0.330   -0.049\n    turnover         -0.377    0.116   -3.255    0.001   -0.377   -0.150\n    iq                0.674    2.066    0.326    0.744    0.674    0.015\n  tenure ~~\n    female           -0.052    0.071   -0.736    0.462   -0.052   -0.034\n    wbeing            0.569    0.195    2.916    0.004    0.569    0.155\n    jobsat            0.565    0.200    2.822    0.005    0.565    0.154\n    jobperf           0.061    0.178    0.344    0.731    0.061    0.016\n    turnover          0.016    0.066    0.240    0.810    0.016    0.011\n    iq                0.026    1.199    0.022    0.983    0.026    0.001\n  female ~~\n    wbeing            0.067    0.031    2.156    0.031    0.067    0.115\n    jobsat            0.028    0.031    0.881    0.378    0.028    0.047\n    jobperf          -0.009    0.029   -0.323    0.747   -0.009   -0.015\n    turnover          0.001    0.011    0.114    0.909    0.001    0.005\n    iq                0.284    0.192    1.481    0.139    0.284    0.068\n  wbeing ~~\n    jobsat            0.446    0.095    4.714    0.000    0.446    0.322\n    jobperf           0.671    0.084    8.030    0.000    0.671    0.456\n    turnover         -0.141    0.030   -4.768    0.000   -0.141   -0.257\n    iq                2.876    0.530    5.430    0.000    2.876    0.291\n  jobsat ~~\n    jobperf           0.271    0.080    3.378    0.001    0.271    0.184\n    turnover         -0.129    0.030   -4.248    0.000   -0.129   -0.234\n    iq                4.074    0.566    7.195    0.000    4.074    0.411\n  jobperf ~~\n    turnover         -0.203    0.028   -7.168    0.000   -0.203   -0.346\n    iq                4.496    0.523    8.588    0.000    4.496    0.426\n  turnover ~~\n    iq               -0.706    0.182   -3.872    0.000   -0.706   -0.180\n\nIntercepts:\n    age              37.948    0.245  154.633    0.000   37.948    7.058\n    tenure           10.054    0.142   70.601    0.000   10.054    3.222\n    female            0.542    0.023   23.817    0.000    0.542    1.087\n    wbeing            6.288    0.062  100.701    0.000    6.288    5.349\n    jobsat            5.950    0.063   94.052    0.000    5.950    5.053\n    jobperf           6.021    0.057  105.262    0.000    6.021    4.805\n    turnover          0.321    0.021   15.058    0.000    0.321    0.687\n    iq              100.102    0.384  260.475    0.000  100.102   11.889\n\nVariances:\n    age              28.908    1.866                     28.908    1.000\n    tenure            9.735    0.628                      9.735    1.000\n    female            0.248    0.016                      0.248    1.000\n    wbeing            1.382    0.107                      1.382    1.000\n    jobsat            1.386    0.108                      1.386    1.000\n    jobperf           1.570    0.101                      1.570    1.000\n    turnover          0.218    0.014                      0.218    1.000\n    iq               70.892    4.576                     70.892    1.000\nRecall that correlations are standardized covariances, so correlations are found in the std.all column in the Covariances section. Also, intercepts are means, and can be interpreted as the FIML means for the variables.\nFinally, to get the missing data patterns and covariance coverage output that can be included in Mplus output use the following code:\n\n    # Get missing data patterns and covariance coverage similar\n    # to that found in Mplus output.\n    inspect(fit, 'patterns') \n    inspect(fit, 'coverage')\n\nwhich leads to the following output:\n\n\n    age tenure female wbeing jobsat jobprf turnvr iq\n160   1      1      1      1      1      1      1  1\n160   1      1      1      1      0      1      1  1\n160   1      1      1      0      1      1      1  1\n\n\n\n\n         age   tenure female wbeing jobsat jobprf turnvr iq   \nage      1.000                                                \ntenure   1.000 1.000                                          \nfemale   1.000 1.000  1.000                                   \nwbeing   0.667 0.667  0.667  0.667                            \njobsat   0.667 0.667  0.667  0.333  0.667                     \njobperf  1.000 1.000  1.000  0.667  0.667  1.000              \nturnover 1.000 1.000  1.000  0.667  0.667  1.000  1.000       \niq       1.000 1.000  1.000  0.667  0.667  1.000  1.000  1.000\n\n\n\n\n\n\n\nIn this subsection I use FIML to deal with missing data in a multiple regression framework. First, I import the data from a text file named ‘employee.dat’. You can download a zip file of the data from Applied Missing Data website. I also have a github page for these examples here. Remember to replace the file path in the read.table function with the path to the text file location on your computer.\n\nemployee <- read.table(\"data/employee.dat\")\n\nBecause the original text file does not include variable names, I name the variables in the new data frame:\n\nnames(employee) <-  c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                     \"jobperf\", \"turnover\", \"iq\")\n\nthen I recode all data points with the value of -99 in the original text file, which indicates a missing value, to NA, the missing data value recognized by R.\n\nemployee[employee == -99] <-  NA\n\n\n\n\nNow we are ready to create a character string containing the regression model using the lavaan model conventions. Note that b1 and b2 are labels that will be used later for the Wald test. These labels are equivalent to (b1) and (b2) after these variables in the Mplus code.\n\nmodel <- '\n# Regression model \njobperf ~ b1*wbeing + b2*jobsat\n\n# Variances\nwbeing ~~ wbeing\njobsat ~~ jobsat\n\n# Covariance/correlation\nwbeing ~~ jobsat\n'\n\nIn addition to the regression model, I also estimated the variances and covariances of the predictors. I did this to replicate the results of the original Mplus example. In Mplus you have to estimate the variances of all of the predictors if any of them have missing data that you would like to model. In lavaan the fixed.x=FALSE argument has the same effect (see below).\n\n\n\nNext, I use the sem function to fit the model.\n\nfit <- sem(model, employee, missing='fiml', meanstructure=TRUE, \n           fixed.x=FALSE)\n\nListwise deletion is the default, so the missing=‘fiml’ argument tell lavaan to use the FIML instead. I also included the meanstructure=TRUE argument to include the means of the observed variables in the model, and the fixed.x=FALSE argument to estimate the means, variances, and covariances. Again, I do this to replicate the results of the original Mplus example.\n\n\n\nWe are now ready to look at the results.\n\nsummary(fit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)\n\nCompared to what we learned in the last section, the only thing new to the summary function is the rsquare=TRUE argument, which, not surprisingly, results in the model R2 being included in the summary output.\nI only show the Parameter estimates section here:\nParameter estimates:\n\n  Information                                 Observed\n  Standard Errors                             Standard\n\n                   Estimate  Std.err  Z-value  P(&gt;|z|)   Std.lv  Std.all\nRegressions:\n  jobperf ~\n    wbeing   (b1)     0.476    0.055    8.665    0.000    0.476    0.447\n    jobsat   (b2)     0.027    0.060    0.444    0.657    0.027    0.025\n\nCovariances:\n  wbeing ~~\n    jobsat            0.467    0.098    4.780    0.000    0.467    0.336\n\nIntercepts:\n    jobperf           2.869    0.382    7.518    0.000    2.869    2.289\n    wbeing            6.286    0.063   99.692    0.000    6.286    5.338\n    jobsat            5.959    0.065   91.836    0.000    5.959    5.055\n\nVariances:\n    wbeing            1.387    0.108                      1.387    1.000\n    jobsat            1.390    0.109                      1.390    1.000\n    jobperf           1.243    0.087                      1.243    0.792\n\nR-Square:\n\n    jobperf           0.208\n\n\n\nIn lavaan the Wald test is called separately from the estimation function. This function will use the labels assigned in the model object above.\n\n# Wald test is called seperately.\nlavTestWald(fit,  constraints='b1 == 0\n                               b2 == 0')\n\nResults of Wald Test\n$stat\n[1] 95.88081\n\n$df\n[1] 2\n\n$p.value\n[1] 0\nThere you have it! Regression with FIML in R. But, what if you have variables that you are not interested in incorporating in your model, but may have information about the missingness in the variables that are in your model? I will talk about that in the next subsection.\n\n\n\n\nNext I demonstrate two methods of using auxiliary variable in a regression model with FIML. Again, I am using data and examples from Craig Ender’s website Applied Missing Data. The purpose of these sections is to make the examples on Craig’s website, which uses Mplus, available to those who prefer to use lavaan\nMplus allows you to use auxiliary variable when using FIML to include variables that help estimate missing values with variables that are not part of the analytic model. There may be variables that are correlated with variables with missing values or variables that are predictive of missing. However, these auxiliary variable are not part of the model you wish to estimate. See Craig’s book Applied Missing Data Analysis for more information about auxiliary variables.\nI attended a workshop where Craig showed us how to use the auxiliary command in Mplus to make use of auxiliary variables. However, lavaan does not have this option. He also showed us what he called a ‘brute force’ method to include auxiliary variables in Mplus. Here is how to do it in lavaan.\n\n\nThis model is the same as used in my last section, where job performance (jobperf) is regressed on wellbeing (wbeing) and job satisfaction (jobsat). In this example these three variables are the only ones which we want to model. However, tenure and IQ are related to missingness in these variables. So, we want to use them to help us better estimate our model of interest. If we included them as predictors in the regression model, it would allow us to use all the available information in these five variables, but it would change the model substantially. We can use auxiliary variables to better estimate the original model.\n\n\nFirst we import data, name the variables, and recode the -99’s to NA.\n\n# employeeAuxiliary.R ---------------------------------------------------\n\n# R packages used\nlibrary(lavaan)\n# Import text file into R as a data frame.\n\nemployee <- read.table(\"path/to/file/employee.dat\")\n\n# Assign names to variables.\n\nnames(employee) <- c(\"id\", \"age\", \"tenure\", \"female\", \"wbeing\", \"jobsat\", \n                 \"jobperf\", \"turnover\", \"iq\")\n\n# Replace all missing values (-99) with R missing value character 'NA'.\nemployee[employee==-99] <- NA\n\n\n\n\nBasically, the brute force method entails correlating the auxiliary variables with other auxiliary variable, the predictors, and the residuals for the outcome variable.\n\n# The b1* and b2* are labels used in the Wald test below\nmodel <- '\njobperf ~ b1*wbeing + b2*jobsat\nwbeing ~~ jobsat\nwbeing ~~ turnover + iq\njobsat ~~ turnover + iq\njobperf ~~ turnover + iq\nturnover ~~ iq\n'\n\n\n\n\n\nfit <- sem(model, employee, missing='fiml', fixed.x=FALSE, \n           meanstructure=TRUE)\nsummary(fit, fit.measures=TRUE, rsquare=T, standardize=T)\n\n\n\n\nJust as we did in the previous section.\n\nlavTestWald(fit, \n            'b1 == 0\n             b2 == 0')\n\n\n\n\n\nFirst, load the semTools package\n\nlibrary(semTools)\n\n\n\nNext, create a model object with just the model of interest\n\nmodel2 <- '\njobperf ~ wbeing + jobsat\n'\n\nThen, create a vector of the names of the auxiliary variables\n\naux.vars <- c('turnover', 'iq')\n\n\n\n\nThen, fit the model to the new model object.\n\nfit2 <- sem(model2, employee, missing='fiml', meanstructure=TRUE, fixed.x=FALSE)\n\nUsing this model object, fit another model that incorporates the auxiliary variables using the sem.auxiliary function from the semTools package.\n\nauxfit <- sem.auxiliary(model=fit2, aux=aux.vars, data=employee)\n\nFinally, summarize the model object that includes the auxiliary variables.\n\nsummary(auxfit, fit.measures=TRUE, rsquare=TRUE, standardize=TRUE)"
+    "text": "Summer 2021 Regression in R\nHere I have linked to recordings of our Summer 2021 RuseR Group for linear models in R. They are raw, unedited versions. The goal of the meetings was to give students who either were learning or had learned to do regression in other software the skills to so do in R.\nFriday June 6, 2021 - Introduction\nFriday June 9, 2021 - Simple and Multiple Regression\nFriday June 16, 2021 - Interpreting Categorical Variables\nFriday July 23, 2021 - Interactions",
+    "crumbs": [
+      "Home",
+      "Non-Experimental",
+      "Non-Experimental Design and Analysis"
+    ]
   }
 ]

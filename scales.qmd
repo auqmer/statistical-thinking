@@ -1,0 +1,10 @@
+---
+title: "SCALES Lab"
+format: html
+---
+
+[SCALES website (Under Construction)](https://scales-lab.github.io/SCALES_website/)
+
+[SCALES Project Template](https://github.com/SCALES-Lab/scales-project-template)
+
+[SCALES Lab Handbook](https://scales-lab.github.io/SCALES_Lab_Handbook/)
