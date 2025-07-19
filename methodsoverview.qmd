@@ -66,7 +66,17 @@ If we acknowledge the **complexity** and
 model, we soon realize **To model anything, we would have to model
 everything**!
 
-**All models are wrong, but some are useful** -*George Box*
+And example will help illustrate this. 
+
+Imagine stepping off the subway in London for the first time. You want to visit Westminster Abbey, but you have no idea which way to go. A map becomes indispensable: it helps you navigate an unfamiliar city, plan your route, and avoid getting lost. Now suppose someone approaches and offers you a *life‑size, three‑dimensional map of London*—a replica of every street, every building, every curve in the pavement. It would be impossibly large, completely impractical to carry, and no more useful than wandering without a map at all.
+
+This illustrates an important truth about scientific models: **a good model is not a perfect replica of reality.** A street map, though vastly simpler than the city itself, is far more helpful because it highlights what matters for a specific task—streets, intersections, and landmarks—while leaving out the clutter.
+
+So what is the best kind of map? **That depends on your specific task needs.** If you are traveling by subway or car, a street map is ideal because it emphasizes roads and connections. But if you are backpacking through the Rocky Mountains, you’d reach for a topographical map, which captures elevation, terrain, and trails rather than street names. Notice that what is important depends on the task at hand - if you are taking a car through a city elevation is not important and therefore ignored in the street map, but if you are walking across rugged terrain, elevation is critical information, so is a central part of a topographical map.
+
+In the same way, scientific models are valuable not because they mirror reality in every detail, but because they simplify in just the right way to answer a particular question. A good model fits its purpose, guiding us through the complexity of the world without pretending to duplicate it.
+
+> All models are wrong, but some are useful - *George Box*
 
 ### Occam's Razor
 
