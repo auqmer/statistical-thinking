@@ -458,7 +458,14 @@ window.Quarto = {
 <section id="why-do-we-need-models" class="level3">
 <h3 class="anchored" data-anchor-id="why-do-we-need-models">Why do we need models?</h3>
 <p>If we acknowledge the <strong>complexity</strong> and <strong>interrelatedness</strong> of reality, and our goal is the perfect model, we soon realize <strong>To model anything, we would have to model everything</strong>!</p>
-<p><strong>All models are wrong, but some are useful</strong> -<em>George Box</em></p>
+<p>And example will help illustrate this.</p>
+<p>Imagine stepping off the subway in London for the first time. You want to visit Westminster Abbey, but you have no idea which way to go. A map becomes indispensable: it helps you navigate an unfamiliar city, plan your route, and avoid getting lost. Now suppose someone approaches and offers you a <em>life‑size, three‑dimensional map of London</em>—a replica of every street, every building, every curve in the pavement. It would be impossibly large, completely impractical to carry, and no more useful than wandering without a map at all.</p>
+<p>This illustrates an important truth about scientific models: <strong>a good model is not a perfect replica of reality.</strong> A street map, though vastly simpler than the city itself, is far more helpful because it highlights what matters for a specific task—streets, intersections, and landmarks—while leaving out the clutter.</p>
+<p>So what is the best kind of map? <strong>That depends on your specific task needs.</strong> If you are traveling by subway or car, a street map is ideal because it emphasizes roads and connections. But if you are backpacking through the Rocky Mountains, you’d reach for a topographical map, which captures elevation, terrain, and trails rather than street names. Notice that what is important depends on the task at hand - if you are taking a car through a city elevation is not important and therefore ignored in the street map, but if you are walking across rugged terrain, elevation is critical information, so is a central part of a topographical map.</p>
+<p>In the same way, scientific models are valuable not because they mirror reality in every detail, but because they simplify in just the right way to answer a particular question. A good model fits its purpose, guiding us through the complexity of the world without pretending to duplicate it.</p>
+<blockquote class="blockquote">
+<p>All models are wrong, but some are useful - <em>George Box</em></p>
+</blockquote>
 </section>
 <section id="occams-razor" class="level3">
 <h3 class="anchored" data-anchor-id="occams-razor">Occam’s Razor</h3>
@@ -497,15 +504,15 @@ window.Quarto = {
 <p>Here is a simple graphical model of our example model:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-8341f86f2b78e0acc8fe" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-8341f86f2b78e0acc8fe">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-dd8add9e9f40901847af" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-dd8add9e9f40901847af">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is a generalized graphical representation of our model.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-9fd0d7448a6b2ac2528c" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-9fd0d7448a6b2ac2528c">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-12006ce619b30f836120" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-12006ce619b30f836120">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is the general form of a numerical model (an equation) with the three main components: <span class="math display">\[
