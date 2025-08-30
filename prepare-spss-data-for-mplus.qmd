@@ -1,0 +1,9 @@
+---
+title: "Preparing SPSS Data for Mplus"
+---
+
+This tutorial covers how to prepare and export SPSS data files for use in Mplus structural equation modeling software.
+
+## Content Coming Soon
+
+This page is under development. Content will be added soon.

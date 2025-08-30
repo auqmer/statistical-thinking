@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Structural Equation Modeling – Statistical Thinking</title>
+<title>claude – Statistical Thinking</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +140,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sem.html">Advanced Methods</a></li><li class="breadcrumb-item"><a href="./sem.html">Introduction to Structural Equation Modeling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +263,7 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sem.html" class="sidebar-item-text sidebar-link active">
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Structural Equation Modeling</span></a>
   </div>
 </li>
@@ -303,33 +303,120 @@ gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#claude.md" id="toc-claude.md" class="nav-link active" data-scroll-target="#claude.md">CLAUDE.md</a>
+  <ul class="collapse">
+  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
+  <li><a href="#development-commands" id="toc-development-commands" class="nav-link" data-scroll-target="#development-commands">Development Commands</a>
+  <ul class="collapse">
+  <li><a href="#building-and-publishing" id="toc-building-and-publishing" class="nav-link" data-scroll-target="#building-and-publishing">Building and Publishing</a></li>
+  <li><a href="#content-development" id="toc-content-development" class="nav-link" data-scroll-target="#content-development">Content Development</a></li>
+  </ul></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a>
+  <ul class="collapse">
+  <li><a href="#site-structure" id="toc-site-structure" class="nav-link" data-scroll-target="#site-structure">Site Structure</a></li>
+  <li><a href="#content-organization" id="toc-content-organization" class="nav-link" data-scroll-target="#content-organization">Content Organization</a></li>
+  <li><a href="#key-files" id="toc-key-files" class="nav-link" data-scroll-target="#key-files">Key Files</a></li>
+  <li><a href="#r-integration" id="toc-r-integration" class="nav-link" data-scroll-target="#r-integration">R Integration</a></li>
+  </ul></li>
+  <li><a href="#content-guidelines" id="toc-content-guidelines" class="nav-link" data-scroll-target="#content-guidelines">Content Guidelines</a></li>
+  <li><a href="#file-editing-notes" id="toc-file-editing-notes" class="nav-link" data-scroll-target="#file-editing-notes">File Editing Notes</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sem.html">Advanced Methods</a></li><li class="breadcrumb-item"><a href="./sem.html">Introduction to Structural Equation Modeling</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Introduction to Structural Equation Modeling</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
+<section id="claude.md" class="level1">
+<h1>CLAUDE.md</h1>
+<p>This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.</p>
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
+<p>This is a Quarto website project for “Statistical Thinking” - an educational resource for research design and analysis in social and behavioral sciences. The site provides resources that build upon basic statistics understanding and covers advanced quantitative methods.</p>
+</section>
+<section id="development-commands" class="level2">
+<h2 class="anchored" data-anchor-id="development-commands">Development Commands</h2>
+<section id="building-and-publishing" class="level3">
+<h3 class="anchored" data-anchor-id="building-and-publishing">Building and Publishing</h3>
+<ul>
+<li><code>quarto render</code> - Build the website to the <code>docs/</code> directory</li>
+<li><code>quarto preview</code> - Start a local development server with live reload</li>
+<li><code>quarto publish gh-pages</code> - Publish to GitHub Pages (if configured)</li>
+</ul>
+</section>
+<section id="content-development" class="level3">
+<h3 class="anchored" data-anchor-id="content-development">Content Development</h3>
+<ul>
+<li>All content files are <code>.qmd</code> (Quarto markdown) files in the root directory</li>
+<li>The site structure is defined in <code>_quarto.yml</code></li>
+<li>Generated HTML files are output to the <code>docs/</code> directory</li>
+</ul>
+</section>
+</section>
+<section id="architecture" class="level2">
+<h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
+<section id="site-structure" class="level3">
+<h3 class="anchored" data-anchor-id="site-structure">Site Structure</h3>
+<ul>
+<li><strong>Website Type</strong>: Quarto website with floating sidebar navigation</li>
+<li><strong>Output Directory</strong>: <code>docs/</code> (configured for GitHub Pages)</li>
+<li><strong>Theme</strong>: Darkly Bootstrap theme with custom SCSS (<code>custom.scss</code>) and CSS (<code>styles.css</code>)</li>
+<li><strong>Navigation</strong>: Organized into sections: Statistical Software, Getting Started, Experimental, Non-Experimental, Advanced Methods, and Modern Missing Data Methods</li>
+</ul>
+</section>
+<section id="content-organization" class="level3">
+<h3 class="anchored" data-anchor-id="content-organization">Content Organization</h3>
+<p>The sidebar navigation in <code>_quarto.yml</code> defines the logical flow of content: - Software tools and R tutorials come first - Core statistical concepts follow - Advanced methods build on foundational knowledge - Missing data methods represent specialized applications</p>
+</section>
+<section id="key-files" class="level3">
+<h3 class="anchored" data-anchor-id="key-files">Key Files</h3>
+<ul>
+<li><code>_quarto.yml</code> - Main configuration file defining site structure, navigation, and styling</li>
+<li><code>index.qmd</code> - Homepage with site overview and contact information</li>
+<li>Individual <code>.qmd</code> files for each topic/section</li>
+<li><code>references.bib</code> - Bibliography file for academic citations</li>
+<li><code>images/</code> - Contains site logos and graphics</li>
+<li><code>docs/</code> - Generated website files (do not edit directly)</li>
+</ul>
+</section>
+<section id="r-integration" class="level3">
+<h3 class="anchored" data-anchor-id="r-integration">R Integration</h3>
+<ul>
+<li>This is an R-based project (<code>.Rproj</code> file present)</li>
+<li>Code chunks in <code>.qmd</code> files execute R code for data analysis and visualization</li>
+<li>Uses libraries like <code>knitr</code>, <code>psych</code>, <code>DiagrammeR</code> for content generation</li>
+</ul>
+</section>
+</section>
+<section id="content-guidelines" class="level2">
+<h2 class="anchored" data-anchor-id="content-guidelines">Content Guidelines</h2>
+<ul>
+<li>The site focuses on post-positivist philosophy of science and modeling approaches</li>
+<li>Academic tone with proper citations using the bibliography</li>
+<li>R code examples should be well-documented with appropriate chunk options</li>
+<li>Images and graphics should be placed in the <code>images/</code> directory</li>
+</ul>
+</section>
+<section id="file-editing-notes" class="level2">
+<h2 class="anchored" data-anchor-id="file-editing-notes">File Editing Notes</h2>
+<ul>
+<li>When editing <code>.qmd</code> files, preserve YAML front matter and existing code chunk options</li>
+<li>Bibliography citations use the format <code>@AuthorYearTitle</code></li>
+<li>The site uses 2-space indentation (configured in <code>.Rproj</code>)</li>
+<li>Content should maintain the educational flow defined in the sidebar navigation</li>
+</ul>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

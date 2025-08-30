@@ -1,0 +1,9 @@
+---
+title: "Exploring Data Graphically"
+---
+
+This tutorial covers graphical methods for exploring and visualizing data.
+
+## Content Coming Soon
+
+This page is under development. Content will be added soon.

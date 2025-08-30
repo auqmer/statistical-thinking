@@ -6,11 +6,11 @@ title: "Courses"
 
 #### Visualizing and Describing Data
 
--   Exploring Data Graphically - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-08-exploring-data-graphically/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
+-   Exploring Data Graphically - [Tutorial](exploring-data-graphically.qmd) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7d27afac-a19c-4df3-823c-ac30011ffccc)
 
--   Measures of Central Tendency - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-16-central-tendency/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380)
+-   Measures of Central Tendency - [Tutorial](central-tendency.qmd) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8d53677e-f7e5-4c52-88e8-ac2f0133d380)
 
--   Measures of Variability - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2020-09-23-variability/) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cad74732-e286-45be-8388-ac2f0144260b)
+-   Measures of Variability - [Tutorial](variability.qmd) [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=cad74732-e286-45be-8388-ac2f0144260b)
 
 ### Linear Modeling (ERMA 7310)
 
@@ -27,7 +27,7 @@ title: "Courses"
 
 -   Regression Fundamentals
 
-    -   Preparing SPSS data for Mplus - [Tutorial](https://auqmer.github.io/statistical-thinking/posts/2019-01-13-prepare-spss-data-for-mplus/)
+    -   Preparing SPSS data for Mplus - [Tutorial](prepare-spss-data-for-mplus.qmd)
     -   Preparing R data for Mplus - [Video](https://auburn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=af0df7b4-a9b5-42ad-afbc-acb600081154)
 
 -   Modeling and Hypothesis Testing
