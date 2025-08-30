@@ -64,9 +64,9 @@ Models match reality in some way, and are simpler than reality.
 If we acknowledge the **complexity** and
 **interrelatedness** of reality, and our goal is the perfect
 model, we soon realize **To model anything, we would have to model
-everything**!
+everything**! Instead, we need to simplify reality to understand it.
 
-And example will help illustrate this. 
+An analogy will help illustrate this. 
 
 Imagine stepping off the subway in London for the first time. You want to visit Westminster Abbey, but you have no idea which way to go. A map becomes indispensable: it helps you navigate an unfamiliar city, plan your route, and avoid getting lost. Now suppose someone approaches and offers you a *life‑size, three‑dimensional map of London*—a replica of every street, every building, every curve in the pavement. It would be impossibly large, completely impractical to carry, and no more useful than wandering without a map at all.
 
