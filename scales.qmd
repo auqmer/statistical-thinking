@@ -8,3 +8,5 @@ format: html
 [SCALES Project Template](https://github.com/SCALES-Lab/scales-project-template)
 
 [SCALES Lab Handbook](https://scales-lab.github.io/SCALES_Lab_Handbook/)
+
+[AI Research Policy Packet](https://wmmurrah.github.io/ai-research-policy-packet/)
