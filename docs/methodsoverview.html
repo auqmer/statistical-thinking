@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>A Modeling Approach – Statistical Thinking</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -24,7 +30,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -53,15 +58,14 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a9384d278cd099dffe699828acaaa2ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-278a447ecbbe1881300a11df1dd38be3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -98,14 +102,14 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-W3PRTJPWHR', { 'anonymize_ip': true});
 </script>
-<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="site_libs/viz-1.8.2/viz.js"></script>
 <link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="site_libs/grViz-binding-1.0.11/grViz.js"></script>
+<script src="site_libs/grViz-binding-1.0.12/grViz.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -159,7 +163,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -209,10 +213,6 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -510,15 +510,15 @@ window.Quarto = {
 <p>Here is a simple graphical model of our example model:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-f28d8a97b4163826bfee" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-f28d8a97b4163826bfee">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-eb2993a3ceb0eaa404e7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-eb2993a3ceb0eaa404e7">{"x":{"diagram":"\ndigraph {\n  graph []\n  node [shape = plaintext]\n    A [label = \"Friends smoke\"]\n    Y [label = \"Smoking\"]\n  edge []\n    A->Y\n{ rank = same; A; Y }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is a generalized graphical representation of our model.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-7f5dc5fb0154740d52f2" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-7f5dc5fb0154740d52f2">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-ec2e091271ac6dcea049" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ec2e091271ac6dcea049">{"x":{"diagram":"\n       digraph simple {\n  rankdir = LR\n  graph [overlap = true, fontsize = 10, layout = neato]\n  node [shape = box]\n  X[pos=\"0,0!\", label=<X<sub>i<\/sub>>]\n  Y[pos=\"2,0!\", label=<Y<sub>i<\/sub>>]\n  X -> Y[label=<&beta;>]\n  node [shape = circle]\n  e[pos=\"2,1!\", label=<&epsilon;<sub>i<\/sub>>]\n  e -> Y\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Here is the general form of a numerical model (an equation) with the three main components: <span class="math display">\[
@@ -734,15 +734,15 @@ height 0.9804921 1.0000000</code></pre>
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Lakatos1978MethodologyScientificResearchProgrammes" class="csl-entry" role="listitem">
-Lakatos, Imre. 1978. <em>The Methodology of Scientific Research Programmes</em>. Cambridge: Cambridge University Press.
+Lakatos, Imre. 1978. <em>The Methodology of Scientific Research Programmes</em>. Cambridge University Press.
 </div>
 <div id="ref-Meehl1967TheoryTestingPsychology" class="csl-entry" role="listitem">
 Meehl, Paul E. 1967. <span>“Theory-Testing in Psychology and Physics: A Methodological Paradox.”</span> <em>Philosophy of Science</em> 34 (2): 103–15.
 </div>
 <div id="ref-Popper1959LogicScientificDiscovery" class="csl-entry" role="listitem">
-Popper, Karl. 1959. <em>The Logic of Scientific Discovery</em>. London: Hutchinson.
+Popper, Karl. 1959. <em>The Logic of Scientific Discovery</em>. Hutchinson.
 </div>
 <div id="ref-Rodgers2010epistemologymathematicalstatistical" class="csl-entry" role="listitem">
 Rodgers, Joseph Lee. 2010. <span>“The Epistemology of Mathematical and Statistical Modeling: A Quiet Methodological Revolution.”</span> <em>American Psychologist</em> 65 (1): 1–12. <a href="https://doi.org/10.1037/a0018326">https://doi.org/10.1037/a0018326</a>.
